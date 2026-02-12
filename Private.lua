@@ -1666,7 +1666,7 @@ teleport:AddButton("Brawl Regular", function()
     })
 end)
 
-local Misc = window:AddTab("Miscellaneous")
+local Misc = window:AddTab("Misc")
 
 local antiAFKEnabled = true
 Misc:AddButton("Anti Afk", function(bool)
@@ -2084,10 +2084,11 @@ local Credits = window:AddTab("Credits")
 
 Credits:AddLabel("MADE BY-PRIMO").TextSize = 30
 
-Credits:AddLabel("Zyx").TextSize = 30
+Credits:AddLabel("Zyx").TextSize = 20
 
-Credits:AddLabel("Kaino").TextSize = 30
+Credits:AddLabel("Kaino").TextSize = 20
 
-Credits:AddLabel("UnoxDos").TextSize = 30
+Credits:AddLabel("UnoxDos").TextSize = 20
 
-Credits:AddLabel("🐝SLH CLAN🐝").TextSize = 30
+Credits:AddLabel("🐝SLH CLAN🐝").TextSize = 20
+
