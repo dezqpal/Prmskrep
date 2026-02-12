@@ -1,13 +1,7 @@
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/memejames/elerium-v2-ui-library//main/Library", true))()
 
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/memejames/elerium-v2-ui-library/main/Library", true))()
-
--- VENTANA PRINCIPAL
-local window = library:AddWindow("INFINITY HUB || PAID SCRIPT", {
-    main_color = Color3.fromRGB(185, 0, 0), -- dark purple
-    min_size = Vector2.new(610, 830),
-    can_resize = false,
+local window = library:AddWindow(" PRIVATE SCRIPT MADE BY-Primo ", {
+    main_color = Color3.fromRGB(0, 0, 0)
 })
 
 local AutoFarm = window:AddTab("Farm OP")
@@ -4344,5 +4338,12 @@ Gift:AddButton(
 
 local Credits = window:AddTab("Credits")
 
-Credits:AddLabel("Made by SL_GHOST👻")
-Credits:AddLabel("OWNER OF INFINITY HUB IS ST4R")
+Credits:AddLabel("Made by Primo").TextSize = 20
+
+Credits:AddLabel("Trusted 👇").TextSize = 20
+
+Credits:AddLabel("Zyx").TextSize = 20
+
+Credits:AddLabel("Kaino").TextSize = 20
+
+Credits:AddLabel("UnoxDos").TextSize = 20
