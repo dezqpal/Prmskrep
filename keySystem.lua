@@ -83,7 +83,7 @@ SubmitBtn.MouseButton1Click:Connect(function()
         ScreenGui:Destroy()
         
         print("Key correct! Loading script...")
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/dezqpal/Primo/refs/heads/main/Private.lua "))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/dezqpal/Primo/refs/heads/main/private.lua "))()
     else
         -- Error Animation
         SubmitBtn.Text = "INVALID KEY!"
