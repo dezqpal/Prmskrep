@@ -1,7 +1,8 @@
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/memejames/elerium-v2-ui-library//main/Library", true))()
 
-local window = library:AddWindow(" PRIVATE SCRIPT MADE BY-Primo ", {
-    main_color = Color3.fromRGB(0, 0, 0)
+local window = library:AddWindow(" PRIVATE SCRIPT | MADE BY-Primo", {
+    main_color = Color3.fromRGB(0, 0, 0),
+    min_size = Vector2.new(650, 820),
 })
 
 local AutoFarm = window:AddTab("Farm OP")
@@ -4347,3 +4348,4 @@ Credits:AddLabel("Zyx").TextSize = 20
 Credits:AddLabel("Kaino").TextSize = 20
 
 Credits:AddLabel("UnoxDos").TextSize = 20
+
