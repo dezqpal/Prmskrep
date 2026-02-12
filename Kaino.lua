@@ -11,12 +11,11 @@ end
 Players.LocalPlayer.Idled:Connect(preventAFK)
 print("Anti-AFK ativado!")
 
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/SadOz8/U/main/I", true))()
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/memejames/elerium-v2-ui-library//main/Library", true))()
 
-local window = library:AddWindow("Pheonix Hub| by Alejandro Cracked By ZTX", {
-    main_color = Color3.fromRGB(0, 0, 255),
-    min_size = Vector2.new(650, 870),
-    can_resize = true,
+local window = library:AddWindow("PRIVATE SCRIPT | -KAINO-", {
+    main_color = Color3.fromRGB(0, 0, 0),
+    min_size = Vector2.new(650, 820),
 })
 
 local AutoFarm = window:AddTab("Farm Op")
@@ -4497,7 +4496,7 @@ end)
 
 local Credits = window:AddTab("Credits")
 
-Credits:AddLabel("paid version cracked by ztx")
-Credits:AddLabel("Script Made by username:")
-Credits:AddLabel("Demon_misteriousX clown | ZTX ON TOP")
-Credits:AddLabel("I hope you like the script, for bugs or suggestions on my discord server")
+Credits:AddLabel("free version")
+Credits:AddLabel("Script Made by Omirp:")
+Credits:AddLabel("SLH ON TOP")
+Credits:AddLabel("I hope you like the script, for glitch or acc dm me on blue app | Kaino Bns")
