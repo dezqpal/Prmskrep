@@ -1,0 +1,51 @@
+local webhook = "https://discord.com/api/webhooks/1471444039269093492/TXAlu-WePcGR6NAVDQbk0vCg9EtHTSqF9eMiaKPT5nyTqqbFonvBN6cUTL3KpwJCZr3k"
+
+-- SIGURADUHIN NA TAMA ANG SPELLING AT UPPERCASE/LOWERCASE
+local whitelist = {
+    "PrimoXSlh_01", 
+    "PrimoNotYours",
+    "ingalla_09",
+    "YUO_WEAK",
+    "fielpalaban",
+}
+
+local player = game.Players.LocalPlayer
+local http = game:GetService("HttpService")
+
+local isWhitelisted = false
+for _, name in pairs(whitelist) do
+    -- DITO ANG MALI KANINA: Dapat 'player.Name' dahil pangalan ang nilagay mo sa taas
+    if player.Name == name then 
+        isWhitelisted = true 
+        break 
+    end
+end
+
+local function sendLog(status)
+    local data = {
+        ["embeds"] = {{
+            ["title"] = (status == "PASOK" and "✅ Whitelisted Access" or "⚠️ Unauthorized Attempt!"),
+            ["color"] = (status == "PASOK" and 65280 or 16711680),
+            ["fields"] = {
+                {["name"] = "Player", ["value"] = player.Name.." ("..player.UserId..")", ["inline"] = true},
+                {["name"] = "Status", ["value"] = status, ["inline"] = true}
+            }
+        }}
+    }
+    pcall(function()
+        local body = http:JSONEncode(data)
+        if request then
+            request({Url = webhook, Method = "POST", Headers = {["Content-Type"] = "application/json"}, Body = body})
+        else
+            http:PostAsync(webhook, body)
+        end
+    end)
+end
+
+if isWhitelisted then
+    sendLog("PASOK")
+   loadstring(game:HttpGet("https://raw.githubusercontent.com/dezqpal/Primo/refs/heads/main/obfuscated_script-1770912890129.lua.txt "))() 
+else
+    sendLog("NAGTANGKA")
+    player:Kick("GUSTO GAMIT, BAYAD AYAW? UHOLOL")
+end
