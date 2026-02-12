@@ -36,7 +36,7 @@ Title.Parent = MainFrame
 Title.BackgroundTransparency = 1
 Title.Size = UDim2.new(1, 0, 0, 40)
 Title.Font = Enum.Font.GothamBold
-Title.Text = "PRIMO HUB | KEY SYSTEM"
+Title.Text = "Primo HUB | KEY SYSTEM"
 Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 Title.TextSize = 16
 
@@ -83,7 +83,7 @@ SubmitBtn.MouseButton1Click:Connect(function()
         ScreenGui:Destroy()
         
         print("Key correct! Loading script...")
-        loadstring(game:"https://raw.githubusercontent.com/dezqpal/Primo/refs/heads/main/PrimoScript.lua"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/dezqpal/Primo/refs/heads/main/Private.lua "))()
     else
         -- Error Animation
         SubmitBtn.Text = "INVALID KEY!"
