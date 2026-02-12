@@ -7,6 +7,8 @@ local whitelist = {
     "ingalla_09",
     "YUO_WEAK",
     "fielpalaban",
+    "laeinhyer_14",
+    "PRIMOBNS21",
 }
 
 local player = game.Players.LocalPlayer
@@ -47,5 +49,5 @@ if isWhitelisted then
    loadstring(game:HttpGet("https://raw.githubusercontent.com/dezqpal/Primo/refs/heads/main/obfuscated_script-1770911152888.lua.txt "))() 
 else
     sendLog("NAGTANGKA")
-    player:Kick("GUSTO GAMIT, BAYAD AYAW? UHOLOL")
+    player:Kick("😛GUSTO GAMIT, BAYAD AYAW😛? UHOLOL")
 end
