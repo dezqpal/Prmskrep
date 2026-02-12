@@ -2082,7 +2082,7 @@ end)
 
 local Credits = window:AddTab("Credits")
 
-Credits:AddLabel("MADE BY-PRIMO").TextSize = 30
+Credits:AddLabel("MADE BY-PRIMO").TextSize = 20
 
 Credits:AddLabel("Zyx").TextSize = 20
 
@@ -2091,4 +2091,5 @@ Credits:AddLabel("Kaino").TextSize = 20
 Credits:AddLabel("UnoxDos").TextSize = 20
 
 Credits:AddLabel("🐝SLH CLAN🐝").TextSize = 20
+
 
