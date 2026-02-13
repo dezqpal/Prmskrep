@@ -1,18 +1,20 @@
 local webhook = "https://discord.com/api/webhooks/1471872886930276640/Dsqr1TrlNr_rIl37cvv8ONn1ASbFjY1ONnbwKfzvYS5SKjKPKJ2j0P-FVt9wsi2sJoXf"
 
+-- SIGURADUHIN NA TAMA ANG SPELLING AT UPPERCASE/LOWERCASE
 local whitelist = {
     "secondacc12329", 
-    "PRIMOBNS21",
-    "Use_Mm4",
     "Hanryson2020",
-"ingalla_09"-- Tinanggal ang empty string
+    "ingalla_09",
+    "Use_Mm4",
+    "",
 }
 
 local player = game.Players.LocalPlayer
-local isWhitelisted = false
+local http = game:GetService("HttpService")
 
--- Check whitelist
+local isWhitelisted = false
 for _, name in pairs(whitelist) do
+    -- DITO ANG MALI KANINA: Dapat 'player.Name' dahil pangalan ang nilagay mo sa taas
     if player.Name == name then 
         isWhitelisted = true 
         break 
@@ -30,25 +32,20 @@ local function sendLog(status)
             }
         }}
     }
-    
-    -- Detection kung executor ang gamit o regular Roblox script
-    local httpRequest = (syn and syn.request) or (http and http.request) or http_request or request
-    
-    if httpRequest then
-        httpRequest({
-            Url = webhook,
-            Method = "POST",
-            Headers = {["Content-Type"] = "application/json"},
-            Body = game:GetService("HttpService"):JSONEncode(data)
-        })
-    end
+    pcall(function()
+        local body = http:JSONEncode(data)
+        if request then
+            request({Url = webhook, Method = "POST", Headers = {["Content-Type"] = "application/json"}, Body = body})
+        else
+            http:PostAsync(webhook, body)
+        end
+    end)
 end
 
 if isWhitelisted then
     sendLog("PASOK")
-    -- Inalis ang space sa dulo ng URL
-    loadstring(game:HttpGet("https://github.com/dezqpal/Primo/blob/main/KT4obsfucater.lua "))() 
+   loadstring(game:HttpGet("https://raw.githubusercontent.com/dezqpal/Primo/refs/heads/main/KT4obsfucater.lua "))() 
 else
     sendLog("NAGTANGKA")
-    player:Kick("😛 FOR KT4 CLAN MEMBER ONLY 😛")
+    player:Kick("FOR KT4 CLAN MEMBER ONLY")
 end
