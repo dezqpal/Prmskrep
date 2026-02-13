@@ -4,7 +4,8 @@ local whitelist = {
     "secondacc12329", 
     "PRIMOBNS21",
     "Use_Mm4",
-    "Hanryson2020" -- Tinanggal ang empty string
+    "Hanryson2020"
+"ingalla_09"-- Tinanggal ang empty string
 }
 
 local player = game.Players.LocalPlayer
