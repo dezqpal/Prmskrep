@@ -1668,20 +1668,49 @@ end)
 
 local Misc = window:AddTab("Misc")
 
-local antiAFKEnabled = true
-Misc:AddButton("Anti Afk", function(bool)
-    antiAFKEnabled = bool
-    
-    if bool then
-        setupAntiAFK()
-    else
-        if antiAFKConnection then
-            antiAFKConnection:Disconnect()
-            antiAFKConnection = nil
-            print("Anti-AFK system disabled")
-        end
+
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local VirtualUser = game:GetService("VirtualUser")
+
+-- 1. SIGNAL BYPASS (Pinapatay ang Idle detection sa root level)
+local IDLE_CONNECTIONS = getconnections or get_signal_cons
+if IDLE_CONNECTIONS then
+    for _, v in pairs(IDLE_CONNECTIONS(LocalPlayer.Idled)) do
+        if v["Disable"] then v:Disable() end
+        if v["Disconnect"] then v:Disconnect() end
     end
-end, true)
+else
+    -- Fallback kung walang getconnections ang executor mo
+    LocalPlayer.Idled:Connect(function()
+        VirtualUser:CaptureController()
+        VirtualUser:ClickButton2(Vector2.new())
+    end)
+end
+
+-- 2. ANTI-KICK CORE (Nagpapadala ng fake action every 20 seconds)
+task.spawn(function()
+    while task.wait(20) do
+        -- Kunwari ay ginalaw mo ang mouse sa gitna ng screen
+        VirtualUser:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+        task.wait(0.1)
+        VirtualUser:Button2Up(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+        print("Anti-AFK Check: Active sa Muscle Legends!")
+    end
+end)
+
+-- 3. NOTIFICATION (Para alam mo kung gumagana na)
+game:GetService("StarterGui"):SetCore("SendNotification", {
+    Title = "Anti-AFK √ ",
+    Text = "ANTI AFK ACTIVATED By- PRIMO. ",
+    Duration = 5
+})
+
+print("---------------------------------------")
+print("  ANTI-AFK V3 (NEW METHOD) LOADED      ")
+print("  Status: HINDI NA MAKI-KICK           ")
+print("---------------------------------------")
+
 
 local switch = Misc:AddSwitch("Lock Position", function(Value)
     if Value then
@@ -2091,5 +2120,6 @@ Credits:AddLabel("Kaino").TextSize = 20
 Credits:AddLabel("UnoxDos").TextSize = 20
 
 Credits:AddLabel("🐝SLH CLAN🐝").TextSize = 20
+
 
 
