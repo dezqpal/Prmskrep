@@ -13,7 +13,7 @@ print("Anti-AFK ativado!")
 
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/memejames/elerium-v2-ui-library//main/Library", true))()
 
-local window = library:AddWindow("PRIVATE SCRIPT | -KAINO-", {
+local window = library:AddWindow("PRIVATE SCRIPT|-PRIMOxKAINO-", {
     main_color = Color3.fromRGB(0, 0, 0),
     min_size = Vector2.new(650, 820),
 })
@@ -4496,7 +4496,7 @@ end)
 
 local Credits = window:AddTab("Credits")
 
-Credits:AddLabel("free version")
+Credits:AddLabel("Inspired")
 Credits:AddLabel("Script Made by Omirp:")
 Credits:AddLabel("SLH ON TOP")
 Credits:AddLabel("I hope you like the script, for glitch or acc dm me on blue app | Kaino Bns")
