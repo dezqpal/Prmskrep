@@ -2,7 +2,7 @@ local webhook = "https://discord.com/api/webhooks/1471444039269093492/TXAlu-WePc
 
 -- SIGURADUHIN NA TAMA ANG SPELLING AT UPPERCASE/LOWERCASE
 local whitelist = {
-    "PrimoXSlh_01", 
+    "", 
     "PrimoNotYours",
     "ingalla_09",
     "YUO_WEAK",
