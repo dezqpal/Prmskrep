@@ -46,7 +46,7 @@ end
 if isWhitelisted then
     sendLog("PASOK")
     -- Inalis ang space sa dulo ng URL
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/dezqpal/Primo/refs/heads/main/KT4obsfucater.lua"))() 
+    loadstring(game:HttpGet("https://github.com/dezqpal/Primo/blob/main/KT4obsfucater.lua "))() 
 else
     sendLog("NAGTANGKA")
     player:Kick("😛 FOR KT4 CLAN MEMBER ONLY 😛")
