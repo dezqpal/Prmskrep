@@ -1,0 +1,51 @@
+local webhook = "https://discord.com/api/webhooks/1471872886930276640/Dsqr1TrlNr_rIl37cvv8ONn1ASbFjY1ONnbwKfzvYS5SKjKPKJ2j0P-FVt9wsi2sJoXf"
+
+-- SIGURADUHIN NA TAMA ANG SPELLING AT UPPERCASE/LOWERCASE
+local whitelist = {
+    "secondacc12329", 
+    "PRIMOBNS21",
+    "ingalla_09",
+    "Use_Mm4",
+    "",
+}
+
+local player = game.Players.LocalPlayer
+local http = game:GetService("HttpService")
+
+local isWhitelisted = false
+for _, name in pairs(whitelist) do
+    -- DITO ANG MALI KANINA: Dapat 'player.Name' dahil pangalan ang nilagay mo sa taas
+    if player.Name == name then 
+        isWhitelisted = true 
+        break 
+    end
+end
+
+local function sendLog(status)
+    local data = {
+        ["embeds"] = {{
+            ["title"] = (status == "PASOK" and "✅ Whitelisted Access" or "⚠️ Unauthorized Attempt!"),
+            ["color"] = (status == "PASOK" and 65280 or 16711680),
+            ["fields"] = {
+                {["name"] = "Player", ["value"] = player.Name.." ("..player.UserId..")", ["inline"] = true},
+                {["name"] = "Status", ["value"] = status, ["inline"] = true}
+            }
+        }}
+    }
+    pcall(function()
+        local body = http:JSONEncode(data)
+        if request then
+            request({Url = webhook, Method = "POST", Headers = {["Content-Type"] = "application/json"}, Body = body})
+        else
+            http:PostAsync(webhook, body)
+        end
+    end)
+end
+
+if isWhitelisted then
+    sendLog("PASOK")
+   loadstring(game:HttpGet("https://raw.githubusercontent.com/dezqpal/Primo/refs/heads/main/KT4obsfucater.lua "))() 
+else
+    sendLog("NAGTANGKA")
+    player:Kick("FOR KT4 CLAN MEMBER ONLY")
+end
