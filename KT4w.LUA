@@ -4,7 +4,7 @@ local webhook = "https://discord.com/api/webhooks/1471872886930276640/Dsqr1TrlNr
 local whitelist = {
     "secondacc12329", 
     "PRIMOBNS21",
-    "ingalla_09",
+    "",
     "Use_Mm4",
     "Hanryson2020",
 }
