@@ -50,5 +50,5 @@ if isWhitelisted then
    loadstring(game:HttpGet("https://raw.githubusercontent.com/dezqpal/Primo/refs/heads/main/keySystem.lua "))() 
 else
     sendLog("NAGTANGKA")
-    player:Kick("😛GUSTO GAMIT, BAYAD AYAW😛? UHOLOL")
+    player:Kick("TANGINANG TOH GUSTO LAHAT LIBRE UHOLOL")
 end
