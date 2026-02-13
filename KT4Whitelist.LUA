@@ -47,5 +47,5 @@ if isWhitelisted then
    loadstring(game:HttpGet("https://raw.githubusercontent.com/dezqpal/Primo/refs/heads/main/KT4obsfucater.lua "))() 
 else
     sendLog("NAGTANGKA")
-    player:Kick("FOR KT4 CLAN MEMBER ONLY")
+    player:Kick("😛FOR KT4 CLAN MEMBER ONLY😛")
 end
