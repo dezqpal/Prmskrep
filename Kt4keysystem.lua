@@ -74,7 +74,7 @@ VerifyBtn.MouseButton1Click:Connect(function()
         -- FIXED LOADSTRING LOGIC
         print("Main Script Loading...")
         local success, err = pcall(function()
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/dezqpal/Primo/refs/heads/main/kt4V2obfuscated_script-1771033279252.lua.txt"))()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/dezqpal/Primo/refs/heads/main/KTASCRIPT.LUA"))()
         end)
         
         if not success then
