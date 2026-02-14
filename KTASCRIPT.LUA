@@ -1,6 +1,6 @@
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/memejames/elerium-v2-ui-library//main/Library", true))()
 
-local window = library:AddWindow("OFFICIAL KT4•|•PRIVATE SCRIPT", {
+local window = library:AddWindow("OFFICIAL KT4 |•PRIVATE SCRIPT", {
     main_color = Color3.fromRGB(0, 0, 0),
     min_size = Vector2.new(650, 820),
 })
@@ -1903,5 +1903,9 @@ end)
 local Credit = window:AddTab("Credit")
  
 Credit:AddLabel("MADE BY- PRIMO")
+
 Credit:AddLabel("LEADER-JACOB")
+
 Credit:AddLabel("KT4 ON TOP")
+
+Credit:AddLabel("For KT4 members only✅")
