@@ -1,9 +1,8 @@
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/memejames/elerium-v2-ui-library//main/Library", true))()
 
-local window = library:AddWindow("Kyiel Paid v=1", {
-	main_color = Color3.fromRGB(255, 0, 0), -- Color
-	min_size = Vector2.new(500, 700), -- Size of the gui
-	can_resize = false, -- true or false
+local window = library:AddWindow("PRM• Pub Version", {
+    main_color = Color3.fromRGB(0, 0, 0),
+    min_size = Vector2.new(650, 820),
 })
 
 local rebirths = window:AddTab("Rebirths")
