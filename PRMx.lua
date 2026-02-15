@@ -1325,6 +1325,51 @@ Players.PlayerRemoving:Connect(function(player)
     playerDropdown:Remove(player.Name)
 end)
 
+local selectedAura = "Blue Aura"
+local auraDropdown = pets:AddDropdown("Select Aura", function(text)
+    selectedAura = text
+end)
+
+auraDropdown:Add("Astral Electro")
+auraDropdown:Add("Azure Tundra")
+auraDropdown:Add("Blue Aura")
+auraDropdown:Add("Dark Electro")
+auraDropdown:Add("Dark Lightning")
+auraDropdown:Add("Dark Storm")
+auraDropdown:Add("Electro")
+auraDropdown:Add("Enchanted Mirage")
+auraDropdown:Add("Entropic Blast")
+auraDropdown:Add("Eternal Megastrike")
+auraDropdown:Add("Grand Supernova")
+auraDropdown:Add("Green Aura")
+auraDropdown:Add("Inferno")
+auraDropdown:Add("Lightning")
+auraDropdown:Add("Muscle King")
+auraDropdown:Add("Power Lightning")
+auraDropdown:Add("Purple Aura")
+auraDropdown:Add("Purple Nova")
+auraDropdown:Add("Red Aura")
+auraDropdown:Add("Supernova")
+auraDropdown:Add("Ultra Inferno")
+auraDropdown:Add("Ultra Mirage")
+auraDropdown:Add("Unstable Mirage")
+auraDropdown:Add("Yellow Aura")
+
+pets:AddSwitch("Auto Open Aura", function(bool)
+    _G.AutoHatchAura = bool
+    if bool then
+        spawn(function()
+            while _G.AutoHatchAura and selectedAura ~= "" do
+                local auraToOpen = ReplicatedStorage.cPetShopFolder:FindFirstChild(selectedAura)
+                if auraToOpen then
+                    ReplicatedStorage.cPetShopRemote:InvokeServer(auraToOpen)
+                end
+                task.wait(0.1)
+            end
+        end)
+    end
+end)
+
 PetsTab:AddSwitch("Auto Trade", function(state)
     autoTrading = state
     if state then task.spawn(autoTradeLoop) end
@@ -1336,5 +1381,6 @@ PetsTab:AddSwitch("Auto Trade All", function(state)
 end)
 
 local Credits = window:AddTab("Credits")
+Credits:AddLabel("")
 
-Credits:AddLabel("MADE BY PRIMO").TextSize = 50
+Credits:AddLabel("•MADE BY PRIMO•").TextSize = 50
