@@ -1346,4 +1346,3 @@ Credits:AddLabel:("| _ \|  _ \|_  _||  \/  |/  _  \").TextSize =30
 Credits:AddLabel:("|  _/|  _ < _| |_| |\/| || (_) |").Textsize =30
 	
 Credits:AddLabel:("|_|  |_| \_\_____|_|  |_|\_____/").TextSize =30
-
