@@ -97,10 +97,6 @@ X.Size = UDim2.new(0, 40, 0, 40); X.Position = UDim2.new(1, -50, 0, 10); X.Text 
 X.MouseButton1Click:Connect(function() MainFrame.Visible = false; OpenBtn.Visible = true end)
 OpenBtn.MouseButton1Click:Connect(function() MainFrame.Visible = true; OpenBtn.Visible = false end)
 
----------------------------------------------------------
--- PAANO GAMITIN (Library Style):
----------------------------------------------------------
-
 local rebirths = window:AddTab("Rebirths")
 
 rebirths:AddTextBox("Rebirth Target", function(text)
