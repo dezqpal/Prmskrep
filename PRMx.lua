@@ -1,17 +1,15 @@
--- PRIMO CYBER UI - LIBRARY STYLE (650x820)
+-- PRIMO CYBER UI LIBRARY (650x820) - CLEAN GUI ONLY
 local ScreenGui = Instance.new("ScreenGui")
 local MainFrame = Instance.new("Frame")
 local Sidebar = Instance.new("Frame")
 local TabHolder = Instance.new("Frame")
-local UIStroke = Instance.new("UIStroke")
-local UICorner = Instance.new("UICorner")
 local OpenBtn = Instance.new("TextButton")
 
 ScreenGui.Name = "PrimoLibraryUI"
 ScreenGui.Parent = game:GetService("CoreGui") or game:GetService("Players").LocalPlayer.PlayerGui
 ScreenGui.ResetOnSpawn = false
 
--- DRAGGABLE FUNCTION
+-- DRAGGABLE FUNCTION (PARA SA MOBILE AT PC)
 local function MakeDraggable(gui)
     local dragging, dragInput, dragStart, startPos
     gui.InputBegan:Connect(function(input)
@@ -29,9 +27,9 @@ local function MakeDraggable(gui)
             gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
         end
     end)
-end)
+end
 
--- 1. P BUTTON (TOGGLE)
+-- 1. FLOATING TOGGLE BUTTON (P)
 OpenBtn.Name = "OpenButton"
 OpenBtn.Parent = ScreenGui
 OpenBtn.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
@@ -52,44 +50,61 @@ Instance.new("UICorner", MainFrame)
 Instance.new("UIStroke", MainFrame).Color = Color3.fromRGB(0, 255, 255)
 MakeDraggable(MainFrame)
 
--- 3. SIDEBAR & HOLDER
+-- 3. SIDEBAR SETUP
 Sidebar.Name = "Sidebar"; Sidebar.Parent = MainFrame; Sidebar.BackgroundColor3 = Color3.fromRGB(10, 10, 10); Sidebar.Size = UDim2.new(0, 160, 1, 0)
 Instance.new("UICorner", Sidebar)
+local SidebarLayout = Instance.new("UIListLayout", Sidebar)
+SidebarLayout.Padding = UDim.new(0, 5); SidebarLayout.HorizontalAlignment = "Center"; Instance.new("UIPadding", Sidebar).PaddingTop = UDim.new(0, 10)
 
 TabHolder.Name = "TabHolder"; TabHolder.Parent = MainFrame; TabHolder.Position = UDim2.new(0, 170, 0, 60); TabHolder.Size = UDim2.new(1, -180, 1, -70); TabHolder.BackgroundTransparency = 1
 
--- 4. LIBRARY FUNCTIONS (Dito mo ilalagay ang tabs)
+-- 4. LIBRARY ENGINE
 local library = {}
+local isFirstTab = true
 
-function library:AddTab("Primo"),
+function library:AddTab(name)
     local TabBtn = Instance.new("TextButton", Sidebar)
     TabBtn.Size = UDim2.new(0.9, 0, 0, 40)
-    TabBtn.Position = UDim2.new(0.05, 0, 0, 10 + (#Sidebar:GetChildren() - 1) * 45)
     TabBtn.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
     TabBtn.Text = name; TabBtn.TextColor3 = Color3.fromRGB(255, 255, 255); TabBtn.Font = Enum.Font.GothamSemibold
     Instance.new("UICorner", TabBtn)
 
     local TabPage = Instance.new("ScrollingFrame", TabHolder)
     TabPage.Size = UDim2.new(1, 0, 1, 0); TabPage.BackgroundTransparency = 1; TabPage.Visible = false; TabPage.ScrollBarThickness = 2
+    local TabLayout = Instance.new("UIListLayout", TabPage); TabLayout.Padding = UDim.new(0, 8)
     
+    TabLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+        TabPage.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y + 10)
+    end)
+
+    if isFirstTab then TabPage.Visible = true; TabBtn.BackgroundColor3 = Color3.fromRGB(0, 255, 255); TabBtn.TextColor3 = Color3.fromRGB(0, 0, 0); isFirstTab = false end
+
     TabBtn.MouseButton1Click:Connect(function()
         for _, v in pairs(TabHolder:GetChildren()) do v.Visible = false end
-        TabPage.Visible = true
+        for _, v in pairs(Sidebar:GetChildren()) do if v:IsA("TextButton") then v.BackgroundColor3 = Color3.fromRGB(30, 30, 30); v.TextColor3 = Color3.fromRGB(255, 255, 255) end end
+        TabPage.Visible = true; TabBtn.BackgroundColor3 = Color3.fromRGB(0, 255, 255); TabBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
     end)
 
     local tab_logic = {}
     function tab_logic:AddButton(text, callback)
         local btn = Instance.new("TextButton", TabPage)
         btn.Size = UDim2.new(1, -10, 0, 45)
-        btn.Position = UDim2.new(0, 0, 0, (#TabPage:GetChildren() - 1) * 50)
         btn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-        btn.Text = text; btn.TextColor3 = Color3.fromRGB(255, 255, 255); btn.Font = Enum.Font.Gotham
+        btn.Text = "  "..text; btn.TextColor3 = Color3.fromRGB(255, 255, 255); btn.Font = Enum.Font.Gotham; btn.TextXAlignment = "Left"
         Instance.new("UICorner", btn)
+        Instance.new("UIStroke", btn).Color = Color3.fromRGB(0, 255, 255); btn.UIStroke.Transparency = 0.8
         btn.MouseButton1Click:Connect(callback)
     end
-    
     return tab_logic
-end)
+end
+
+-- 5. CLOSE LOGIC
+local X = Instance.new("TextButton", MainFrame)
+X.Size = UDim2.new(0, 40, 0, 40); X.Position = UDim2.new(1, -50, 0, 10); X.Text = "X"; X.TextColor3 = Color3.fromRGB(255, 50, 50); X.BackgroundTransparency = 1; X.TextSize = 30; X.Font = "GothamBold"
+X.MouseButton1Click:Connect(function() MainFrame.Visible = false; OpenBtn.Visible = true end)
+OpenBtn.MouseButton1Click:Connect(function() MainFrame.Visible = true; OpenBtn.Visible = false end)
+
+-- DITO KA NA MAGSISIMULA MAG-ADD NG TABS AT BUTTONS MO --
 
 local rebirths = window:AddTab("Rebirths")
 
