@@ -96,15 +96,6 @@ OpenBtn.MouseButton1Click:Connect(function()
     end
 end)
 
--- 4. TITLE TEXT
-local Title = Instance.new("TextLabel", MainFrame)
-Title.Size = UDim2.new(1, 0, 1, 0)
-Title.Text = "PRiMO CYBER UI\n\nDRAGGABLE BUTTON & FRAME\nSubukan mong galawin ang P!"
-Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-Title.BackgroundTransparency = 1
-Title.Font = Enum.Font.GothamSemibold
-Title.TextSize = 18
-
 local rebirths = window:AddTab("Rebirths")
 
 rebirths:AddTextBox("Rebirth Target", function(text)
