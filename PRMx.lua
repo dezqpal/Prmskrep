@@ -1310,21 +1310,6 @@ PetsTab:AddSwitch("Auto Evolve Pet", function(state)
     if state then task.spawn(autoEvolveLoop) end
 end)
 
-PetsTab:AddLabel("Other").TextSize = 23
-
-local playerDropdown = PetsTab:AddDropdown("Select Player", function(playerName)
-    selectedPlayer = Players:FindFirstChild(playerName)
-end)
-for _, player in ipairs(Players:GetPlayers()) do
-    if player ~= Players.LocalPlayer then playerDropdown:Add(player.Name) end
-end
-Players.PlayerAdded:Connect(function(player)
-    if player ~= Players.LocalPlayer then playerDropdown:Add(player.Name) end
-end)
-Players.PlayerRemoving:Connect(function(player)
-    playerDropdown:Remove(player.Name)
-end)
-
 local selectedAura = "Blue Aura"
 local auraDropdown = pets:AddDropdown("Select Aura", function(text)
     selectedAura = text
@@ -1370,6 +1355,21 @@ pets:AddSwitch("Auto Open Aura", function(bool)
     end
 end)
 
+PetsTab:AddLabel("Other").TextSize = 23
+
+local playerDropdown = PetsTab:AddDropdown("Select Player", function(playerName)
+    selectedPlayer = Players:FindFirstChild(playerName)
+end)
+for _, player in ipairs(Players:GetPlayers()) do
+    if player ~= Players.LocalPlayer then playerDropdown:Add(player.Name) end
+end
+Players.PlayerAdded:Connect(function(player)
+    if player ~= Players.LocalPlayer then playerDropdown:Add(player.Name) end
+end)
+Players.PlayerRemoving:Connect(function(player)
+    playerDropdown:Remove(player.Name)
+end)
+
 PetsTab:AddSwitch("Auto Trade", function(state)
     autoTrading = state
     if state then task.spawn(autoTradeLoop) end
@@ -1381,6 +1381,5 @@ PetsTab:AddSwitch("Auto Trade All", function(state)
 end)
 
 local Credits = window:AddTab("Credits")
-Credits:AddLabel("")
 
-Credits:AddLabel("•MADE BY PRIMO•").TextSize = 50
+Credits:AddLabel("•MADE BY PRIMO•").TextSize = 45
