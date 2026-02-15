@@ -1,5 +1,5 @@
 --// SETTINGS \\--
-local CORRECT_KEY = "PrimoPub"
+local CORRECT_KEY = "Primo"
 local SCRIPT_URL = "https://raw.githubusercontent.com/dezqpal/Primo/refs/heads/main/PRMobfuscated.lua"
 
 --// UI CONSTRUCT \\--
@@ -34,7 +34,7 @@ Title.BackgroundTransparency = 1
 Title.Position = UDim2.new(0, 0, 0, 15)
 Title.Size = UDim2.new(1, 0, 0, 30)
 Title.Font = Enum.Font.GothamBold
-Title.Text = "PRIMOkey VERIFICATION"
+Title.Text = "BAYOT VERIFICATION"
 Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 Title.TextSize = 18
 
@@ -96,7 +96,7 @@ SubmitBtn.MouseButton1Click:Connect(function()
         tween:Play()
         tween.Completed:Connect(function()
             ScreenGui:Destroy()
-            loadstring(game:HttpGet(SCRIPT_URL))()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/dezqpal/Primo/refs/heads/main/PRMx.lua "))()
         end)
     else
         notify("Invalid Key! Try again.", Color3.fromRGB(255, 100, 100))
