@@ -1,4 +1,4 @@
--- PRIMO CYBER UI - PRO EDITION (650x820)
+-- PRIMO ELITE UI ENGINE (FIXED ALIGNMENT & SIZING)
 local ScreenGui = Instance.new("ScreenGui")
 local MainFrame = Instance.new("Frame")
 local Sidebar = Instance.new("Frame")
@@ -6,12 +6,11 @@ local TabHolder = Instance.new("Frame")
 local OpenBtn = Instance.new("TextButton")
 local Title = Instance.new("TextLabel")
 
--- GUI SETUP
-ScreenGui.Name = "PrimoProLibrary"
+ScreenGui.Name = "PrimoEliteUI"
 ScreenGui.Parent = game:GetService("CoreGui") or game:GetService("Players").LocalPlayer.PlayerGui
 ScreenGui.ResetOnSpawn = false
 
--- DRAGGABLE ENGINE (MOBILE & PC)
+-- DRAGGABLE LOGIC
 local function MakeDraggable(gui)
     local dragging, dragInput, dragStart, startPos
     gui.InputBegan:Connect(function(input)
@@ -31,100 +30,94 @@ local function MakeDraggable(gui)
     end)
 end
 
--- 1. FLOATING TOGGLE BUTTON (P)
+-- 1. TOGGLE BUTTON (P)
 OpenBtn.Name = "OpenButton"
 OpenBtn.Parent = ScreenGui
-OpenBtn.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+OpenBtn.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
 OpenBtn.Position = UDim2.new(0.05, 0, 0.45, 0)
 OpenBtn.Size = UDim2.new(0, 50, 0, 50)
-OpenBtn.Text = "P"; OpenBtn.TextColor3 = Color3.fromRGB(0, 255, 255); OpenBtn.TextSize = 25; OpenBtn.Font = Enum.Font.GothamBold; OpenBtn.Visible = false 
+OpenBtn.Text = "P"; OpenBtn.TextColor3 = Color3.fromRGB(0, 255, 255); OpenBtn.TextSize = 25; OpenBtn.Font = "GothamBold"; OpenBtn.Visible = false 
 Instance.new("UICorner", OpenBtn).CornerRadius = UDim.new(1, 0)
-local btnStroke = Instance.new("UIStroke", OpenBtn); btnStroke.Color = Color3.fromRGB(0, 255, 255); btnStroke.Thickness = 2
+Instance.new("UIStroke", OpenBtn).Color = Color3.fromRGB(0, 255, 255)
 MakeDraggable(OpenBtn)
 
 -- 2. MAIN WINDOW (650x820)
 MainFrame.Name = "MainFrame"
 MainFrame.Parent = ScreenGui
-MainFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
-MainFrame.Position = UDim2.new(0.3, 0, 0.1, 0)
+MainFrame.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
+MainFrame.Position = UDim2.new(0.5, -325, 0.5, -410) -- Center Screen
 MainFrame.Size = UDim2.new(0, 650, 0, 820)
 Instance.new("UICorner", MainFrame)
-local frameStroke = Instance.new("UIStroke", MainFrame); frameStroke.Color = Color3.fromRGB(0, 255, 255); frameStroke.Thickness = 1.5
+local mainStroke = Instance.new("UIStroke", MainFrame); mainStroke.Color = Color3.fromRGB(0, 255, 255); mainStroke.Thickness = 2; mainStroke.Transparency = 0.5
 MakeDraggable(MainFrame)
 
--- 3. TITLE BAR
-Title.Name = "Title"; Title.Parent = MainFrame; Title.BackgroundTransparency = 1; Title.Position = UDim2.new(0, 170, 0, 15); Title.Size = UDim2.new(0, 400, 0, 30)
-Title.Text = "SLH Clan | PUBLIC SCRIPT"; Title.TextColor3 = Color3.fromRGB(255, 212, 42); Title.TextSize = 18; Title.Font = Enum.Font.GothamBold; Title.TextXAlignment = "Left"
+-- 3. HEADER / TITLE
+Title.Name = "Title"; Title.Parent = MainFrame; Title.BackgroundTransparency = 1; Title.Position = UDim2.new(0, 175, 0, 15); Title.Size = UDim2.new(0, 400, 0, 30)
+Title.Text = "PRiMO HUB | PUBLIC v1"; Title.TextColor3 = Color3.fromRGB(0, 255, 255); Title.TextSize = 20; Title.Font = "GothamBold"; Title.TextXAlignment = "Left"
 
--- 4. SIDEBAR SETUP
-Sidebar.Name = "Sidebar"; Sidebar.Parent = MainFrame; Sidebar.BackgroundColor3 = Color3.fromRGB(10, 10, 10); Sidebar.Size = UDim2.new(0, 160, 1, 0)
+-- 4. SIDEBAR (AUTO-LIST)
+Sidebar.Name = "Sidebar"; Sidebar.Parent = MainFrame; Sidebar.BackgroundColor3 = Color3.fromRGB(15, 15, 15); Sidebar.Size = UDim2.new(0, 160, 1, 0)
 Instance.new("UICorner", Sidebar)
-local SidebarLayout = Instance.new("UIListLayout", Sidebar); SidebarLayout.Padding = UDim.new(0, 8); SidebarLayout.HorizontalAlignment = "Center"
-Instance.new("UIPadding", Sidebar).PaddingTop = UDim.new(0, 20)
+local sideLayout = Instance.new("UIListLayout", Sidebar); sideLayout.Padding = UDim.new(0, 10); sideLayout.HorizontalAlignment = "Center"
+Instance.new("UIPadding", Sidebar).PaddingTop = UDim.new(0, 60) -- Iwas sa Title area
 
-TabHolder.Name = "TabHolder"; TabHolder.Parent = MainFrame; TabHolder.Position = UDim2.new(0, 170, 0, 60); TabHolder.Size = UDim2.new(1, -180, 1, -70); TabHolder.BackgroundTransparency = 1
+TabHolder.Name = "TabHolder"; TabHolder.Parent = MainFrame; TabHolder.Position = UDim2.new(0, 175, 0, 65); TabHolder.Size = UDim2.new(0, 460, 0, 740); TabHolder.BackgroundTransparency = 1
 
--- 5. WINDOW ENGINE (LIBRARY)
+-- 5. ENGINE CORE
 local window = {}
-local isFirstTab = true
+local isFirst = true
 
 function window:AddTab(name)
     local TabBtn = Instance.new("TextButton", Sidebar)
-    TabBtn.Size = UDim2.new(0.9, 0, 0, 40)
-    TabBtn.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-    TabBtn.Text = name; TabBtn.TextColor3 = Color3.fromRGB(180, 180, 180); TabBtn.Font = Enum.Font.GothamSemibold; TabBtn.TextSize = 14
-    Instance.new("UICorner", TabBtn)
-    Instance.new("UIStroke", TabBtn).Color = Color3.fromRGB(40, 40, 40)
+    TabBtn.Size = UDim2.new(0.85, 0, 0, 45); TabBtn.BackgroundColor3 = Color3.fromRGB(20, 20, 20); TabBtn.Text = name; TabBtn.TextColor3 = Color3.fromRGB(200, 200, 200); TabBtn.Font = "GothamSemibold"; TabBtn.TextSize = 14
+    Instance.new("UICorner", TabBtn); Instance.new("UIStroke", TabBtn).Color = Color3.fromRGB(40, 40, 40)
 
-    local TabPage = Instance.new("ScrollingFrame", TabHolder)
-    TabPage.Size = UDim2.new(1, 0, 1, 0); TabPage.BackgroundTransparency = 1; TabPage.Visible = false; TabPage.ScrollBarThickness = 2; TabPage.ScrollBarImageColor3 = Color3.fromRGB(0, 255, 255)
-    local TabLayout = Instance.new("UIListLayout", TabPage); TabLayout.Padding = UDim.new(0, 10)
-    
-    TabLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
-        TabPage.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y + 10)
+    local Page = Instance.new("ScrollingFrame", TabHolder)
+    Page.Size = UDim2.new(1, 0, 1, 0); Page.BackgroundTransparency = 1; Page.Visible = false; Page.ScrollBarThickness = 2; Page.ScrollBarImageColor3 = Color3.fromRGB(0, 255, 255)
+    local pageLayout = Instance.new("UIListLayout", Page); pageLayout.Padding = UDim.new(0, 12); pageLayout.HorizontalAlignment = "Center"
+    Instance.new("UIPadding", Page).PaddingTop = UDim.new(0, 5)
+
+    pageLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+        Page.CanvasSize = UDim2.new(0, 0, 0, pageLayout.AbsoluteContentSize.Y + 20)
     end)
 
-    if isFirstTab then 
-        TabPage.Visible = true; TabBtn.BackgroundColor3 = Color3.fromRGB(0, 255, 255); TabBtn.TextColor3 = Color3.fromRGB(0, 0, 0); isFirstTab = false 
-    end
+    if isFirst then Page.Visible = true; TabBtn.BackgroundColor3 = Color3.fromRGB(0, 255, 255); TabBtn.TextColor3 = Color3.fromRGB(0, 0, 0); isFirst = false end
 
     TabBtn.MouseButton1Click:Connect(function()
         for _, v in pairs(TabHolder:GetChildren()) do v.Visible = false end
-        for _, v in pairs(Sidebar:GetChildren()) do 
-            if v:IsA("TextButton") then v.BackgroundColor3 = Color3.fromRGB(25, 25, 25); v.TextColor3 = Color3.fromRGB(180, 180, 180) end 
-        end
-        TabPage.Visible = true; TabBtn.BackgroundColor3 = Color3.fromRGB(0, 255, 255); TabBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
+        for _, v in pairs(Sidebar:GetChildren()) do if v:IsA("TextButton") then v.BackgroundColor3 = Color3.fromRGB(20, 20, 20); v.TextColor3 = Color3.fromRGB(200, 200, 200) end end
+        Page.Visible = true; TabBtn.BackgroundColor3 = Color3.fromRGB(0, 255, 255); TabBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
     end)
 
-    local tab_logic = {}
-
-    function tab_logic:AddButton(text, callback)
-        local btn = Instance.new("TextButton", TabPage)
-        btn.Size = UDim2.new(1, -10, 0, 45); btn.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-        btn.Text = "  "..text; btn.TextColor3 = Color3.fromRGB(255, 255, 255); btn.Font = "Gotham"; btn.TextXAlignment = "Left"; btn.TextSize = 14
-        Instance.new("UICorner", btn); Instance.new("UIStroke", btn).Color = Color3.fromRGB(0, 255, 255); btn.UIStroke.Transparency = 0.7
+    local logic = {}
+    
+    function logic:AddButton(text, callback)
+        local btn = Instance.new("TextButton", Page)
+        btn.Size = UDim2.new(0.95, 0, 0, 50); btn.BackgroundColor3 = Color3.fromRGB(20, 20, 20); btn.Text = "  "..text; btn.TextColor3 = Color3.fromRGB(255, 255, 255); btn.Font = "Gotham"; btn.TextXAlignment = "Left"
+        Instance.new("UICorner", btn); Instance.new("UIStroke", btn).Color = Color3.fromRGB(0, 255, 255); btn.UIStroke.Transparency = 0.8
         btn.MouseButton1Click:Connect(callback)
     end
 
-    function tab_logic:AddTextBox(text, callback)
-        local boxFrame = Instance.new("Frame", TabPage)
-        boxFrame.Size = UDim2.new(1, -10, 0, 55); boxFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25); Instance.new("UICorner", boxFrame)
-        local label = Instance.new("TextLabel", boxFrame); label.Size = UDim2.new(0.4, 0, 1, 0); label.Text = "  "..text; label.BackgroundTransparency = 1; label.TextColor3 = Color3.fromRGB(200, 200, 200); label.TextXAlignment = "Left"; label.Font = "Gotham"; label.TextSize = 14
-        local input = Instance.new("TextBox", boxFrame); input.Size = UDim2.new(0.5, 0, 0.7, 0); input.Position = UDim2.new(0.45, 0, 0.15, 0); input.BackgroundColor3 = Color3.fromRGB(15, 15, 15); input.TextColor3 = Color3.fromRGB(0, 255, 255); input.Text = ""; input.PlaceholderText = "Click to type..."; input.Font = "Gotham"
-        Instance.new("UICorner", input); Instance.new("UIStroke", input).Color = Color3.fromRGB(0, 255, 255); input.UIStroke.Transparency = 0.5
-        input.FocusLost:Connect(function(ep) if ep then callback(input.Text) end end)
+    function logic:AddTextBox(text, callback)
+        local frame = Instance.new("Frame", Page)
+        frame.Size = UDim2.new(0.95, 0, 0, 65); frame.BackgroundColor3 = Color3.fromRGB(20, 20, 20); Instance.new("UICorner", frame)
+        local label = Instance.new("TextLabel", frame); label.Size = UDim2.new(0.4, 0, 1, 0); label.Position = UDim2.new(0, 15, 0, 0); label.Text = text; label.BackgroundTransparency = 1; label.TextColor3 = Color3.fromRGB(200, 200, 200); label.TextXAlignment = "Left"; label.Font = "Gotham"
+        local box = Instance.new("TextBox", frame); box.Size = UDim2.new(0.45, 0, 0.6, 0); box.Position = UDim2.new(0.5, 0, 0.2, 0); box.BackgroundColor3 = Color3.fromRGB(15, 15, 15); box.TextColor3 = Color3.fromRGB(0, 255, 255); box.Text = ""; box.PlaceholderText = "Enter value..."; box.Font = "Gotham"
+        Instance.new("UICorner", box); Instance.new("UIStroke", box).Color = Color3.fromRGB(0, 255, 255); box.UIStroke.Transparency = 0.5
+        box.FocusLost:Connect(function(enter) if enter then callback(box.Text) end end)
     end
 
-    return tab_logic
+    return logic
 end
 
--- 6. CLOSE LOGIC
-local X = Instance.new("TextButton", MainFrame)
-X.Size = UDim2.new(0, 30, 0, 30); X.Position = UDim2.new(1, -40, 0, 15); X.Text = "X"; X.TextColor3 = Color3.fromRGB(255, 50, 50); X.BackgroundTransparency = 1; X.TextSize = 25; X.Font = "GothamBold"
-X.MouseButton1Click:Connect(function() MainFrame.Visible = false; OpenBtn.Visible = true end)
+-- 6. CLOSE / OPEN LOGIC
+local CloseBtn = Instance.new("TextButton", MainFrame)
+CloseBtn.Size = UDim2.new(0, 40, 0, 40); CloseBtn.Position = UDim2.new(1, -50, 0, 10); CloseBtn.Text = "X"; CloseBtn.TextColor3 = Color3.fromRGB(255, 50, 50); CloseBtn.BackgroundTransparency = 1; CloseBtn.TextSize = 30; CloseBtn.Font = "GothamBold"
+CloseBtn.MouseButton1Click:Connect(function() MainFrame.Visible = false; OpenBtn.Visible = true end)
 OpenBtn.MouseButton1Click:Connect(function() MainFrame.Visible = true; OpenBtn.Visible = false end)
 
--- [ I-PASTE MO NA ANG MGA TABS MO SA BABA NITO ] --
+-- [[ IDUGTONG MO NA DITO ANG SCRIPT MO ]] --
+
 
 local rebirths = window:AddTab("Rebirths")
 
