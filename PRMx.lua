@@ -1,9 +1,128 @@
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/memejames/elerium-v2-ui-library//main/Library", true))()
+-- [[ PRIMO PRIVATE SCRIPT - FINAL REPAIRED UI ]] --
 
-local window = library:AddWindow("P.       R.       I.       M.       O", {
-    main_color = Color3.fromRGB(0, 0, 0),
-    min_size = Vector2.new(650, 820),
-})
+local ScreenGui = Instance.new("ScreenGui")
+local MainFrame = Instance.new("Frame")
+local TopBar = Instance.new("Frame")
+local UserTitle = Instance.new("TextLabel")
+local CloseButton = Instance.new("TextButton")
+local OpenButton = Instance.new("TextButton")
+
+-- Setup UI Root
+ScreenGui.Name = "PrimoFinalHub"
+ScreenGui.Parent = game:GetService("CoreGui")
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+-- [[ 1. FLOATING "P" BUTTON ]] --
+OpenButton.Name = "OpenButton"
+OpenButton.Parent = ScreenGui
+OpenButton.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+OpenButton.Size = UDim2.new(0, 50, 0, 50)
+OpenButton.Position = UDim2.new(0, 20, 0.5, -25)
+OpenButton.Font = Enum.Font.GothamBold
+OpenButton.Text = "P"
+OpenButton.TextColor3 = Color3.fromRGB(138, 43, 226)
+OpenButton.TextSize = 26
+OpenButton.Visible = false 
+OpenButton.ZIndex = 999 
+
+Instance.new("UICorner", OpenButton).CornerRadius = UDim.new(1, 0)
+local UIStroke_P = Instance.new("UIStroke", OpenButton)
+UIStroke_P.Color = Color3.fromRGB(138, 43, 226)
+UIStroke_P.Thickness = 2
+
+-- [[ 2. MAIN FRAME ]] --
+MainFrame.Name = "MainFrame"
+MainFrame.Parent = ScreenGui
+MainFrame.BackgroundColor3 = Color3.fromRGB(12, 12, 12)
+MainFrame.Position = UDim2.new(0.5, -275, 0.5, -200) 
+MainFrame.Size = UDim2.new(0, 500, 0, 350)
+MainFrame.Visible = true 
+MainFrame.Active = true 
+
+Instance.new("UICorner", MainFrame).CornerRadius = UDim.new(0, 10)
+local MS = Instance.new("UIStroke", MainFrame)
+MS.Color = Color3.fromRGB(138, 43, 226)
+MS.Thickness = 1.5
+
+-- [[ 3. TOP BAR & NAME TITLE ]] --
+TopBar.Name = "TopBar"
+TopBar.Parent = MainFrame
+TopBar.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+TopBar.Size = UDim2.new(1, 0, 0, 40)
+TopBar.Active = true 
+Instance.new("UICorner", TopBar).CornerRadius = UDim.new(0, 10)
+
+UserTitle.Name = "UserTitle"
+UserTitle.Parent = TopBar
+UserTitle.Position = UDim2.new(0, 15, 0, 0)
+UserTitle.Size = UDim2.new(0.8, 0, 1, 0)
+UserTitle.Font = Enum.Font.GothamBold
+UserTitle.RichText = true
+UserTitle.Text = "PRIMO <font color='#8A2BE2'></font> | PRIVATE SCRIPT"
+UserTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+UserTitle.TextSize = 15
+UserTitle.TextXAlignment = Enum.TextXAlignment.Left
+UserTitle.BackgroundTransparency = 1
+UserTitle.Active = false 
+UserTitle.Selectable = false
+
+CloseButton.Parent = TopBar
+CloseButton.BackgroundTransparency = 1
+CloseButton.Position = UDim2.new(1, -40, 0, 0)
+CloseButton.Size = UDim2.new(0, 40, 1, 0)
+CloseButton.Text = "X"
+CloseButton.TextColor3 = Color3.fromRGB(255, 80, 80)
+CloseButton.TextSize = 18
+
+-- [[ 4. TOGGLE LOGIC ]] --
+CloseButton.MouseButton1Click:Connect(function()
+    MainFrame.Visible = false
+    OpenButton.Visible = true 
+end)
+
+OpenButton.MouseButton1Click:Connect(function()
+    MainFrame.Visible = true
+    OpenButton.Visible = false 
+end)
+
+-- [[ DRAG LOGIC - FIXED ]] --
+local function makeDraggable(frame, handle)
+    local UserInputService = game:GetService("UserInputService")
+    local dragging, dragInput, dragStart, startPos
+
+    handle.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            dragging = true
+            dragStart = input.Position
+            startPos = frame.Position
+            
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then
+                    dragging = false
+                end
+            end)
+        end
+    end)
+
+    handle.InputChanged:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+            dragInput = input
+        end
+    end)
+
+    UserInputService.InputChanged:Connect(function(input)
+        if input == dragInput and dragging then
+            local delta = input.Position - dragStart
+            frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+        end
+    end)
+end
+
+-- [[ ITO ANG NAWALA KANINA: ]] --
+makeDraggable(MainFrame, TopBar) -- In-apply ang drag sa Main UI
+makeDraggable(OpenButton, OpenButton) -- In-apply ang drag sa P button
+
+print("Primo UI Fixed! Maigagalaw na ito gamit ang TopBar.")
 
 local rebirths = window:AddTab("Rebirths")
 
