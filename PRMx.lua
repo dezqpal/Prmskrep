@@ -1,9 +1,109 @@
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/memejames/elerium-v2-ui-library//main/Library", true))()
+-- PRIMO CYBER UI - FULLY DRAGGABLE V1
+local ScreenGui = Instance.new("ScreenGui")
+local MainFrame = Instance.new("Frame")
+local UIStroke = Instance.new("UIStroke")
+local UICorner = Instance.new("UICorner")
+local OpenBtn = Instance.new("TextButton")
 
-local window = library:AddWindow("P.      R.      I.      M.      O.", {
-    main_color = Color3.fromRGB(0, 0, 0),
-    min_size = Vector2.new(650, 820),
-})
+ScreenGui.Name = "PrimoDraggableUI"
+ScreenGui.Parent = game:GetService("CoreGui") or game:GetService("Players").LocalPlayer.PlayerGui
+ScreenGui.ResetOnSpawn = false
+
+-- FUNCTION PARA MAGING DRAGGABLE ANG KAHIT ANONG UI (MOBILE/PC)
+local function MakeDraggable(gui)
+    local dragging, dragInput, dragStart, startPos
+    local function update(input)
+        local delta = input.Position - dragStart
+        gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+    end
+    gui.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            dragging = true
+            dragStart = input.Position
+            startPos = gui.Position
+            input.Changed:Connect(function()
+                if input.UserInputState == Enum.UserInputState.End then
+                    dragging = false
+                end
+            end)
+        end
+    end)
+    gui.InputChanged:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+            dragInput = input
+        end
+    end)
+    game:GetService("UserInputService").InputChanged:Connect(function(input)
+        if input == dragInput and dragging then
+            update(input)
+        end
+    end)
+end
+
+-- 1. FLOATING TOGGLE BUTTON (P)
+OpenBtn.Name = "OpenButton"
+OpenBtn.Parent = ScreenGui
+OpenBtn.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
+OpenBtn.Position = UDim2.new(0.05, 0, 0.45, 0)
+OpenBtn.Size = UDim2.new(0, 50, 0, 50)
+OpenBtn.Text = "P"
+OpenBtn.TextColor3 = Color3.fromRGB(0, 255, 255)
+OpenBtn.TextSize = 25
+OpenBtn.Font = Enum.Font.GothamBold
+OpenBtn.Visible = false 
+
+Instance.new("UICorner", OpenBtn).CornerRadius = UDim.new(1, 0)
+local btnStroke = Instance.new("UIStroke", OpenBtn)
+btnStroke.Color = Color3.fromRGB(0, 255, 255)
+btnStroke.Thickness = 2
+
+-- 2. MAIN FRAME
+MainFrame.Name = "MainFrame"
+MainFrame.Parent = ScreenGui
+MainFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+MainFrame.Position = UDim2.new(0.3, 0, 0.3, 0)
+MainFrame.Size = UDim2.new(0, 500, 0, 300)
+MainFrame.Visible = true
+
+Instance.new("UICorner", MainFrame).CornerRadius = UDim.new(0, 10)
+local frameStroke = Instance.new("UIStroke", MainFrame)
+frameStroke.Color = Color3.fromRGB(0, 255, 255)
+frameStroke.Thickness = 2
+
+-- ACTIVATE DRAG FOR BOTH
+MakeDraggable(MainFrame)
+MakeDraggable(OpenBtn)
+
+-- 3. CLOSE BUTTON (X)
+local CloseBtn = Instance.new("TextButton", MainFrame)
+CloseBtn.Size = UDim2.new(0, 30, 0, 30)
+CloseBtn.Position = UDim2.new(0.93, 0, 0.02, 0)
+CloseBtn.Text = "X"
+CloseBtn.TextColor3 = Color3.fromRGB(255, 50, 50)
+CloseBtn.BackgroundTransparency = 1
+CloseBtn.TextSize = 25
+CloseBtn.Font = Enum.Font.GothamBold
+
+CloseBtn.MouseButton1Click:Connect(function()
+    MainFrame.Visible = false
+    OpenBtn.Visible = true
+end)
+
+OpenBtn.MouseButton1Click:Connect(function()
+    if not dragging then -- Para hindi mag-open habang dina-drag
+        MainFrame.Visible = true
+        OpenBtn.Visible = false
+    end
+end)
+
+-- 4. TITLE TEXT
+local Title = Instance.new("TextLabel", MainFrame)
+Title.Size = UDim2.new(1, 0, 1, 0)
+Title.Text = "PRiMO CYBER UI\n\nDRAGGABLE BUTTON & FRAME\nSubukan mong galawin ang P!"
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.BackgroundTransparency = 1
+Title.Font = Enum.Font.GothamSemibold
+Title.TextSize = 18
 
 local rebirths = window:AddTab("Rebirths")
 
