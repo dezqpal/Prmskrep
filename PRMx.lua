@@ -1,13 +1,3 @@
--- PRIMO CYBER UI - FULLY DRAGGABLE V1
-local ScreenGui = Instance.new("ScreenGui")
-local MainFrame = Instance.new("Frame")
-local UIStroke = Instance.new("UIStroke")
-local UICorner = Instance.new("UICorner")
-local OpenBtn = Instance.new("TextButton")
-
-ScreenGui.Name = "PrimoDraggableUI"
-ScreenGui.Parent = game:GetService("CoreGui") or game:GetService("Players").LocalPlayer.PlayerGui
-ScreenGui.ResetOnSpawn = false
 
 -- FUNCTION PARA MAGING DRAGGABLE ANG KAHIT ANONG UI (MOBILE/PC)
 local function MakeDraggable(gui)
