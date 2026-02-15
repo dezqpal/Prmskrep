@@ -1,15 +1,15 @@
--- PRIMO CYBER UI - WINDOW ENGINE (650x820)
+-- PRIMO CYBER UI - CLEAN ENGINE (650x820)
 local ScreenGui = Instance.new("ScreenGui")
 local MainFrame = Instance.new("Frame")
 local Sidebar = Instance.new("Frame")
 local TabHolder = Instance.new("Frame")
 local OpenBtn = Instance.new("TextButton")
 
-ScreenGui.Name = "PrimoLibraryUI"
+ScreenGui.Name = "PrimoCyberUI"
 ScreenGui.Parent = game:GetService("CoreGui") or game:GetService("Players").LocalPlayer.PlayerGui
 ScreenGui.ResetOnSpawn = false
 
--- DRAGGABLE ENGINE
+-- DRAGGABLE FUNCTION
 local function MakeDraggable(gui)
     local dragging, dragInput, dragStart, startPos
     gui.InputBegan:Connect(function(input)
@@ -29,7 +29,7 @@ local function MakeDraggable(gui)
     end)
 end
 
--- 1. FLOATING BUTTON
+-- 1. P BUTTON (TOGGLE)
 OpenBtn.Name = "OpenButton"
 OpenBtn.Parent = ScreenGui
 OpenBtn.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
@@ -40,25 +40,28 @@ Instance.new("UICorner", OpenBtn).CornerRadius = UDim.new(1, 0)
 Instance.new("UIStroke", OpenBtn).Color = Color3.fromRGB(0, 255, 255)
 MakeDraggable(OpenBtn)
 
--- 2. MAIN WINDOW SETUP (650x820)
+-- 2. MAIN WINDOW (650x820)
 MainFrame.Name = "MainFrame"
 MainFrame.Parent = ScreenGui
 MainFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
 MainFrame.Position = UDim2.new(0.3, 0, 0.1, 0)
-MainFrame.Size = UDim2.new(0, 650, 0, 820) -- Eto na yung size na gusto mo
+MainFrame.Size = UDim2.new(0, 650, 0, 820)
 Instance.new("UICorner", MainFrame)
-Instance.new("UIStroke", MainFrame).Color = Color3.fromRGB(0, 255, 255)
+local frameStroke = Instance.new("UIStroke", MainFrame)
+frameStroke.Color = Color3.fromRGB(0, 255, 255)
+frameStroke.Thickness = 2
 MakeDraggable(MainFrame)
 
 -- 3. SIDEBAR
 Sidebar.Name = "Sidebar"; Sidebar.Parent = MainFrame; Sidebar.BackgroundColor3 = Color3.fromRGB(10, 10, 10); Sidebar.Size = UDim2.new(0, 160, 1, 0)
 Instance.new("UICorner", Sidebar)
 local SidebarLayout = Instance.new("UIListLayout", Sidebar)
-SidebarLayout.Padding = UDim.new(0, 5); SidebarLayout.HorizontalAlignment = "Center"; Instance.new("UIPadding", Sidebar).PaddingTop = UDim.new(0, 10)
+SidebarLayout.Padding = UDim.new(0, 5); SidebarLayout.HorizontalAlignment = "Center"
+Instance.new("UIPadding", Sidebar).PaddingTop = UDim.new(0, 10)
 
 TabHolder.Name = "TabHolder"; TabHolder.Parent = MainFrame; TabHolder.Position = UDim2.new(0, 170, 0, 60); TabHolder.Size = UDim2.new(1, -180, 1, -70); TabHolder.BackgroundTransparency = 1
 
--- 4. THE WINDOW LIBRARY (Ginamit ang 'window' variable)
+-- 4. WINDOW ENGINE (LIBRARY)
 local window = {}
 local isFirstTab = true
 
@@ -86,6 +89,7 @@ function window:AddTab(name)
     end)
 
     local tab_logic = {}
+    
     function tab_logic:AddButton(text, callback)
         local btn = Instance.new("TextButton", TabPage)
         btn.Size = UDim2.new(1, -10, 0, 45)
@@ -96,12 +100,12 @@ function window:AddTab(name)
     end
 
     function tab_logic:AddTextBox(text, callback)
-        local boxContainer = Instance.new("Frame", TabPage)
-        boxContainer.Size = UDim2.new(1, -10, 0, 50); boxContainer.BackgroundColor3 = Color3.fromRGB(40, 40, 40); Instance.new("UICorner", boxContainer)
-        local boxLabel = Instance.new("TextLabel", boxContainer); boxLabel.Size = UDim2.new(0.4, 0, 1, 0); boxLabel.Text = "  "..text; boxLabel.BackgroundTransparency = 1; boxLabel.TextColor3 = Color3.fromRGB(200, 200, 200); boxLabel.TextXAlignment = "Left"; boxLabel.Font = "Gotham"
-        local boxInput = Instance.new("TextBox", boxContainer); boxInput.Size = UDim2.new(0.5, 0, 0.7, 0); boxInput.Position = UDim2.new(0.45, 0, 0.15, 0); boxInput.BackgroundColor3 = Color3.fromRGB(20, 20, 20); boxInput.TextColor3 = Color3.fromRGB(255, 255, 255); boxInput.Text = ""; boxInput.PlaceholderText = "Input..."
-        Instance.new("UICorner", boxInput)
-        boxInput.FocusLost:Connect(function(ep) if ep then callback(boxInput.Text) end end)
+        local boxFrame = Instance.new("Frame", TabPage)
+        boxFrame.Size = UDim2.new(1, -10, 0, 50); boxFrame.BackgroundColor3 = Color3.fromRGB(40, 40, 40); Instance.new("UICorner", boxFrame)
+        local label = Instance.new("TextLabel", boxFrame); label.Size = UDim2.new(0.4, 0, 1, 0); label.Text = "  "..text; label.BackgroundTransparency = 1; label.TextColor3 = Color3.fromRGB(200, 200, 200); label.TextXAlignment = "Left"; label.Font = "Gotham"
+        local input = Instance.new("TextBox", boxFrame); input.Size = UDim2.new(0.5, 0, 0.7, 0); input.Position = UDim2.new(0.45, 0, 0.15, 0); input.BackgroundColor3 = Color3.fromRGB(20, 20, 20); input.TextColor3 = Color3.fromRGB(255, 255, 255); input.Text = ""; input.PlaceholderText = "Type here..."
+        Instance.new("UICorner", input)
+        input.FocusLost:Connect(function(ep) if ep then callback(input.Text) end end)
     end
 
     return tab_logic
@@ -112,6 +116,9 @@ local X = Instance.new("TextButton", MainFrame)
 X.Size = UDim2.new(0, 40, 0, 40); X.Position = UDim2.new(1, -50, 0, 10); X.Text = "X"; X.TextColor3 = Color3.fromRGB(255, 50, 50); X.BackgroundTransparency = 1; X.TextSize = 30; X.Font = "GothamBold"
 X.MouseButton1Click:Connect(function() MainFrame.Visible = false; OpenBtn.Visible = true end)
 OpenBtn.MouseButton1Click:Connect(function() MainFrame.Visible = true; OpenBtn.Visible = false end)
+
+-- DITO MO NA IDUGTONG ANG SCRIPT MO:
+
 
 local rebirths = window:AddTab("Rebirths")
 
