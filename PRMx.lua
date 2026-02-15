@@ -61,7 +61,7 @@ TabHolder.Name = "TabHolder"; TabHolder.Parent = MainFrame; TabHolder.Position =
 -- 4. LIBRARY FUNCTIONS (Dito mo ilalagay ang tabs)
 local library = {}
 
-function library:AddTab(name)
+function library:AddTab("Primo"),
     local TabBtn = Instance.new("TextButton", Sidebar)
     TabBtn.Size = UDim2.new(0.9, 0, 0, 40)
     TabBtn.Position = UDim2.new(0.05, 0, 0, 10 + (#Sidebar:GetChildren() - 1) * 45)
@@ -90,12 +90,6 @@ function library:AddTab(name)
     
     return tab_logic
 end
-
--- 5. CLOSE BUTTON
-local X = Instance.new("TextButton", MainFrame)
-X.Size = UDim2.new(0, 40, 0, 40); X.Position = UDim2.new(1, -50, 0, 10); X.Text = "X"; X.TextColor3 = Color3.fromRGB(255, 50, 50); X.BackgroundTransparency = 1; X.TextSize = 30
-X.MouseButton1Click:Connect(function() MainFrame.Visible = false; OpenBtn.Visible = true end)
-OpenBtn.MouseButton1Click:Connect(function() MainFrame.Visible = true; OpenBtn.Visible = false end)
 
 local rebirths = window:AddTab("Rebirths")
 
