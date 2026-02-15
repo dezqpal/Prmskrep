@@ -1,90 +1,105 @@
+-- PRIMO CYBER UI - LIBRARY STYLE (650x820)
+local ScreenGui = Instance.new("ScreenGui")
+local MainFrame = Instance.new("Frame")
+local Sidebar = Instance.new("Frame")
+local TabHolder = Instance.new("Frame")
+local UIStroke = Instance.new("UIStroke")
+local UICorner = Instance.new("UICorner")
+local OpenBtn = Instance.new("TextButton")
 
--- FUNCTION PARA MAGING DRAGGABLE ANG KAHIT ANONG UI (MOBILE/PC)
+ScreenGui.Name = "PrimoLibraryUI"
+ScreenGui.Parent = game:GetService("CoreGui") or game:GetService("Players").LocalPlayer.PlayerGui
+ScreenGui.ResetOnSpawn = false
+
+-- DRAGGABLE FUNCTION
 local function MakeDraggable(gui)
     local dragging, dragInput, dragStart, startPos
-    local function update(input)
-        local delta = input.Position - dragStart
-        gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
-    end
     gui.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-            dragging = true
-            dragStart = input.Position
-            startPos = gui.Position
-            input.Changed:Connect(function()
-                if input.UserInputState == Enum.UserInputState.End then
-                    dragging = false
-                end
-            end)
+            dragging = true; dragStart = input.Position; startPos = gui.Position
+            input.Changed:Connect(function() if input.UserInputState == Enum.UserInputState.End then dragging = false end end)
         end
     end)
     gui.InputChanged:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
-            dragInput = input
-        end
+        if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then dragInput = input end
     end)
     game:GetService("UserInputService").InputChanged:Connect(function(input)
         if input == dragInput and dragging then
-            update(input)
+            local delta = input.Position - dragStart
+            gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
         end
     end)
 end
 
--- 1. FLOATING TOGGLE BUTTON (P)
+-- 1. P BUTTON (TOGGLE)
 OpenBtn.Name = "OpenButton"
 OpenBtn.Parent = ScreenGui
 OpenBtn.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
 OpenBtn.Position = UDim2.new(0.05, 0, 0.45, 0)
 OpenBtn.Size = UDim2.new(0, 50, 0, 50)
-OpenBtn.Text = "P"
-OpenBtn.TextColor3 = Color3.fromRGB(0, 255, 255)
-OpenBtn.TextSize = 25
-OpenBtn.Font = Enum.Font.GothamBold
-OpenBtn.Visible = false 
-
+OpenBtn.Text = "P"; OpenBtn.TextColor3 = Color3.fromRGB(0, 255, 255); OpenBtn.TextSize = 25; OpenBtn.Font = Enum.Font.GothamBold; OpenBtn.Visible = false 
 Instance.new("UICorner", OpenBtn).CornerRadius = UDim.new(1, 0)
-local btnStroke = Instance.new("UIStroke", OpenBtn)
-btnStroke.Color = Color3.fromRGB(0, 255, 255)
-btnStroke.Thickness = 2
+Instance.new("UIStroke", OpenBtn).Color = Color3.fromRGB(0, 255, 255)
+MakeDraggable(OpenBtn)
 
--- 2. MAIN FRAME
+-- 2. MAIN FRAME (650x820)
 MainFrame.Name = "MainFrame"
 MainFrame.Parent = ScreenGui
 MainFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
-MainFrame.Position = UDim2.new(0.3, 0, 0.3, 0)
-MainFrame.Size = UDim2.new(0, 500, 0, 300)
-MainFrame.Visible = true
-
-Instance.new("UICorner", MainFrame).CornerRadius = UDim.new(0, 10)
-local frameStroke = Instance.new("UIStroke", MainFrame)
-frameStroke.Color = Color3.fromRGB(0, 255, 255)
-frameStroke.Thickness = 2
-
--- ACTIVATE DRAG FOR BOTH
+MainFrame.Position = UDim2.new(0.3, 0, 0.1, 0)
+MainFrame.Size = UDim2.new(0, 650, 0, 820)
+Instance.new("UICorner", MainFrame)
+Instance.new("UIStroke", MainFrame).Color = Color3.fromRGB(0, 255, 255)
 MakeDraggable(MainFrame)
-MakeDraggable(OpenBtn)
 
--- 3. CLOSE BUTTON (X)
-local CloseBtn = Instance.new("TextButton", MainFrame)
-CloseBtn.Size = UDim2.new(0, 30, 0, 30)
-CloseBtn.Position = UDim2.new(0.93, 0, 0.02, 0)
-CloseBtn.Text = "X"
-CloseBtn.TextColor3 = Color3.fromRGB(255, 50, 50)
-CloseBtn.BackgroundTransparency = 1
-CloseBtn.TextSize = 25
-CloseBtn.Font = Enum.Font.GothamBold
+-- 3. SIDEBAR & HOLDER
+Sidebar.Name = "Sidebar"; Sidebar.Parent = MainFrame; Sidebar.BackgroundColor3 = Color3.fromRGB(10, 10, 10); Sidebar.Size = UDim2.new(0, 160, 1, 0)
+Instance.new("UICorner", Sidebar)
 
-CloseBtn.MouseButton1Click:Connect(function()
-    MainFrame.Visible = false
-    OpenBtn.Visible = true
-end)
+TabHolder.Name = "TabHolder"; TabHolder.Parent = MainFrame; TabHolder.Position = UDim2.new(0, 170, 0, 60); TabHolder.Size = UDim2.new(1, -180, 1, -70); TabHolder.BackgroundTransparency = 1
 
-OpenBtn.MouseButton1Click:Connect(function()
-    if not dragging then -- Para hindi mag-open habang dina-drag
-        MainFrame.Visible = true
-        OpenBtn.Visible = false
+-- 4. LIBRARY FUNCTIONS (Dito mo ilalagay ang tabs)
+local library = {}
+
+function library:AddTab(name)
+    local TabBtn = Instance.new("TextButton", Sidebar)
+    TabBtn.Size = UDim2.new(0.9, 0, 0, 40)
+    TabBtn.Position = UDim2.new(0.05, 0, 0, 10 + (#Sidebar:GetChildren() - 1) * 45)
+    TabBtn.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    TabBtn.Text = name; TabBtn.TextColor3 = Color3.fromRGB(255, 255, 255); TabBtn.Font = Enum.Font.GothamSemibold
+    Instance.new("UICorner", TabBtn)
+
+    local TabPage = Instance.new("ScrollingFrame", TabHolder)
+    TabPage.Size = UDim2.new(1, 0, 1, 0); TabPage.BackgroundTransparency = 1; TabPage.Visible = false; TabPage.ScrollBarThickness = 2
+    
+    TabBtn.MouseButton1Click:Connect(function()
+        for _, v in pairs(TabHolder:GetChildren()) do v.Visible = false end
+        TabPage.Visible = true
+    end)
+
+    local tab_logic = {}
+    function tab_logic:AddButton(text, callback)
+        local btn = Instance.new("TextButton", TabPage)
+        btn.Size = UDim2.new(1, -10, 0, 45)
+        btn.Position = UDim2.new(0, 0, 0, (#TabPage:GetChildren() - 1) * 50)
+        btn.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+        btn.Text = text; btn.TextColor3 = Color3.fromRGB(255, 255, 255); btn.Font = Enum.Font.Gotham
+        Instance.new("UICorner", btn)
+        btn.MouseButton1Click:Connect(callback)
     end
-end)
+    
+    return tab_logic
+end
+
+-- 5. CLOSE BUTTON
+local X = Instance.new("TextButton", MainFrame)
+X.Size = UDim2.new(0, 40, 0, 40); X.Position = UDim2.new(1, -50, 0, 10); X.Text = "X"; X.TextColor3 = Color3.fromRGB(255, 50, 50); X.BackgroundTransparency = 1; X.TextSize = 30
+X.MouseButton1Click:Connect(function() MainFrame.Visible = false; OpenBtn.Visible = true end)
+OpenBtn.MouseButton1Click:Connect(function() MainFrame.Visible = true; OpenBtn.Visible = false end)
+
+---------------------------------------------------------
+-- PAANO GAMITIN (Library Style):
+---------------------------------------------------------
 
 local rebirths = window:AddTab("Rebirths")
 
