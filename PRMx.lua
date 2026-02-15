@@ -1337,12 +1337,4 @@ end)
 
 local Credits = window:AddTab("Credits")
 
-Credits:AddLabel("•MADE BY PRIMO•").TextSize = 20
-
-Credits:AddLabel:("___  ____  ____  __  __  _____ ").TextSize = 30
-
-Credits:AddLabel:("| _ \|  _ \|_  _||  \/  |/  _  \").TextSize =30
-	
-Credits:AddLabel:("|  _/|  _ < _| |_| |\/| || (_) |").Textsize =30
-	
-Credits:AddLabel:("|_|  |_| \_\_____|_|  |_|\_____/").TextSize =30
+Credits:AddLabel("•MADE BY PRIMO•").TextSize = 50
