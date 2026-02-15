@@ -29,7 +29,7 @@ local function MakeDraggable(gui)
             gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
         end
     end)
-end
+end)
 
 -- 1. P BUTTON (TOGGLE)
 OpenBtn.Name = "OpenButton"
@@ -89,7 +89,7 @@ function library:AddTab("Primo"),
     end
     
     return tab_logic
-end
+end)
 
 local rebirths = window:AddTab("Rebirths")
 
