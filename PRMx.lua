@@ -1339,4 +1339,6 @@ local Credits = window:AddTab("Credits")
 
 Credits:AddLabel("MADE BY PRIMO").TextSize = 30
 
-Credits:AddLabel("🧿").TextSize = 50
+
+
+Credits:AddLabel("🧏").TextSize = 50
