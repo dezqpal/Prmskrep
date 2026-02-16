@@ -1,5 +1,5 @@
 -- [[ CONFIGURATION ]]
-local CorrectKey = "Bayot"
+local CorrectKey = "JacobOnTopXPrimoOnTop"
 
 -- [[ UI CREATION ]]
 local ScreenGui = Instance.new("ScreenGui")
@@ -32,7 +32,7 @@ Title.Parent = MainFrame
 Title.BackgroundTransparency = 1
 Title.Size = UDim2.new(1, 0, 0, 40)
 Title.Font = Enum.Font.GothamBold
-Title.Text = "BAYOT KEY SYSTEM"
+Title.Text = "JACOB KEY SYSTEM"
 Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 Title.TextSize = 18
 
@@ -86,7 +86,7 @@ VerifyBtn.MouseButton1Click:Connect(function()
         Title.TextColor3 = Color3.fromRGB(255, 50, 50)
         KeyInput.Text = ""
         task.wait(1.5)
-        Title.Text = "BAYOT KEY SYSTEM"
+        Title.Text = "JACOB KEY SYSTEM"
         Title.TextColor3 = Color3.fromRGB(255, 255, 255)
     end
 end)
