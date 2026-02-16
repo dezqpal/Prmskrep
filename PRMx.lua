@@ -1,6 +1,6 @@
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/memejames/elerium-v2-ui-library//main/Library", true))()
 
-local window = library:AddWindow("What If Bumalik Yung Greatest Love Mo?", {
+local window = library:AddWindow("STANLEY BAKLA HAHAHAHAHAHAH", {
     main_color = Color3.fromRGB(0, 0, 0),
     min_size = Vector2.new(650, 820),
 })
