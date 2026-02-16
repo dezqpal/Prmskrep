@@ -1,8 +1,13 @@
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/memejames/elerium-v2-ui-library//main/Library", true))()
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/BASTOSaKO/Privatezz/refs/heads/main/Sbhshsh", true))()
 
-local window = library:AddWindow("AKO SI NATOY, SUPOT KATULAD NI CEYY", {
-    main_color = Color3.fromRGB(0, 0, 0),
-    min_size = Vector2.new(450, 300),
+local window = library:AddWindow("CEYY A.K.A NATOY•|AUTO TRADE", {
+	title_bar = {Color3.fromRGB(180, 0, 0), Color3.fromRGB(115, 0, 0), Color3.fromRGB(50, 0, 0)}, -- Title Bar Gradient (1-3 Colors)
+	title_bar_transparency = 0.2, -- Title Bar transparency (0-1 with 1 being fully transparent)
+	background = {Color3.fromRGB(0, 0, 0), Color3.fromRGB(34, 0, 0), Color3.fromRGB(68, 0, 0)}, -- (Background Gradient 1-3 Colors)
+	background_transparency = 0.1, -- Background transparency (0-1 with 1 being fully transparent)
+	main_color = Color3.fromRGB(255, 0, 0), -- Main Color for some Elements like Particles
+	min_size = Vector2.new(420, 300), -- Size of the Window (vertically, horizontally)
+	can_resize = true -- resizable (PC exclusive)
 })
 
 local PetsTab = window:AddTab("PetsTab")
