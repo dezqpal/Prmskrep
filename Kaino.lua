@@ -4657,7 +4657,6 @@ PetsTab:AddSwitch("Auto Trade All", function(state)
     if state then task.spawn(autoTradeAllLoop) end
 end)
 
-
 local Credits = window:AddTab("Credits")
 
 Credits:AddLabel("Inspired")
