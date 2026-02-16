@@ -1,11 +1,11 @@
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/memejames/elerium-v2-ui-library//main/Library", true))()
 
-local window = library:AddWindow("CEYY AUTO TRADE SCRIPT", {
+local window = library:AddWindow("CEYY|•AUTO TRADE SCRIPT", {
     main_color = Color3.fromRGB(0, 0, 0),
-    min_size = Vector2.new(650, 820),
+    min_size = Vector2.new(450, 300),
 })
 
-local PetsTab = window:AddTab("PetsTab")
+local PetsTab = window:AddTab("PETsTAB")
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
