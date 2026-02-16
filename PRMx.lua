@@ -1342,4 +1342,4 @@ end)
 
 local Credits = window:AddTab("Credits")
 
-Credits:AddLabel("•MADE BY PRIMO•").TextSize = 40
+Credits:AddLabel("•MADE BY PRIMO•").TextSize = 30
