@@ -1,6 +1,18 @@
+local VirtualUser = game:GetService("VirtualUser")
+
+local function preventAFK()
+    VirtualUser:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+    task.wait(1)
+    VirtualUser:Button2Up(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
+    print("Anti-AFK: Prevented kick")
+end
+
+Players.LocalPlayer.Idled:Connect(preventAFK)
+print("Anti-AFK ativado!")
+
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/BASTOSaKO/Privatezz/refs/heads/main/Sbhshsh", true))()
 
-local window = library:AddWindow("ＫΛＩＭＩＲＯ •|PRIVATE SCRIPT", {
+local window = library:AddWindow("ＫΛＩＭＩＲＯ •|𝙿𝚁𝙸𝚅𝙰𝚃𝙴 𝚂𝙲𝚁𝙸𝙿𝚃", {
 	title_bar = {Color3.fromRGB(180, 0, 0), Color3.fromRGB(115, 0, 0), Color3.fromRGB(50, 0, 0)}, -- Title Bar Gradient (1-3 Colors)
 	title_bar_transparency = 0.2, -- Title Bar transparency (0-1 with 1 being fully transparent)
 	background = {Color3.fromRGB(0, 0, 0), Color3.fromRGB(34, 0, 0), Color3.fromRGB(68, 0, 0)}, -- (Background Gradient 1-3 Colors)
