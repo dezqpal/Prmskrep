@@ -9,7 +9,6 @@ end
 
 Players.LocalPlayer.Idled:Connect(preventAFK)
 print("Anti-AFK ativado!")
-
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/BASTOSaKO/Privatezz/refs/heads/main/Sbhshsh", true))()
 
 local window = library:AddWindow("ＫΛＩＭＩＲＯ •|𝙿𝚁𝙸𝚅𝙰𝚃𝙴 𝚂𝙲𝚁𝙸𝙿𝚃", {
