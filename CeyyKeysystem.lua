@@ -1,5 +1,5 @@
 -- [[ CONFIGURATION ]]
-local CorrectKey = "CeyyPalautog"
+local CorrectKey = "PrimoOnTop"
 
 -- [[ UI CREATION ]]
 local ScreenGui = Instance.new("ScreenGui")
