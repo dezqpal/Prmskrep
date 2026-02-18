@@ -1,0 +1,108 @@
+-- [[ PRIMO KEY SYSTEM - FACEBOOK VERSION FIXED ]] --
+
+local KEY = "PrimoOnTop" -- Dito mo babaguhin ang key mo manually
+local fbLink = "https://www.facebook.com/profile.php?id=61576466431107" -- Palitan mo ito ng FB link mo
+
+local TweenService = game:GetService("TweenService")
+local ScreenGui = Instance.new("ScreenGui")
+local MainFrame = Instance.new("Frame")
+local UICorner = Instance.new("UICorner")
+local UIStroke = Instance.new("UIStroke")
+local Title = Instance.new("TextLabel")
+local TextBox = Instance.new("TextBox")
+local MainBtn = Instance.new("TextButton")
+local GetKeyBtn = Instance.new("TextButton")
+
+-- UI SETUP
+ScreenGui.Name = "PrimoKeySystem"
+ScreenGui.Parent = game:GetService("CoreGui")
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+MainFrame.Name = "MainFrame"
+MainFrame.Parent = ScreenGui
+MainFrame.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+MainFrame.Position = UDim2.new(0.5, -150, 0.5, -115)
+MainFrame.Size = UDim2.new(0, 300, 0, 230)
+MainFrame.BorderSizePixel = 0
+Instance.new("UICorner", MainFrame).CornerRadius = UDim.new(0, 15)
+
+UIStroke.Parent = MainFrame
+UIStroke.Thickness = 2
+UIStroke.Color = Color3.fromRGB(255, 0, 0)
+UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+
+Title.Parent = MainFrame
+Title.Text = "PRIMO KEY SYSTEM"
+Title.Size = UDim2.new(1, 0, 0, 50)
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.TextSize = 22
+Title.Font = Enum.Font.SourceSansBold
+Title.BackgroundTransparency = 1
+
+TextBox.Parent = MainFrame
+TextBox.PlaceholderText = "Enter Key..."
+TextBox.Text = ""
+TextBox.Position = UDim2.new(0.1, 0, 0.25, 0)
+TextBox.Size = UDim2.new(0.8, 0, 0, 40)
+TextBox.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextBox.TextScaled = true
+Instance.new("UICorner", TextBox)
+
+MainBtn.Parent = MainFrame
+MainBtn.Text = "SUBMIT"
+MainBtn.Position = UDim2.new(0.1, 0, 0.50, 0)
+MainBtn.Size = UDim2.new(0.8, 0, 0, 40)
+MainBtn.BackgroundColor3 = Color3.fromRGB(150, 0, 0)
+MainBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+MainBtn.Font = Enum.Font.SourceSansBold
+Instance.new("UICorner", MainBtn)
+
+GetKeyBtn.Parent = MainFrame
+GetKeyBtn.Text = "GET KEY (FACEBOOK)"
+GetKeyBtn.Position = UDim2.new(0.1, 0, 0.75, 0)
+GetKeyBtn.Size = UDim2.new(0.8, 0, 0, 30)
+GetKeyBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+GetKeyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+GetKeyBtn.Font = Enum.Font.SourceSansBold
+Instance.new("UICorner", GetKeyBtn)
+
+-- GLOW ANIMATION
+local function createGlow()
+    local info = TweenInfo.new(1.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut, -1, true)
+    TweenService:Create(UIStroke, info, {Color = Color3.fromRGB(50, 0, 0)}):Play()
+    TweenService:Create(Title, info, {TextColor3 = Color3.fromRGB(150, 0, 0)}):Play()
+end
+createGlow()
+
+-- BUTTON LOGICS
+GetKeyBtn.MouseButton1Click:Connect(function()
+    if setclipboard then
+        setclipboard(fbLink)
+        GetKeyBtn.Text = "FB LINK COPIED!"
+    else
+        GetKeyBtn.Text = "ERROR: NO CLIPBOARD"
+    end
+    wait(2)
+    GetKeyBtn.Text = "GET KEY (FACEBOOK)"
+end)
+
+MainBtn.MouseButton1Click:Connect(function()
+    if TextBox.Text == KEY then
+        MainBtn.Text = "SUCCESS!"
+        wait(0.5)
+        ScreenGui:Destroy()
+        -- Maglo-load ang main script mo
+        local success, err = pcall(function()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/dezqpal/Primo/refs/heads/main/CeyyOBFUSCATED.LUA"))()
+        end)
+        if not success then
+            warn("Failed to load script: " .. tostring(err))
+        end
+    else
+        TextBox.Text = ""
+        MainBtn.Text = "INVALID KEY!"
+        wait(1.5)
+        MainBtn.Text = "SUBMIT"
+    end
+end)
