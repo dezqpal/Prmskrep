@@ -1,4 +1,4 @@
-local _EnchantedHubPaidVersion = loadstring(game:HttpGet('https://raw.githubusercontent.com/iblameaabis/Ililililililililililililil/refs/heads/main/W%20UI', true))():AddWindow('Enchanted Hub | Paid Version', {
+local _EnchantedHubPaidVersion = loadstring(game:HttpGet('https://raw.githubusercontent.com/iblameaabis/Ililililililililililililil/refs/heads/main/W%20UI', true))():AddWindow('Test | Paid Version', {
     main_color = Color3.fromRGB(0, 0, 0),
     min_size = Vector2.new(650, 850),
     can_resize = false,
@@ -1882,6 +1882,7 @@ task.spawn(function()
             u398()
         end
     end
+
 end)
 ‎Farm:AddButton("Full Optimization", function()
 ‎    local player = game.Players.LocalPlayer
