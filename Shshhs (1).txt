@@ -47,7 +47,6 @@ _Teleport:AddButton('Ancient Jungle Island', function()
 
     (_LocalPlayer9.Character or _LocalPlayer9.CharacterAdded:Wait()):SetPrimaryPartCFrame(CFrame.new(-8642.2529296875, 6.275508880615234, 2380.506591796875))
 end)
-
 local _FastGlitch = _EnchantedHubPaidVersion:AddTab('Fast Glitch')
 
 _FastGlitch:Show()
@@ -1859,3 +1858,4 @@ task.spawn(function()
     end
 
 end)
+
