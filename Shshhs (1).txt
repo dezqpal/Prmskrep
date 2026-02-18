@@ -1,41 +1,14 @@
--- this file was deobfuscated using Sen Private Deobf
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/BASTOSaKO/Privatezz/refs/heads/main/Sbhshsh", true))()
 
-
-local _EnchantedHubPaidVersion = loadstring(game:HttpGet('https://raw.githubusercontent.com/iblameaabis/Ililililililililililililil/refs/heads/main/W%20UI', true))():AddWindow('Enchanted Hub | Paid Version', {
-    main_color = Color3.fromRGB(0, 0, 0),
-    min_size = Vector2.new(610, 520),
-    can_resize = false,
+local window = library:AddWindow("PRIVATE SCRIPT•| TEST", {
+	title_bar = {Color3.fromRGB(180, 0, 0), Color3.fromRGB(115, 0, 0), Color3.fromRGB(50, 0, 0)}, -- Title Bar Gradient (1-3 Colors)
+	title_bar_transparency = 0.2, -- Title Bar transparency (0-1 with 1 being fully transparent)
+	background = {Color3.fromRGB(0, 0, 0), Color3.fromRGB(34, 0, 0), Color3.fromRGB(68, 0, 0)}, -- (Background Gradient 1-3 Colors)
+	background_transparency = 0.1, -- Background transparency (0-1 with 1 being fully transparent)
+	main_color = Color3.fromRGB(255, 0, 0), -- Main Color for some Elements like Particles
+	min_size = Vector2.new(500, 520), -- Size of the Window (vertically, horizontally)
+	can_resize = true -- resizable (PC exclusive)
 })
-local _Introduction = _EnchantedHubPaidVersion:AddTab('Introduction')
-
-_Introduction:Show()
-_Introduction:AddLabel('Owner Of Enchanted Hub Is iblamaabis')
-_Introduction:AddLabel('Script Deobfuscated by Sen')
-_Introduction:AddButton('Infinite Yield', function()
-    loadstring(game:HttpGet('https://rawscripts.net/raw/Universal-Script-Inf-yeild-New-Version-1836'))()
-end)
-_Introduction:AddButton('AutoLiftGamepass', function()
-    local _gamepassIds = game:GetService('ReplicatedStorage').gamepassIds
-    local _LocalPlayer2 = game:GetService('Players').LocalPlayer
-    local v21, v22, v23 = pairs(_gamepassIds:GetChildren())
-
-    while true do
-        local v24
-
-        v23, v24 = v21(v22, v23)
-
-        if v23 == nil then
-            break
-        end
-
-        local _IntValue = Instance.new('IntValue')
-
-        _IntValue.Name = v24.Name
-        _IntValue.Value = v24.Value
-        _IntValue.Parent = _LocalPlayer2.ownedGamepasses
-    end
-end)
-
 local _Teleport = _EnchantedHubPaidVersion:AddTab('Teleport')
 
 _Teleport:Show()
@@ -1884,4 +1857,5 @@ task.spawn(function()
             u398()
         end
     end
+
 end)
