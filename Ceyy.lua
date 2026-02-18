@@ -1,6 +1,6 @@
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/BASTOSaKO/Privatezz/refs/heads/main/Sbhshsh", true))()
 
-local window = library:AddWindow("CEYY PINAGPALIT SA PANGIT•| AUTO TRADE SCRIPT", {
+local window = library:AddWindow("PRIMO •|• AUTO TRADE SCRIPT", {
 	title_bar = {Color3.fromRGB(180, 0, 0), Color3.fromRGB(115, 0, 0), Color3.fromRGB(50, 0, 0)}, -- Title Bar Gradient (1-3 Colors)
 	title_bar_transparency = 0.2, -- Title Bar transparency (0-1 with 1 being fully transparent)
 	background = {Color3.fromRGB(0, 0, 0), Color3.fromRGB(34, 0, 0), Color3.fromRGB(68, 0, 0)}, -- (Background Gradient 1-3 Colors)
