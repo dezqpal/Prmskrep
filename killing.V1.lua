@@ -2547,4 +2547,4 @@ Credits:AddLabel("Script Made by Primo:")
 
 Credits:AddLabel("             ")
 
-Credits:AddLabel(".     PRM KILLING SCRIPT").TextSize = 50
+Credits:AddLabel("   PRIMO KILLING SCRIPT").TextSize = 50
