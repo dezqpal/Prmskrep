@@ -2548,3 +2548,25 @@ Credits:AddLabel("Script Made by Primo:")
 Credits:AddLabel("             ")
 
 Credits:AddLabel(" PRIMO KILLING SCRIPT").TextSize = 40
+
+Credits:AddLabel("•--- My Social Media ---•")
+Credits:AddLabel(" Follow my TikTok account")
+
+Credits:AddButton("Copy TikTok Link", function()
+    setclipboard("https://www.tiktok.com/@primo_legitaccount").TextSize = 35
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "TikTok Link",
+        Text = "Link copied to clipboard!",
+        Duration = 3
+    })
+end)
+Credits:AddLabel("Dm me here for more free script")
+
+Credits:AddButton("Copy Facebook Link", function()
+    setclipboard("https://www.facebook.com/profile.php?id=61576466431107").TextSize = 35
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "Facebook Link",
+        Text = "Link copied to clipboard!",
+        Duration = 3
+    })
+end)
