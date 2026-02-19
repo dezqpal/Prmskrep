@@ -2545,6 +2545,6 @@ local Credits = window:AddTab("Credits")
 Credits:AddLabel("Inspired By SLH")
 Credits:AddLabel("Script Made by Primo:")
 
+Credits:AddLabel("             ")
 
-
-Credits:AddLabel("   PRM KILLING SCRIPT").TextSize = 50
+Credits:AddLabel(".     PRM KILLING SCRIPT").TextSize = 50
