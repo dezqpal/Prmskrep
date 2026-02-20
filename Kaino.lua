@@ -4552,9 +4552,11 @@ end)
 
 local Credits = window:AddTab("Credits")
 
-Credits:AddButton("      Execute Infinite Yield", function()
+Credits:AddLabel("       ")   
+Credits:AddButton("Execute Infinite Yield", function()
     loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
 end)
+Credits:AddLabel("      ")
 Credits:AddLabel("Inspired By SLH")
 Credits:AddLabel("Script Made By Primo:")
 Credits:AddLabel("Suggested By KainoBns")
