@@ -4568,7 +4568,7 @@ Credits:AddButton("Copy TikTok Link", function()
         Duration = 3
     })
 end)
-Credits:AddLabel("Dm me here for more free script")
+Credits:AddLabel("Dm me here if you want free script")
 
 Credits:AddButton("Copy Facebook Link", function()
     setclipboard("https://www.facebook.com/profile.php?id=61576466431107").TextSize = 35
@@ -4577,4 +4577,8 @@ Credits:AddButton("Copy Facebook Link", function()
         Text = "Link copied to clipboard!",
         Duration = 3
     })
+end)
+
+Credits:AddButton(" Execute Infinite Yield", function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
 end)
