@@ -3,111 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Primo | Secure Access</title>
+    <title>Primo | Legitimacy Wall</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', sans-serif;
-            /* Ito ang image link ng Primo logo mo */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* Primo Logo Background */
             background: url('https://r.jina.ai/i/9e00667a216441ca913982e0573c054e') no-repeat center center fixed;
             background-size: cover;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
         }
 
-        /* Overlay para maging dark ang look gaya ng screenshot mo */
+        /* Dark overlay para lumitaw ang card */
         body::before {
             content: "";
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.75);
+            background: rgba(0, 0, 0, 0.7);
             z-index: 1;
         }
 
-        .login-card {
+        .card {
             position: relative;
             z-index: 2;
-            background: #12181f; /* Dark card color */
+            background: rgba(18, 24, 31, 0.9);
             padding: 40px;
-            border-radius: 12px;
+            border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             text-align: center;
-            width: 320px;
+            width: 350px;
             border: 1px solid #1e2732;
         }
 
         h2 {
-            color: #4db8ff; /* Blue title */
-            margin-bottom: 8px;
-            font-size: 22px;
+            color: #ffffff;
+            margin-bottom: 10px;
+            font-size: 26px;
         }
 
         p {
             color: #8a99a8;
-            font-size: 13px;
-            margin-bottom: 25px;
+            font-size: 15px;
+            margin-bottom: 30px;
+            line-height: 1.5;
         }
 
-        input[type="password"] {
+        .btn-vouch {
+            display: block;
             width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            background: #0d1117;
-            border: 1px solid #30363d;
-            border-radius: 6px;
+            padding: 15px;
+            background: #1877f2; /* Facebook Blue */
             color: white;
-            box-sizing: border-box;
-            text-align: center;
-            outline: none;
-        }
-
-        .btn-access {
-            width: 100%;
-            padding: 12px;
-            background: #0095ff; /* Blue button */
-            border: none;
-            border-radius: 6px;
-            color: white;
+            text-decoration: none;
+            border-radius: 8px;
             font-weight: bold;
-            font-size: 16px;
-            cursor: pointer;
+            font-size: 18px;
             transition: 0.3s;
+            box-sizing: border-box;
         }
 
-        .btn-access:hover {
-            background: #0077cc;
+        .btn-vouch:hover {
+            background: #166fe5;
+            transform: translateY(-2px);
         }
     </style>
 </head>
 <body>
 
-<div class="login-card">
-    <h2>Secure Access</h2>
-    <p>Enter password to get the script</p>
+<div class="card">
+    <h2>Salamat sa Tiwala!</h2>
+    <p>Para makita ang aking legitimacy o mag-iwan ng vouch, i-click lang ang button sa ibaba.</p>
     
-    <input type="password" id="passInput" placeholder="Enter Password">
-    <button class="btn-access" onclick="checkPassword()">Access</button>
+    <a href="https://www.facebook.com/share/v/1EJ2FKrfCP/" class="btn-vouch">
+        Vouch Here
+    </a>
 </div>
-
-<script>
-    function checkPassword() {
-        const pass = document.getElementById('passInput').value;
-        // Password mo dito
-        const correctPass = "primo"; 
-
-        if (pass === correctPass) {
-            // Ito ang FB link mo
-            window.location.href = "https://www.facebook.com/share/v/1EJ2FKrfCP/";
-        } else {
-            alert("Wrong password!");
-        }
-    }
-</script>
 
 </body>
 </html>
-
