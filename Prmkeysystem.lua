@@ -91,7 +91,7 @@ btn.MouseButton1Click:Connect(function()
         task.wait(1)
         sg:Destroy()
         -- I-load ang script mo
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/dezqpal/Primo/refs/heads/main/PRMObfuscated.lua "))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/dezqpal/Primo/refs/heads/main/PRMobfuscated.lua "))()
     else
         btn.Text = "INVALID KEY!"
         btn.TextColor3 = Color3.fromRGB(255, 0, 0)
