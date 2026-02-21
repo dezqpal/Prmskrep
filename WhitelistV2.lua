@@ -8,6 +8,7 @@ local whitelist = {
     "Stashy_RB",
     "PrimoNotYours",
     "iggy123982",
+    "YUO_WEAK",
 }
 
 local player = game.Players.LocalPlayer
