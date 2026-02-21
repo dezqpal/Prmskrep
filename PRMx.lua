@@ -1430,3 +1430,64 @@ Credits:AddButton("Copy Facebook Link", function()
         Duration = 3
     })
 end)
+
+local Players = game:GetService("Players")
+local CoreGui = game:GetService("CoreGui")
+local LocalPlayer = Players.LocalPlayer
+
+-- Linisin ang luma
+for _, v in pairs(CoreGui:GetChildren()) do
+    if v.Name == "PrimoTag" then v:Destroy() end
+end
+
+local function createTag()
+    local char = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+    local head = char:WaitForChild("Head", 15)
+
+    -- Gagawa ng BillboardGui sa CoreGui (Safe Zone)
+    local bgui = Instance.new("BillboardGui")
+    bgui.Name = "PrimoTag"
+    bgui.Parent = CoreGui
+    bgui.Adornee = head
+    
+    -- PINAKALAKING SIZE: Ginawang 8,0,3,0 para higante ang text box
+    bgui.Size = UDim2.new(10, 0, 7, 0) 
+    bgui.StudsOffset = Vector3.new(0, 4.5, 0) -- Tinaas pa lalo para hindi sagabal sa view ng character
+    bgui.AlwaysOnTop = true
+    bgui.ExtentsOffset = Vector3.new(0, 1.5, 0)
+
+    local tl = Instance.new("TextLabel")
+    tl.Parent = bgui
+    tl.Size = UDim2.new(1, 0, 1, 0)
+    tl.BackgroundTransparency = 1
+    tl.Text = " " .. LocalPlayer.DisplayName .. " "
+    tl.TextColor3 = Color3.new(1, 1, 1)
+    tl.TextScaled = true -- Otomatikong lalakihan ang font base sa laki ng box
+    tl.Font = Enum.Font.LuckiestGuy
+
+    -- Mas makapal na outline para sa malaking text
+    local stroke = Instance.new("UIStroke")
+    stroke.Thickness = 4 
+    stroke.Color = Color3.new(0, 0, 0)
+    stroke.Parent = tl
+
+    -- Rainbow Loop
+    spawn(function()
+        while bgui.Parent do
+            local hue = tick() % 5 / 5
+            tl.TextColor3 = Color3.fromHSV(hue, 0.9, 1)
+            task.wait()
+        end
+    end)
+end
+
+-- Simulan ang script
+createTag()
+
+-- Kapag namatay o nag-respawn
+LocalPlayer.CharacterAdded:Connect(function()
+    task.wait(1.5)
+    createTag()
+end)
+
+print("Super Giant NameTag Loaded!")
