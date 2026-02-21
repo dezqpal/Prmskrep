@@ -1,113 +1,103 @@
---// SETTINGS \\--
-local CORRECT_KEY = "Primo"
-local SCRIPT_URL = "https://raw.githubusercontent.com/dezqpal/Primo/refs/heads/main/PRMobfuscated.lua"
+-- [[ PRIMO KEY SYSTEM - GENX GLASS FIX ]] --
+local LP = game:GetService("Players").LocalPlayer
+local pGui = LP:WaitForChild("PlayerGui")
 
---// UI CONSTRUCT \\--
-local ScreenGui = Instance.new("ScreenGui")
-local MainFrame = Instance.new("Frame")
-local UICorner = Instance.new("UICorner")
-local DropShadow = Instance.new("Frame")
-local Title = Instance.new("TextLabel")
-local KeyInput = Instance.new("TextBox")
-local SubmitBtn = Instance.new("TextButton")
-local BtnCorner = Instance.new("UICorner")
-local StatusLabel = Instance.new("TextLabel")
+-- Burahin ang dati para malinis
+if pGui:FindFirstChild("PrimoGlass") then pGui.PrimoGlass:Destroy() end
 
--- Parent to Player
-ScreenGui.Name = "OmirpKeySystem"
-ScreenGui.Parent = game.CoreGui -- Mas safe sa CoreGui para 'di madaling ma-delete sa Explorer
+local sg = Instance.new("ScreenGui")
+sg.Name = "PrimoGlass"
+sg.Parent = pGui
+sg.ResetOnSpawn = false
 
--- Main Frame Design
-MainFrame.Name = "MainFrame"
-MainFrame.Parent = ScreenGui
-MainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-MainFrame.Position = UDim2.new(0.5, -150, 0.5, -100)
-MainFrame.Size = UDim2.new(0, 300, 0, 200)
-MainFrame.BorderSizePixel = 0
+-- [[ CONFIGURATION ]] --
+local CORRECT_KEY = "PrimoXSlh" -- Eto ang Local Key mo
 
-UICorner.CornerRadius = UDim.new(0, 12)
-UICorner.Parent = MainFrame
+-- MAIN WINDOW (Semi-Invisible Glass Style)
+local main = Instance.new("Frame")
+main.Name = "Main"
+main.Parent = sg
+main.Size = UDim2.new(0, 320, 0, 260)
+main.Position = UDim2.new(0.5, -160, 0.5, -130)
+main.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+main.BackgroundTransparency = 0.3 -- Semi-invisible background
+main.BorderSizePixel = 4 -- Kapal ng border na iilaw
+main.Active = true
+main.Draggable = true
 
--- Title
-Title.Parent = MainFrame
-Title.BackgroundTransparency = 1
-Title.Position = UDim2.new(0, 0, 0, 15)
-Title.Size = UDim2.new(1, 0, 0, 30)
-Title.Font = Enum.Font.GothamBold
-Title.Text = "BAYOT VERIFICATION"
-Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-Title.TextSize = 18
+-- CENTERED TITLE
+local title = Instance.new("TextLabel")
+title.Parent = main
+title.Size = UDim2.new(1, 0, 0, 50)
+title.Position = UDim2.new(0, 0, 0, 10)
+title.Text = "PRIMO KEY SYSTEM"
+title.Font = Enum.Font.GothamBold
+title.TextSize = 20
+title.BackgroundTransparency = 1
+title.TextXAlignment = Enum.TextXAlignment.Center
 
--- Input Field
-KeyInput.Parent = MainFrame
-KeyInput.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-KeyInput.Position = UDim2.new(0.1, 0, 0.35, 0)
-KeyInput.Size = UDim2.new(0.8, 0, 0, 40)
-KeyInput.Font = Enum.Font.Gotham
-KeyInput.PlaceholderText = "Enter Access Key..."
-KeyInput.Text = ""
-KeyInput.TextColor3 = Color3.fromRGB(255, 255, 255)
-KeyInput.TextSize = 14
-
-local InputCorner = Instance.new("UICorner", KeyInput)
-InputCorner.CornerRadius = UDim.new(0, 8)
-
--- Submit Button
-SubmitBtn.Parent = MainFrame
-SubmitBtn.BackgroundColor3 = Color3.fromRGB(80, 120, 255) -- Modern Blue
-SubmitBtn.Position = UDim2.new(0.1, 0, 0.65, 0)
-SubmitBtn.Size = UDim2.new(0.8, 0, 0, 40)
-SubmitBtn.Font = Enum.Font.GothamBold
-SubmitBtn.Text = "SUBMIT"
-SubmitBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-SubmitBtn.TextSize = 14
-SubmitBtn.AutoButtonColor = true
-
-BtnCorner.CornerRadius = UDim.new(0, 8)
-BtnCorner.Parent = SubmitBtn
-
--- Status Label
-StatusLabel.Parent = MainFrame
-StatusLabel.BackgroundTransparency = 1
-StatusLabel.Position = UDim2.new(0, 0, 0.88, 0)
-StatusLabel.Size = UDim2.new(1, 0, 0, 20)
-StatusLabel.Font = Enum.Font.Gotham
-StatusLabel.Text = "Waiting for input..."
-StatusLabel.TextColor3 = Color3.fromRGB(150, 150, 150)
-StatusLabel.TextSize = 11
-
---// LOGIC & ANIMATIONS \\--
-
-local function notify(msg, color)
-    StatusLabel.Text = msg
-    StatusLabel.TextColor3 = color
-end
-
-SubmitBtn.MouseButton1Click:Connect(function()
-    if KeyInput.Text == CORRECT_KEY then
-        notify("Access Granted! Loading...", Color3.fromRGB(100, 255, 100))
-        SubmitBtn.Text = "Success!"
-        
-        -- Smooth fade out animation bago i-destroy
-        local TweenService = game:GetService("TweenService")
-        local info = TweenInfo.new(0.5, Enum.EasingStyle.Quart, Enum.EasingDirection.Out)
-        local tween = TweenService:Create(MainFrame, info, {Size = UDim2.new(0,0,0,0), BackgroundTransparency = 1})
-        
-        tween:Play()
-        tween.Completed:Connect(function()
-            ScreenGui:Destroy()
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/dezqpal/Primo/refs/heads/main/PRMx.lua "))()
-        end)
-    else
-        notify("Invalid Key! Try again.", Color3.fromRGB(255, 100, 100))
-        KeyInput.Text = ""
-        
-        -- Shake effect (Optional/Aesthetic)
-        local originalPos = MainFrame.Position
-        for i = 1, 5 do
-            MainFrame.Position = originalPos + UDim2.new(0, math.random(-5,5), 0, 0)
-            task.wait(0.02)
-        end
-        MainFrame.Position = originalPos
+-- RGB GLOW ANIMATION
+task.spawn(function()
+    while task.wait(0.05) do
+        local color = Color3.fromHSV(tick() % 5 / 5, 0.8, 1)
+        main.BorderColor3 = color
+        title.TextColor3 = color
     end
 end)
+
+-- ENTER KEY BOX (Semi-Invisible)
+local box = Instance.new("TextBox")
+box.Parent = main
+box.Size = UDim2.new(0.8, 0, 0, 45)
+box.Position = UDim2.new(0.1, 0, 0.35, 0)
+box.PlaceholderText = "Enter Key Here..."
+box.Text = ""
+box.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+box.BackgroundTransparency = 0.5 -- Bahagyang invisible
+box.TextColor3 = Color3.fromRGB(255, 255, 255)
+box.PlaceholderColor3 = Color3.fromRGB(180, 180, 180)
+box.Font = Enum.Font.Gotham
+box.TextSize = 16
+box.BorderSizePixel = 0
+
+-- SUBMIT BUTTON (Semi-Invisible)
+local btn = Instance.new("TextButton")
+btn.Parent = main
+btn.Size = UDim2.new(0.8, 0, 0, 45)
+btn.Position = UDim2.new(0.1, 0, 0.6, 0)
+btn.Text = "SUBMIT"
+btn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+btn.BackgroundTransparency = 0.4 -- Bahagyang invisible
+btn.TextColor3 = Color3.fromRGB(0, 0, 0)
+btn.Font = Enum.Font.GothamBold
+btn.TextSize = 16
+btn.BorderSizePixel = 0
+
+-- FOOTER
+local footer = Instance.new("TextLabel")
+footer.Parent = main
+footer.Size = UDim2.new(1, 0, 0, 30)
+footer.Position = UDim2.new(0, 0, 0.85, 0)
+footer.Text = "Made by Primo"
+footer.TextColor3 = Color3.fromRGB(200, 200, 200)
+footer.BackgroundTransparency = 1
+footer.TextSize = 12
+
+-- [[ KEY LOGIC ]] --
+btn.MouseButton1Click:Connect(function()
+    if box.Text == CORRECT_KEY then
+        btn.Text = "ACCESS GRANTED"
+        btn.TextColor3 = Color3.fromRGB(0, 255, 0)
+        task.wait(1)
+        sg:Destroy()
+        -- I-load ang script mo
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/dezqpal/Primo/refs/heads/main/PRMObfuscated.lua "))()
+    else
+        btn.Text = "INVALID KEY!"
+        btn.TextColor3 = Color3.fromRGB(255, 0, 0)
+        task.wait(1)
+        btn.Text = "SUBMIT"
+        btn.TextColor3 = Color3.fromRGB(0, 0, 0)
+    end
+end)
+
