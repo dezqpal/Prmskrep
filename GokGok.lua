@@ -119,7 +119,7 @@ local function CheckAndRun(scriptType)
     if KeyBox.Text == MySecretKey then
         MainFrame.Visible = false 
         if scriptType == "Main" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/dezqpal/Primo/refs/heads/main/Prmkeysystem.lua"))()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/dezqpal/Primo/refs/heads/main/PRMObfuscated.lua"))()
         elseif scriptType == "Farm" then
             loadstring(game:HttpGet("https://raw.githubusercontent.com/dezqpal/Primo/refs/heads/main/v2Obsfucator.lua"))()
         end
