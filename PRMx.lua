@@ -1,14 +1,67 @@
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/BASTOSaKO/Privatezz/refs/heads/main/Sbhshsh", true))()
 
-local window = library:AddWindow("PRIMO•|PRIVATE SCRIPT", {
-	title_bar = {Color3.fromRGB(180, 0, 0), Color3.fromRGB(115, 0, 0), Color3.fromRGB(50, 0, 0)}, -- Title Bar Gradient (1-3 Colors)
-	title_bar_transparency = 0.2, -- Title Bar transparency (0-1 with 1 being fully transparent)
-	background = {Color3.fromRGB(0, 0, 0), Color3.fromRGB(34, 0, 0), Color3.fromRGB(68, 0, 0)}, -- (Background Gradient 1-3 Colors)
-	background_transparency = 0.1, -- Background transparency (0-1 with 1 being fully transparent)
-	main_color = Color3.fromRGB(255, 0, 0), -- Main Color for some Elements like Particles
-	min_size = Vector2.new(620, 800), -- Size of the Window (vertically, horizontally)
-	can_resize = true -- resizable (PC exclusive)
+-- 1. SETUP UI
+local window = library:AddWindow("PRIMO •|• PUBLIC SCRIPT", {
+	title_bar = {Color3.fromRGB(0, 0, 0), Color3.fromRGB(0, 0, 0), Color3.fromRGB(0, 0, 0)}, 
+	background = {Color3.fromRGB(0, 0, 0), Color3.fromRGB(0, 0, 0), Color3.fromRGB(0, 0, 0)}, 
+	main_color = Color3.fromRGB(255, 0, 0), 
+	min_size = Vector2.new(500, 520), 
+	can_resize = false 
 })
+
+-- 2. INDEPENDENT SMOKE LAYER (Gagawa ng hiwalay na Gui para sa usok)
+local SmokeGui = Instance.new("ScreenGui")
+SmokeGui.Name = "PrimoSmokeLayer"
+SmokeGui.DisplayOrder = -1 -- Para nasa likod lagi ng main UI
+SmokeGui.Parent = game:GetService("CoreGui")
+
+local SmokeImage = Instance.new("ImageLabel")
+SmokeImage.BackgroundTransparency = 1
+SmokeImage.Image = "rbxassetid://1316045217"
+SmokeImage.ImageColor3 = Color3.fromRGB(180, 0, 0) -- Slightly Red
+SmokeImage.ImageTransparency = 0.5
+SmokeImage.Visible = false
+SmokeImage.Parent = SmokeGui
+
+-- 3. FOLLOW LOGIC (Susundan ng usok ang UI mo)
+task.spawn(function()
+	local targetFrame = nil
+	
+	-- Scanner para hanapin ang main window
+	while not targetFrame do
+		for _, v in pairs(game:GetService("CoreGui"):GetDescendants()) do
+			if v:IsA("Frame") and v.Visible and v.Size.X.Offset > 250 then
+				targetFrame = v
+				break
+			end
+		end
+		task.wait(1)
+	end
+	
+	SmokeImage.Visible = true
+	
+	-- Loop para laging nakadikit ang usok sa likod ng UI
+	game:GetService("RunService").RenderStepped:Connect(function()
+		if targetFrame and targetFrame.Parent then
+			SmokeImage.Position = targetFrame.AbsolutePosition - Vector2.new(50, 50) -- Offset
+			SmokeImage.Size = UDim2.new(0, targetFrame.AbsoluteSize.X + 100, 0, targetFrame.AbsoluteSize.Y + 100)
+		else
+			SmokeImage.Visible = false
+		end
+	end)
+	
+	-- Animation ng Usok (Pulse)
+	while true do
+		for i = 0.4, 0.7, 0.01 do
+			SmokeImage.ImageTransparency = i
+			task.wait(0.05)
+		end
+		for i = 0.7, 0.4, -0.01 do
+			SmokeImage.ImageTransparency = i
+			task.wait(0.05)
+		end
+	end
+end)
 
 local rebirths = window:AddTab("Rebirths")
 
