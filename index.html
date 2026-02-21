@@ -7,21 +7,28 @@
     <style>
         body { background-color: #0d1117; color: #ffffff; font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
         .card { background-color: #161b22; padding: 30px; border-radius: 15px; box-shadow: 0 8px 24px rgba(0,0,0,0.5); text-align: center; width: 320px; border: 1px solid #30363d; }
-        .tiktok-btn { background: #ee1d52; color: white; width: 100%; padding: 12px; border: none; border-radius: 8px; cursor: pointer; margin-bottom: 15px; font-weight: bold; text-decoration: none; display: inline-block; }
-        input { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #30363d; background: #0d1117; color: white; box-sizing: border-box; }
-        .access-btn { width: 100%; padding: 12px; background: #007bff; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; }
-        #script-output { display: none; margin-top: 20px; background: #000; padding: 10px; border-radius: 5px; font-family: monospace; font-size: 11px; color: #00ff00; word-break: break-all; }
+        .btn-step { width: 100%; padding: 12px; border: none; border-radius: 8px; cursor: pointer; margin-bottom: 10px; font-weight: bold; text-decoration: none; display: inline-block; box-sizing: border-box; color: white; transition: 0.3s; }
+        .tiktok { background: #ee1d52; }
+        .tiktok:hover { background: #d61a4a; }
+        .youtube { background: #ff0000; }
+        .youtube:hover { background: #cc0000; }
+        input { width: 100%; padding: 12px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #30363d; background: #0d1117; color: white; box-sizing: border-box; font-size: 14px; text-align: center; }
+        .access-btn { width: 100%; padding: 12px; background: #238636; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        .access-btn:hover { background: #2ea043; }
+        #script-output { display: none; margin-top: 20px; background: #000; padding: 10px; border-radius: 5px; font-family: monospace; font-size: 11px; color: #00ff00; word-break: break-all; text-align: left; border: 1px solid #30363d; }
     </style>
 </head>
 <body>
     <div class="card">
-        <h2 style="color: #00d2ff;">Secure Access</h2>
-        <p style="font-size: 13px; color: #8b949e;">Follow to get the password</p>
+        <h2 style="color: #58a6ff; margin-bottom: 5px;">Primo Access</h2>
+        <p style="font-size: 13px; color: #8b949e; margin-bottom: 20px;">Complete the steps to unlock</p>
         
-        <a href="https://www.tiktok.com/@primo_legitaccount" target="_blank" class="tiktok-btn">1. FOLLOW TIKTOK</a>
+        <a href="https://www.tiktok.com/@primo_legitaccount" target="_blank" class="btn-step tiktok">1. FOLLOW TIKTOK</a>
+        
+        <a href="Https://youtube.com/@jzplays56?si=z4NrN5NhRnBMaA8T" target="_blank" class="btn-step youtube">2. GET KEY ON YOUTUBE</a>
         
         <input type="password" id="passInput" placeholder="Enter Password Here...">
-        <button class="access-btn" onclick="check()">2. ACCESS</button>
+        <button class="access-btn" onclick="check()">3. UNLOCK SCRIPT</button>
 
         <div id="script-output"></div>
     </div>
@@ -35,11 +42,9 @@
                 output.style.display = "block";
                 alert("Success! Copy the script below.");
             } else {
-                alert("Wrong Password! Hint: Check my TikTok Bio And follow me.");
+                alert("Wrong Key! Please check the YouTube video or TikTok bio.");
             }
         }
     </script>
 </body>
 </html>
-
-
