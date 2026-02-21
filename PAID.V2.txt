@@ -8,7 +8,7 @@ if isfile(u14) then
     getgenv().AutoKiller = readfile(u14) == 'true'
 end
 
-local _ZyrooPrivate = v13:AddWindow(' Primo | Private Script V2', {
+local _ZyrooPrivate = v13:AddWindow(' PRIMO | PRIVATE SCRIPT V2', {
     main_color = Color3.fromRGB(138, 43, 226),
     min_size = Vector2.new(564, 680),
     can_resize = true,
@@ -2754,9 +2754,9 @@ end)
 local _Credits = _ZyrooPrivate:AddTab('Credits')
 
 _Credits:AddLabel(' ').TextSize = 15
-_Credits:AddLabel('   Primo Hub | Paid Version').TextSize = 40
+_Credits:AddLabel('    Primo Hub | Paid Version').TextSize = 40
 _Credits:AddLabel(' ').TextSize = 15
-_Credits:AddLabel('  Script Made By | Primo                                            ').TextSize = 25
+_Credits:AddLabel(' Script Made By | Primo                                            ').TextSize = 25
 _Credits:AddLabel('                                                                      Requested By |Kaino').TextSize = 20
 _Credits:AddLabel('Follow Primo on Tiktok                               Inspired by SLH').TextSize = 20
 
@@ -2764,7 +2764,7 @@ _Credits:AddButton('Copy TikTok Link', function()
     setclipboard('tiktok.com/@primo_legitaccount')
 end)
 
-_Credits:AddLabel('Follow ZyxRust on TikTok').TextSize = 25
+_Credits:AddLabel('Follow ZyxRust on TikTok').TextSize = 20
 
 _Credits:AddButton('Copy TikTok Link', function()
     setclipboard('https://www.tiktok.com/@zyxrust?_r=1&_t=ZS-947NK7eTMMi')
