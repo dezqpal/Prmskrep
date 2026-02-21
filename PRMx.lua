@@ -287,110 +287,6 @@ autoEquipToolsFolder:AddSwitch("Auto Situps", function(Value)
     end)
 end, "Auto Abdominals")
 
-autoEquipToolsFolder:AddSwitch("Auto Punch", function(Value)
-    _G.fastHitActive = Value
-    
-    if Value then
-        task.spawn(function()
-            while _G.fastHitActive do
-                if not _G.fastHitActive then break end
-                
-                local player = game.Players.LocalPlayer
-                local punch = player.Backpack:FindFirstChild("Punch")
-                if punch then
-                    punch.Parent = player.Character
-                    if punch:FindFirstChild("attackTime") then
-                        punch.attackTime.Value = 0
-                    end
-                end
-                task.wait(0.1)
-            end
-        end)
-        
-        task.spawn(function()
-            while _G.fastHitActive do
-                if not _G.fastHitActive then break end
-                
-                local player = game.Players.LocalPlayer
-                player.muscleEvent:FireServer("punch", "rightHand")
-                player.muscleEvent:FireServer("punch", "leftHand")
-                
-                local character = player.Character
-                if character then
-                    local punchTool = character:FindFirstChild("Punch")
-                    if punchTool then
-                        punchTool:Activate()
-                    end
-                end
-                task.wait(0)
-            end
-        end)
-    else
-        local character = game.Players.LocalPlayer.Character
-        local equipped = character:FindFirstChild("Punch")
-        if equipped then
-            equipped.Parent = game.Players.LocalPlayer.Backpack
-        end
-    end
-
-    end, "Auto Punch")
-
-autoEquipToolsFolder:AddSwitch("Fast Tools", function(Value)
-    _G.FastTools = Value
-    
-    local defaultSpeeds = {
-        {
-            "Punch",
-            "attackTime",
-            Value and 0 or 0.35
-        },
-        {
-            "Ground Slam",
-            "attackTime",
-            Value and 0 or 6
-        },
-        {
-            "Stomp",
-            "attackTime",
-            Value and 0 or 7
-        },
-        {
-            "Handstands",
-            "repTime",
-            Value and 0 or 1
-        },
-        {
-            "Pushups",
-            "repTime",
-            Value and 0 or 1
-        },
-        {
-            "Weight",
-            "repTime",
-            Value and 0 or 1
-        },
-        {
-            "Situps",
-            "repTime",
-            Value and 0 or 1
-        }
-    }
-    local player = game.Players.LocalPlayer
-    local backpack = player:WaitForChild("Backpack")
-    
-    for _, toolInfo in ipairs(defaultSpeeds) do
-        local tool = backpack:FindFirstChild(toolInfo[1])
-        if tool and tool:FindFirstChild(toolInfo[2]) then
-            tool[toolInfo[2]].Value = toolInfo[3]
-        end
-        
-        local equippedTool = player.Character and player.Character:FindFirstChild(toolInfo[1])
-        if equippedTool and equippedTool:FindFirstChild(toolInfo[2]) then
-            equippedTool[toolInfo[2]].Value = toolInfo[3]
-        end
-    end
-end, "Speed up all tools")
-
 local FarmingTab = window:AddTab("Rock")
 
 
@@ -462,7 +358,72 @@ local autoRockSwitch = FarmingTab:AddSwitch("Auto Rock", function(enabled)
     end
 end)
 
-local teleport = window:AddTab("teleportrock")
+-- [[ DAPAT GANITO ANG HITSURA NG CODE MO ]] --
+FarmingTab:AddSwitch("Auto Punch", function(Value)
+    _G.fastHitActive = Value
+    
+    if Value then
+        task.spawn(function()
+            while _G.fastHitActive do
+                if not _G.fastHitActive then break end
+                
+                local player = game.Players.LocalPlayer
+                local punch = player.Backpack:FindFirstChild("Punch") or (player.Character and player.Character:FindFirstChild("Punch"))
+                
+                if punch then
+                    if punch.Parent == player.Backpack then
+                        punch.Parent = player.Character
+                    end
+                    player.muscleEvent:FireServer("punch", "rightHand")
+                    player.muscleEvent:FireServer("punch", "leftHand")
+                    punch:Activate()
+                end
+                task.wait(0.05)
+            end
+        end)
+    else
+        local char = game.Players.LocalPlayer.Character
+        if char and char:FindFirstChild("Punch") then
+            char.Punch.Parent = game.Players.LocalPlayer.Backpack
+        end
+    end
+end)
+
+-- [[ INILIPAT SA FarmingTab PARA LUMITAW SA ROCK TAB ]] --
+FarmingTab:AddSwitch("Fast Tools", function(Value)
+    _G.FastTools = Value
+    
+    local defaultSpeeds = {
+        {"Punch", "attackTime", Value and 0 or 0.35},
+        {"Ground Slam", "attackTime", Value and 0 or 6},
+        {"Stomp", "attackTime", Value and 0 or 7},
+        {"Handstands", "repTime", Value and 0 or 1},
+        {"Pushups", "repTime", Value and 0 or 1},
+        {"Weight", "repTime", Value and 0 or 1},
+        {"Situps", "repTime", Value and 0 or 1}
+    }
+    
+    local player = game.Players.LocalPlayer
+    local backpack = player:WaitForChild("Backpack")
+    
+    for _, toolInfo in ipairs(defaultSpeeds) do
+        local toolName, attrName, speedVal = toolInfo[1], toolInfo[2], toolInfo[3]
+        
+        -- Apply sa Backpack
+        local tool = backpack:FindFirstChild(toolName)
+        if tool and tool:FindFirstChild(attrName) then
+            tool[attrName].Value = speedVal
+        end
+        
+        -- Apply sa Character (kung suot na ang tool)
+        local equippedTool = player.Character and player.Character:FindFirstChild(toolName)
+        if equippedTool and equippedTool:FindFirstChild(attrName) then
+            equippedTool[attrName].Value = speedVal
+        end
+    end
+end)
+
+local teleport = window:AddTab("Teleport")
 
 teleport:AddButton("Spawn", function()
     local player = game.Players.LocalPlayer
