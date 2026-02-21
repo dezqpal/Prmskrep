@@ -1,4 +1,4 @@
--- [[ PRIMO HUB - ANIMATED TITLE & BACKGROUND ]] --
+-- [[ PRIMO HUB - 3 BUTTONS FINAL VERSION ]] --
 
 local player = game:GetService("Players").LocalPlayer
 local pgui = player:WaitForChild("PlayerGui")
@@ -13,11 +13,11 @@ ScreenGui.Parent = pgui
 ScreenGui.ResetOnSpawn = false
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
--- 3. MAIN WINDOW
+-- 3. MAIN WINDOW (Height adjusted for 3 buttons)
 local MainFrame = Instance.new("Frame")
 MainFrame.Name = "MainFrame"
-MainFrame.Size = UDim2.new(0, 320, 0, 280)
-MainFrame.Position = UDim2.new(0.5, -160, 0.5, -140)
+MainFrame.Size = UDim2.new(0, 320, 0, 330) 
+MainFrame.Position = UDim2.new(0.5, -160, 0.5, -165)
 MainFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45) 
 MainFrame.Active = true
 MainFrame.Draggable = true
@@ -31,7 +31,7 @@ Stroke.Thickness = 2
 Stroke.Color = Color3.fromRGB(255, 255, 255) 
 Stroke.Transparency = 0.5
 
--- 4. SNOW/PARTICLE EFFECT (IBINALIK KO NA ITO)
+-- 4. SNOW/PARTICLE EFFECT
 local function CreateParticle()
     local p = Instance.new("Frame")
     p.Size = UDim2.new(0, 2, 0, 2)
@@ -96,7 +96,7 @@ KeyBox.Font = Enum.Font.Gotham
 KeyBox.Parent = MainFrame
 Instance.new("UICorner", KeyBox).CornerRadius = UDim.new(0, 10)
 
--- 7. BUTTONS
+-- 7. BUTTONS (3 Buttons Setup)
 local function CreateButton(pos, text, color)
     local btn = Instance.new("TextButton")
     btn.Size = UDim2.new(0.85, 0, 0, 40)
@@ -113,15 +113,29 @@ end
 
 local MainBtn = CreateButton(UDim2.new(0.075, 0, 0, 130), "Main Farm", Color3.fromRGB(80, 80, 80))
 local FarmBtn = CreateButton(UDim2.new(0.075, 0, 0, 180), "Pack Farm", Color3.fromRGB(110, 110, 110))
+local TradeBtn = CreateButton(UDim2.new(0.075, 0, 0, 230), "Auto Trade", Color3.fromRGB(140, 140, 140))
 
--- 8. EXECUTION LOGIC
+-- 8. FOOTER
+local Footer = Instance.new("TextLabel")
+Footer.Size = UDim2.new(1, 0, 0, 30)
+Footer.Position = UDim2.new(0, 0, 1, -25)
+Footer.BackgroundTransparency = 1
+Footer.Text = "Made By Primo"
+Footer.TextColor3 = Color3.fromRGB(200, 200, 200)
+Footer.Font = Enum.Font.Gotham
+Footer.Parent = MainFrame
+
+-- 9. EXECUTION LOGIC
 local function CheckAndRun(scriptType)
     if KeyBox.Text == MySecretKey then
         MainFrame.Visible = false 
         if scriptType == "Main" then
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/dezqpal/Primo/refs/heads/main/PRMObfuscated.lua"))()
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/dezqpal/Primo/refs/heads/main/Prmkeysystem.lua"))()
         elseif scriptType == "Farm" then
             loadstring(game:HttpGet("https://raw.githubusercontent.com/dezqpal/Primo/refs/heads/main/v2Obsfucator.lua"))()
+        elseif scriptType == "Trade" then
+            -- Auto Trade Script Fixed URL
+            loadstring(game:HttpGet("https://raw.githubusercontent.com/dezqpal/Primo/refs/heads/main/CeyyOBFUSCATED.LUA"))()
         end
         task.wait(1)
         ScreenGui:Destroy()
@@ -135,3 +149,4 @@ end
 
 MainBtn.MouseButton1Click:Connect(function() CheckAndRun("Main") end)
 FarmBtn.MouseButton1Click:Connect(function() CheckAndRun("Farm") end)
+TradeBtn.MouseButton1Click:Connect(function() CheckAndRun("Trade") end)
