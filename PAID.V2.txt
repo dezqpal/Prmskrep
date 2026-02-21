@@ -1,0 +1,2771 @@
+
+local v13 =  loadstring(game:HttpGet("https://raw.githubusercontent.com/BASTOSaKO/Privatezz/refs/heads/main/Sbhshsh", true))()
+local u14 = 'Zyroo_AutoKiller.txt'
+
+getgenv().AutoKiller = false
+
+if isfile(u14) then
+    getgenv().AutoKiller = readfile(u14) == 'true'
+end
+
+local _ZyrooPrivate = v13:AddWindow(' Primo | Private Script V2', {
+    main_color = Color3.fromRGB(138, 43, 226),
+    min_size = Vector2.new(564, 680),
+    can_resize = true,
+})
+local _PacksFarm = _ZyrooPrivate:AddTab('Packs Farm')
+local _STRENGTH = _PacksFarm:AddLabel('STRENGTH:')
+
+_STRENGTH.TextSize = 17
+
+local function u23(p18)
+    local v19 = tostring(p18)
+    local v20 = 0
+    local v21 = ''
+
+    for v22 = #v19, 1, -1 do
+        v20 = v20 + 1
+        v21 = v19:sub(v22, v22) .. v21
+
+        if v20 % 3 == 0 then
+            if v22 > 1 then
+                v21 = ',' .. v21
+            end
+        end
+    end
+
+    return v21
+end
+
+task.spawn(function()
+    local _Strength = game.Players.LocalPlayer.leaderstats:WaitForChild('Strength')
+
+    while true do
+        _STRENGTH.Text = 'Strength: ' .. u23(_Strength.Value)
+
+        task.wait(0.05)
+    end
+end)
+
+local _REBIRTHS = _PacksFarm:AddLabel('REBIRTHS:')
+
+_REBIRTHS.TextSize = 17
+
+local function u31(p26)
+    local v27 = tostring(p26)
+    local v28 = 0
+    local v29 = ''
+
+    for v30 = #v27, 1, -1 do
+        v28 = v28 + 1
+        v29 = v27:sub(v30, v30) .. v29
+
+        if v28 % 3 == 0 then
+            if v30 > 1 then
+                v29 = ',' .. v29
+            end
+        end
+    end
+
+    return v29
+end
+
+task.spawn(function()
+    local _Rebirths = game.Players.LocalPlayer.leaderstats:WaitForChild('Rebirths')
+
+    while true do
+        _REBIRTHS.Text = 'Rebirths: ' .. u31(_Rebirths.Value)
+
+        task.wait(0.05)
+    end
+end)
+
+_PacksFarm:AddLabel('FAST REBIRTH').TextSize = 20
+
+local _LocalPlayer2 = game.Players.LocalPlayer
+local v34 = _LocalPlayer2
+local u35 = _LocalPlayer2.WaitForChild(v34, 'muscleEvent')
+local _ReplicatedStorage = game:GetService('ReplicatedStorage')
+local _VirtualInputManager = game:GetService('VirtualInputManager')
+local _UserInputService = game:GetService('UserInputService')
+local u39 = false
+local u40 = true
+local u41 = 0
+
+_PacksFarm:AddTextBox('Rebirth Target', function(p42)
+    u41 = tonumber(p42) or 0
+end)
+
+local u43 = 30
+
+local function u46()
+    local _Stats = game:GetService('Stats')
+    local _PerformanceStats = _Stats:FindFirstChild('PerformanceStats')
+
+    if _PerformanceStats then
+        _PerformanceStats = _Stats.PerformanceStats:FindFirstChild('Ping')
+    end
+
+    return _PerformanceStats and _PerformanceStats:GetValue() or 0
+end
+local function u47()
+    _VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.E, false, game)
+    task.wait(0.025)
+    _VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.E, false, game)
+end
+local function u49()
+    while u39 do
+        local v48 = tick()
+
+        while tick() - v48 < 0.75 and u39 do
+            for _ = 1, u43 do
+                u35:FireServer('rep')
+            end
+
+            u47()
+            task.wait(0.01)
+        end
+
+        task.wait(0.1)
+    end
+end
+local function u58()
+    local v50, v51, v52 = pairs(_LocalPlayer2.petsFolder:GetChildren())
+
+    while true do
+        local v53
+
+        v52, v53 = v50(v51, v52)
+
+        if v52 == nil then
+            break
+        end
+        if v53:IsA('Folder') then
+            local v54, v55, v56 = pairs(v53:GetChildren())
+
+            while true do
+                local v57
+
+                v56, v57 = v54(v55, v56)
+
+                if v56 == nil then
+                    break
+                end
+
+                _ReplicatedStorage.rEvents.equipPetEvent:FireServer('unequipPet', v57)
+            end
+        end
+    end
+
+    task.wait(0.1)
+end
+local function u66(p59, p60)
+    u58()
+    task.wait(0.01)
+
+    local v61, v62, v63 = pairs(_LocalPlayer2.petsFolder.Unique:GetChildren())
+    local v64 = 0
+
+    while true do
+        local v65
+
+        v63, v65 = v61(v62, v63)
+
+        if v63 == nil then
+            break
+        end
+        if v65.Name == p59 then
+            _ReplicatedStorage.rEvents.equipPetEvent:FireServer('equipPet', v65)
+
+            v64 = v64 + 1
+
+            if p60 and p60 <= v64 then
+                break
+            end
+        end
+    end
+end
+local function u71(p67, p68)
+    local v69 = _LocalPlayer2.Character or _LocalPlayer2.CharacterAdded:Wait()
+    local _HumanoidRootPart = v69:WaitForChild('HumanoidRootPart', 5)
+
+    if _HumanoidRootPart and v69:WaitForChild('Humanoid', 5) then
+        _HumanoidRootPart.CFrame = p68
+
+        task.wait(0.5)
+
+        for _ = 1, 3 do
+            u35:FireServer('start', p67)
+            u47()
+            task.wait(0.4)
+        end
+    end
+end
+local function u76()
+    u71('Pull Up', CFrame.new(-8666, 34, 2070))
+
+    while u39 do
+        local _Value = _LocalPlayer2.leaderstats.Rebirths.Value
+
+        if u41 > 0 and u41 <= _Value then
+            u35:FireServer('stop')
+            task.wait(0.2)
+            u66('Swift Samurai')
+            task.wait(0.2)
+            u71('Pull Up', CFrame.new(-8666, 34, 2070))
+            game.StarterGui:SetCore('SendNotification', {
+                Title = 'Zyroo',
+                Text = 'Reached target: ' .. _Value .. ', now grinding Pull-Ups',
+                Duration = 6,
+            })
+
+            while u39 do
+                if u46() >= 550 then
+                    task.wait(1)
+                else
+                    for _ = 1, _LocalPlayer2.MembershipType == Enum.MembershipType.Premium and 8 or 14 do
+                        u35:FireServer('rep')
+                        u47()
+                    end
+
+                    task.wait(0.01)
+                end
+            end
+
+            break
+        end
+
+        u66('Swift Samurai')
+        task.wait(0.3)
+
+        local v73 = 5000 + _Value * 2550
+
+        while u39 and _LocalPlayer2.leaderstats.Strength.Value < v73 do
+            for _ = 1, _LocalPlayer2.MembershipType == Enum.MembershipType.Premium and 8 or 14 do
+                u35:FireServer('rep')
+            end
+
+            task.wait(0.01)
+        end
+
+        if v73 <= _LocalPlayer2.leaderstats.Strength.Value then
+            local v74 = u41 - _Value
+
+            if u41 ~= 0 then
+                if v74 >= 16 then
+                    u66('Tribal Overlord', 8)
+                elseif v74 >= 14 then
+                    u66('Tribal Overlord', 7)
+                elseif v74 >= 12 then
+                    u66('Tribal Overlord', 6)
+                elseif v74 >= 10 then
+                    u66('Tribal Overlord', 5)
+                elseif v74 >= 8 then
+                    u66('Tribal Overlord', 4)
+                elseif v74 >= 6 then
+                    u66('Tribal Overlord', 3)
+                elseif v74 >= 4 then
+                    u66('Tribal Overlord', 2)
+                elseif v74 >= 2 then
+                    u66('Tribal Overlord', 1)
+                else
+                    u58()
+                end
+            else
+                u66('Tribal Overlord')
+            end
+
+            task.wait(0.25)
+
+            local _Value2 = _LocalPlayer2.leaderstats.Rebirths.Value
+
+            repeat
+                _ReplicatedStorage.rEvents.rebirthRemote:InvokeServer('rebirthRequest')
+                task.wait(0.05)
+            until _Value2 < _LocalPlayer2.leaderstats.Rebirths.Value or not u39
+
+            task.wait(0.4)
+        end
+    end
+end
+
+_PacksFarm:AddSwitch('Fast Rebirth', function(p77)
+    u39 = p77
+
+    if p77 then
+        u40 = _UserInputService.MouseIconEnabled
+        _UserInputService.MouseIconEnabled = false
+
+        task.spawn(u49)
+        task.spawn(u76)
+    else
+        _UserInputService.MouseIconEnabled = u40
+    end
+end)
+
+_PacksFarm:AddLabel('FAST STRENGTH').TextSize = 20
+
+local _LocalPlayer3 = game.Players.LocalPlayer
+local v79 = _LocalPlayer3
+local u80 = _LocalPlayer3.WaitForChild(v79, 'muscleEvent')
+local u81 = false
+local u82 = 1
+
+local function u85()
+    local _Stats2 = game:GetService('Stats')
+    local _PerformanceStats2 = _Stats2:FindFirstChild('PerformanceStats')
+
+    if _PerformanceStats2 then
+        _PerformanceStats2 = _Stats2.PerformanceStats:FindFirstChild('Ping')
+    end
+
+    return _PerformanceStats2 and _PerformanceStats2:GetValue() or 0
+end
+
+_PacksFarm:AddTextBox('Rep Speed', function(p86)
+    local v87 = tonumber(p86)
+
+    if v87 and 0 < v87 then
+        u82 = math.floor(v87)
+    end
+end, {
+    placeholder = '1',
+})
+
+local function u89()
+    while u81 do
+        local v88 = tick()
+
+        while tick() - v88 < 0.75 and u81 do
+            for _ = 1, u82 do
+                u80:FireServer('rep')
+            end
+
+            task.wait()
+        end
+        while u81 and u85() >= 550 do
+            task.wait(1)
+        end
+    end
+end
+
+_PacksFarm:AddSwitch('Fast Rep', function(p90)
+    u81 = p90
+
+    if u81 then
+        task.spawn(u89)
+    else
+        print('')
+    end
+end)
+
+_PacksFarm:AddLabel('MISC').TextSize = 20
+
+local function u92()
+    local v91 = _LocalPlayer3.Character:FindFirstChild('Protein Egg') or _LocalPlayer3.Backpack:FindFirstChild('Protein Egg')
+
+    if v91 then
+        u80:FireServer('proteinEgg', v91)
+    end
+end
+
+local u93 = false
+
+task.spawn(function()
+    while true do
+        while u93 do
+            u92()
+            task.wait(3600)
+        end
+
+        task.wait(1)
+    end
+end)
+_PacksFarm:AddSwitch('Auto Eat Egg | 1Hour', function(p94)
+    u93 = p94
+
+    if p94 then
+        u92()
+    end
+end):Set(false)
+
+local function u96()
+    local v95 = _LocalPlayer3.Character:FindFirstChild('Protein Egg') or _LocalPlayer3.Backpack:FindFirstChild('Protein Egg')
+
+    if v95 then
+        u80:FireServer('proteinEgg', v95)
+    end
+end
+
+local u97 = false
+
+task.spawn(function()
+    while true do
+        while u97 do
+            u96()
+            task.wait(1800)
+        end
+
+        task.wait(1)
+    end
+end)
+_PacksFarm:AddSwitch('Auto Eat Egg | 30Mins', function(p98)
+    u97 = p98
+
+    if p98 then
+        u96()
+    end
+end):Set(false)
+_PacksFarm:AddSwitch('Hide Frames', function(p99)
+    local _ReplicatedStorage2 = game:GetService('ReplicatedStorage')
+    local v101, v102, v103 = pairs(_ReplicatedStorage2:GetChildren())
+
+    while true do
+        local v104
+
+        v103, v104 = v101(v102, v103)
+
+        if v103 == nil then
+            break
+        end
+        if v104.Name:match('Frame$') then
+            v104.Visible = not p99
+        end
+    end
+end)
+_PacksFarm:AddSwitch('Hide Pets', function(p105)
+    local _hidePets = game:GetService('Players').LocalPlayer:FindFirstChild('hidePets')
+
+    if _hidePets then
+        _hidePets.Value = not p105
+    else
+        warn('hidePets BoolValue not found!')
+    end
+end):Set(false)
+
+local u107 = false
+local u108 = nil
+
+_PacksFarm:AddSwitch('Lock Position', function(p109)
+    u107 = p109
+
+    if u107 then
+        local _LocalPlayer4 = game.Players.LocalPlayer
+        local _HumanoidRootPart2 = (_LocalPlayer4.Character or _LocalPlayer4.CharacterAdded:Wait()):WaitForChild('HumanoidRootPart')
+        local _Position = _HumanoidRootPart2.Position
+
+        u108 = coroutine.create(function()
+            while u107 do
+                _HumanoidRootPart2.Velocity = Vector3.new(0, 0, 0)
+                _HumanoidRootPart2.RotVelocity = Vector3.new(0, 0, 0)
+                _HumanoidRootPart2.CFrame = CFrame.new(_Position)
+
+                wait(0.05)
+            end
+        end)
+
+        coroutine.resume(u108)
+    end
+end):Set(false)
+
+_PacksFarm:AddLabel('Pets').TextSize = 20
+
+_PacksFarm:AddButton('Equip Swift Samurai', function()
+    u58()
+    u66('Swift Samurai')
+end)
+_PacksFarm:AddButton('Equip Tribal Overlord', function()
+    u58()
+    u66('Tribal Overlord')
+end)
+
+local _Farming = _ZyrooPrivate:AddTab('Farming')
+
+_Farming:AddLabel('FARMING TOOLS + JUNGLE ROCK').TextSize = 20
+
+local _LocalPlayer5 = game:GetService('Players').LocalPlayer
+local v115 = _LocalPlayer5
+local u116 = _LocalPlayer5.WaitForChild(v115, 'muscleEvent')
+local u117 = false
+local u118 = false
+local u119 = false
+local u120 = 10000000
+
+local function u126()
+    local _Character = _LocalPlayer5.Character
+    local _Backpack = _LocalPlayer5.Backpack
+    local v123
+
+    if _Character then
+        v123 = _Character:FindFirstChildOfClass('Humanoid')
+    else
+        v123 = _Character
+    end
+    if _Character and (_Backpack and v123) then
+        local _Punch = _Backpack:FindFirstChild('Punch')
+
+        if _Punch and not _Character:FindFirstChild('Punch') then
+            v123:EquipTool(_Punch)
+        end
+
+        local _Punch2 = _Character:FindFirstChild('Punch')
+
+        if _Punch2 and _Punch2:FindFirstChild('attackTime') then
+            _Punch2.attackTime.Value = 0.05
+
+            u116:FireServer('punch', 'rightHand')
+            u116:FireServer('punch', 'leftHand')
+            _Punch2:Activate()
+        end
+    end
+end
+local function u133()
+    local _Character2 = _LocalPlayer5.Character
+
+    if u120 <= _LocalPlayer5.Durability.Value then
+        local v128, v129, v130 = pairs(workspace.machinesFolder:GetDescendants())
+
+        while true do
+            local v131
+
+            v130, v131 = v128(v129, v130)
+
+            if v130 == nil then
+                break
+            end
+            if v131.Name == 'neededDurability' and v131.Value == u120 then
+                local _Rock = v131.Parent:FindFirstChild('Rock')
+
+                if _Rock and (_Character2 and (_Character2:FindFirstChild('RightHand') and _Character2:FindFirstChild('LeftHand'))) then
+                    firetouchinterest(_Rock, _Character2.RightHand, 0)
+                    firetouchinterest(_Rock, _Character2.RightHand, 1)
+                    firetouchinterest(_Rock, _Character2.LeftHand, 0)
+                    firetouchinterest(_Rock, _Character2.LeftHand, 1)
+                    u126()
+                end
+            end
+        end
+    end
+end
+local function u139(p134)
+    local v135 = _LocalPlayer5.Character or _LocalPlayer5.CharacterAdded:Wait()
+    local _Humanoid = v135:FindFirstChildOfClass('Humanoid')
+    local _Backpack2 = _LocalPlayer5.Backpack
+
+    if not v135:FindFirstChild(p134) then
+        local v138 = _Backpack2:FindFirstChild(p134)
+
+        if v138 and _Humanoid then
+            _Humanoid:EquipTool(v138)
+        end
+    end
+
+    u116:FireServer('rep')
+end
+
+task.spawn(function()
+    while true do
+        if u117 then
+            u139('Pushups')
+            u133()
+        end
+        if u118 then
+            u139('Situps')
+            u133()
+        end
+        if u119 then
+            u139('Handstands')
+            u133()
+        end
+
+        task.wait(1e-6)
+    end
+end)
+_Farming:AddSwitch('Pushups + Jungle Rock', function(p140)
+    u117 = p140
+end, {Weight = 1})
+_Farming:AddSwitch('Situps + Jungle Rock', function(p141)
+    u118 = p141
+end, {Weight = 2})
+_Farming:AddSwitch('Handstands + Jungle Rock', function(p142)
+    u119 = p142
+end, {Weight = 3})
+
+_Farming:AddLabel('GYM WORKOUTS').TextSize = 20
+
+local _VirtualInputManager2 = game:GetService('VirtualInputManager')
+local _LocalPlayer6 = game:GetService('Players').LocalPlayer
+
+local function u145()
+    _VirtualInputManager2:SendKeyEvent(true, 'E', false, game)
+    task.wait(0.1)
+    _VirtualInputManager2:SendKeyEvent(false, 'E', false, game)
+end
+local function u146()
+    while getgenv().working do
+        _LocalPlayer6.muscleEvent:FireServer('rep')
+        task.wait()
+    end
+end
+local function u149(_, p147)
+    local _Character3 = _LocalPlayer6.Character
+
+    if _Character3 and _Character3:FindFirstChild('HumanoidRootPart') then
+        _Character3.HumanoidRootPart.CFrame = p147
+
+        task.wait(0.1)
+        u145()
+        task.spawn(u146)
+    end
+end
+
+_Farming:AddSwitch('Jungle Bench Press', function(p150)
+    if getgenv().working and not p150 then
+        getgenv().working = false
+    else
+        getgenv().working = p150
+
+        if p150 then
+            u149('Bench Press', CFrame.new(-8173, 64, 1898))
+        end
+    end
+end)
+_Farming:AddSwitch('Jungle Squat', function(p151)
+    if getgenv().working and not p151 then
+        getgenv().working = false
+    else
+        getgenv().working = p151
+
+        if p151 then
+            u149('Squat', CFrame.new(-8352, 34, 2878))
+        end
+    end
+end)
+_Farming:AddSwitch('Jungle Pull Ups', function(p152)
+    if getgenv().working and not p152 then
+        getgenv().working = false
+    else
+        getgenv().working = p152
+
+        if p152 then
+            u149('Pull Up', CFrame.new(-8666, 34, 2070))
+        end
+    end
+end)
+_Farming:AddSwitch('Jungle Boulder', function(p153)
+    if getgenv().working and not p153 then
+        getgenv().working = false
+    else
+        getgenv().working = p153
+
+        if p153 then
+            u149('Boulder', CFrame.new(-8621, 34, 2684))
+        end
+    end
+end)
+
+local _RockV1 = _ZyrooPrivate:AddTab('Rock V1')
+local v155 = _RockV1
+
+_RockV1.AddLabel(v155, 'FAST GLITCH (NoN Teleport to Rock)').TextSize = 20
+
+function gettool()
+    local v156, v157, v158 = pairs(game.Players.LocalPlayer.Backpack:GetChildren())
+
+    while true do
+        local v159
+
+        v158, v159 = v156(v157, v158)
+
+        if v158 == nil then
+            break
+        end
+        if v159.Name == 'Punch' and (game.Players.LocalPlayer.Character:FindFirstChild('Humanoid') and game.Players.LocalPlayer.Character:FindFirstChild('Punch') == nil) then
+            game.Players.LocalPlayer.Character.Humanoid:EquipTool(v159)
+        end
+    end
+
+    for _ = 1, 5 do
+        game:GetService('Players').LocalPlayer.muscleEvent:FireServer('punch', 'leftHand')
+        game:GetService('Players').LocalPlayer.muscleEvent:FireServer('punch', 'rightHand')
+    end
+end
+
+local function v167(p160, p161)
+    _RockV1:AddSwitch(p160, function(p162)
+        selectrock = p160
+        getgenv().autoFarm = p162
+
+        task.spawn(function()
+            while getgenv().autoFarm do
+                task.wait(0)
+
+                if not getgenv().autoFarm then
+                    break
+                end
+                if p161 <= game:GetService('Players').LocalPlayer.Durability.Value then
+                    local v163, v164, v165 = pairs(game:GetService('Workspace').machinesFolder:GetDescendants())
+
+                    while true do
+                        local v166
+
+                        v165, v166 = v163(v164, v165)
+
+                        if v165 == nil then
+                            break
+                        end
+                        if v166.Name == 'neededDurability' and v166.Value == p161 and (game.Players.LocalPlayer.Character:FindFirstChild('LeftHand') and game.Players.LocalPlayer.Character:FindFirstChild('RightHand')) then
+                            for _ = 1, 3 do
+                                firetouchinterest(v166.Parent.Rock, game.Players.LocalPlayer.Character.RightHand, 0)
+                                firetouchinterest(v166.Parent.Rock, game.Players.LocalPlayer.Character.RightHand, 1)
+                                firetouchinterest(v166.Parent.Rock, game.Players.LocalPlayer.Character.LeftHand, 0)
+                                firetouchinterest(v166.Parent.Rock, game.Players.LocalPlayer.Character.LeftHand, 1)
+                            end
+
+                            gettool()
+                        end
+                    end
+                end
+            end
+        end)
+    end)
+end
+
+v167('Jungle Rock', 10000000)
+v167('Muscle King Rock', 5000000)
+v167('Legend Rock', 1000000)
+v167('Eternal Rock', 750000)
+v167('Mythical Rock', 400000)
+v167('Frozen Rock', 150000)
+v167('Golden Rock', 5000)
+v167('Starter Rock', 100)
+v167('Tiny Rock', 0)
+
+local _RockV2 = _ZyrooPrivate:AddTab('Rock V2')
+
+_RockV2:AddLabel('FAST GLITCH (Teleport to Rock)').TextSize = 20
+
+local _Players = game:GetService('Players')
+
+game:GetService('Workspace')
+
+local _RunService = game:GetService('RunService')
+local _LocalPlayer7 = _Players.LocalPlayer
+local v172 = _LocalPlayer7
+local u173 = _LocalPlayer7.WaitForChild(v172, 'muscleEvent')
+local u174 = {
+    North = Vector3.new(0, 0, -1),
+    South = Vector3.new(0, 0, 1),
+    East = Vector3.new(1, 0, 0),
+    West = Vector3.new(-1, 0, 0),
+}
+
+local function u179(p175)
+    _G.lockRunning = true
+    _G.LockedCFrame = p175
+
+    if _G.lockConnection then
+        _G.lockConnection:Disconnect()
+    end
+
+    _G.lockConnection = _RunService.Heartbeat:Connect(function()
+        local _Character4 = _LocalPlayer7.Character
+
+        if _Character4 and _G.lockRunning then
+            local _HumanoidRootPart3 = _Character4:FindFirstChild('HumanoidRootPart')
+            local _Humanoid2 = _Character4:FindFirstChild('Humanoid')
+
+            if _HumanoidRootPart3 and _Humanoid2 then
+                _HumanoidRootPart3.CFrame = _G.LockedCFrame
+                _HumanoidRootPart3.Velocity = Vector3.zero
+                _HumanoidRootPart3.RotVelocity = Vector3.zero
+                _Humanoid2.PlatformStand = true
+            end
+        end
+    end)
+end
+local function u181()
+    _G.lockRunning = false
+
+    if _G.lockConnection then
+        _G.lockConnection:Disconnect()
+    end
+
+    local _Character5 = _LocalPlayer7.Character
+
+    if _Character5 then
+        _Character5 = _LocalPlayer7.Character:FindFirstChild('Humanoid')
+    end
+    if _Character5 then
+        _Character5.PlatformStand = false
+    end
+end
+
+_LocalPlayer7.CharacterAdded:Connect(function(p182)
+    task.defer(function()
+        if _G.lockRunning and _G.LockedCFrame then
+            p182:WaitForChild('HumanoidRootPart').CFrame = _G.LockedCFrame
+
+            u179(_G.LockedCFrame)
+        end
+    end)
+end)
+
+local function u191(p183, p184, p185, p186)
+    _G[p183] = true
+
+    task.spawn(function()
+        while _G[p183] do
+            if _LocalPlayer7:FindFirstChild('Durability') and p184 <= _LocalPlayer7.Durability.Value then
+                local v187 = u174[p186] or Vector3.new(0, 0, -1)
+                local v188 = CFrame.new(p185.Position, p185.Position + v187)
+                local _Character6 = _LocalPlayer7.Character
+
+                if _Character6 and _Character6:FindFirstChild('HumanoidRootPart') then
+                    _Character6.HumanoidRootPart.CFrame = v188
+
+                    u179(v188)
+                end
+
+                local _Punch3 = _LocalPlayer7.Backpack:FindFirstChild('Punch')
+
+                if not _Punch3 then
+                    if _Character6 then
+                        _Punch3 = _Character6:FindFirstChild('Punch')
+                    else
+                        _Punch3 = _Character6
+                    end
+                end
+                if _Punch3 and (_Character6 and _Character6:FindFirstChild('Humanoid')) then
+                    _Character6.Humanoid:EquipTool(_Punch3)
+
+                    if _Punch3:FindFirstChild('attackTime') then
+                        _Punch3.attackTime.Value = 0
+                    end
+
+                    for _ = 1, 10 do
+                        u173:FireServer('punch', 'leftHand')
+                        u173:FireServer('punch', 'rightHand')
+                        _Punch3:Activate()
+                    end
+                end
+            end
+
+            task.wait(0.07)
+        end
+
+        u181()
+    end)
+end
+
+local v192 = {
+    {
+        name = 'Jungle Rock',
+        key = 'Glitch_Jungle',
+        dur = 10000000,
+        pos = Vector3.new(-7706.23, 4.51, 2918.94),
+        face = 'East',
+    },
+    {
+        name = 'Muscle King Rock',
+        key = 'Glitch_MuscleKing',
+        dur = 5000000,
+        pos = Vector3.new(-9040.84, 6.9, -6057.31),
+        face = 'East',
+    },
+    {
+        name = 'Legend Rock',
+        key = 'Glitch_Legend',
+        dur = 1000000,
+        pos = Vector3.new(4141.13, 989.23, -4029.81),
+        face = 'North',
+    },
+    {
+        name = 'Eternal Rock',
+        key = 'Glitch_Eternal',
+        dur = 750000,
+        pos = Vector3.new(-7223.26, 5.07, -1259.91),
+        face = 'West',
+    },
+    {
+        name = 'Mythical Rock',
+        key = 'Glitch_Mythical',
+        dur = 400000,
+        pos = Vector3.new(2224.73, 5.03, 1251.95),
+        face = 'West',
+    },
+    {
+        name = 'Frost Rock',
+        key = 'Glitch_Frost',
+        dur = 150000,
+        pos = Vector3.new(-2590.58, 5.03, -241.71),
+        face = 'East',
+    },
+    {
+        name = 'Golden Rock',
+        key = 'Glitch_Golden',
+        dur = 5000,
+        pos = Vector3.new(342.33, 5.12, -590.91),
+        face = 'West',
+    },
+    {
+        name = 'Starter Island',
+        key = 'Glitch_Starter',
+        dur = 100,
+        pos = Vector3.new(182.07, 5.03, -151.99),
+        face = 'West',
+    },
+    {
+        name = 'Tiny Rock',
+        key = 'Glitch_Tiny',
+        dur = 0,
+        pos = Vector3.new(18.27, 5.23, 2093.81),
+        face = 'South',
+    },
+}
+local v193, v194, v195 = ipairs(v192)
+local u196 = _LocalPlayer3
+local u197 = u173
+local u198 = u66
+local u199 = u58
+
+while true do
+    local u200
+
+    v195, u200 = v193(v194, v195)
+
+    if v195 == nil then
+        break
+    end
+
+    _RockV2:AddSwitch(u200.name, function(p201)
+        _G[u200.key] = p201
+
+        if p201 then
+            u191(u200.key, u200.dur, CFrame.new(u200.pos), u200.face)
+        end
+    end)
+end
+
+local _Players2 = game:GetService('Players')
+local _RunService2 = game:GetService('RunService')
+local _LocalPlayer8 = _Players2.LocalPlayer
+local _Killer = _ZyrooPrivate:AddTab('Killer')
+
+_Killer:AddLabel('THINGS')
+_Killer:AddButton('Equip Wild Wizard', function()
+    u199()
+    u198('Wild Wizard')
+end)
+_Killer:AddButton('Equip Mighty Monster', function()
+    u199()
+    u198('Mighty Monster')
+end)
+_Killer:AddButton('Remove Attack Animations', function()
+    local u206 = {
+        ['rbxassetid://3638729053'] = true,
+        ['rbxassetid://3638767427'] = true,
+    }
+
+    local function v224()
+        local function u215(p207)
+            if p207 and (p207.Name == 'Punch' or (p207.Name:match('Attack') or p207.Name:match('Right'))) and not p207:GetAttribute('ActivatedOverride') then
+                p207:SetAttribute('ActivatedOverride', true)
+
+                _G.ToolConnections[p207] = p207.Activated:Connect(function()
+                    task.wait(0.05)
+
+                    local _Character7 = _LocalPlayer8.Character
+
+                    if _Character7 then
+                        _Character7 = _LocalPlayer8.Character:FindFirstChild('Humanoid')
+                    end
+                    if _Character7 then
+                        local v209, v210, v211 = pairs(_Character7:GetPlayingAnimationTracks())
+
+                        while true do
+                            local v212
+
+                            v211, v212 = v209(v210, v211)
+
+                            if v211 == nil then
+                                break
+                            end
+
+                            local _Animation = v212.Animation
+                            local v214 = v212.Name:lower()
+
+                            if _Animation and (u206[_Animation.AnimationId] or (v214:match('punch') or (v214:match('attack') or v214:match('right')))) then
+                                v212:Stop()
+                            end
+                        end
+                    end
+                end)
+            end
+        end
+        local function v222(p216)
+            local v217, v218, v219 = pairs(p216:GetChildren())
+
+            while true do
+                local v220
+
+                v219, v220 = v217(v218, v219)
+
+                if v219 == nil then
+                    break
+                end
+
+                u215(v220)
+            end
+
+            return p216.ChildAdded:Connect(function(p221)
+                task.wait(0.1)
+                u215(p221)
+            end)
+        end
+
+        _G.ToolConnections.Backpack = v222(_LocalPlayer8.Backpack)
+
+        local _Character8 = _LocalPlayer8.Character
+
+        if _Character8 then
+            _G.ToolConnections.Character = v222(_Character8)
+        end
+    end
+
+    (function()
+        local _Character9 = _LocalPlayer8.Character
+
+        if _Character9 then
+            _Character9 = _Character9:FindFirstChild('Humanoid')
+        end
+        if _Character9 then
+            local v226, v227, v228 = pairs(_Character9:GetPlayingAnimationTracks())
+
+            while true do
+                local v229
+
+                v228, v229 = v226(v227, v228)
+
+                if v228 == nil then
+                    break
+                end
+
+                local _Animation2 = v229.Animation
+                local v231 = v229.Name:lower()
+
+                if _Animation2 and (u206[_Animation2.AnimationId] or (v231:match('punch') or (v231:match('attack') or v231:match('right')))) then
+                    v229:Stop()
+                end
+            end
+
+            if not _G.AnimBlockConnection then
+                _G.AnimBlockConnection = _Character9.AnimationPlayed:Connect(function(p232)
+                    local _Animation3 = p232.Animation
+                    local v234 = p232.Name:lower()
+
+                    if _Animation3 and (u206[_Animation3.AnimationId] or (v234:match('punch') or (v234:match('attack') or v234:match('right')))) then
+                        p232:Stop()
+                    end
+                end)
+            end
+        else
+            updateStatus('Error: Humanoid not found')
+        end
+    end)()
+    v224()
+
+    if not _G.AnimMonitorConnection then
+        _G.AnimMonitorConnection = _RunService2.Heartbeat:Connect(function()
+            local _Character10 = _LocalPlayer8.Character
+
+            if _Character10 then
+                _Character10 = _Character10:FindFirstChild('Humanoid')
+            end
+            if _Character10 and tick() % 0.5 < 0.01 then
+                local v236, v237, v238 = pairs(_Character10:GetPlayingAnimationTracks())
+
+                while true do
+                    local v239
+
+                    v238, v239 = v236(v237, v238)
+
+                    if v238 == nil then
+                        break
+                    end
+
+                    local _Animation4 = v239.Animation
+
+                    name = v239.Name:lower()
+
+                    if _Animation4 and (u206[_Animation4.AnimationId] or (name:match('punch') or (name:match('attack') or name:match('right')))) then
+                        v239:Stop()
+                    end
+                end
+            end
+        end)
+    end
+
+    updateStatus('Attack animations removed')
+end)
+_Killer:AddSwitch('Fast Punch', function(p241)
+    _G.FastPunch = p241
+
+    if p241 then
+        spawn(function()
+            while _G.FastPunch do
+                local _LocalPlayer9 = game.Players.LocalPlayer
+                local _Character11 = _LocalPlayer9.Character
+
+                if _Character11 and not _Character11:FindFirstChild('Punch') then
+                    local _Punch4 = _LocalPlayer9.Backpack:FindFirstChild('Punch')
+
+                    if _Punch4 then
+                        if _Punch4:FindFirstChild('attackTime') then
+                            _Punch4.attackTime.Value = 0
+                        end
+
+                        _Character11.Humanoid:EquipTool(_Punch4)
+                    end
+                elseif _Character11 and _Character11:FindFirstChild('Punch') then
+                    local _Punch5 = _Character11:FindFirstChild('Punch')
+
+                    if _Punch5:FindFirstChild('attackTime') then
+                        _Punch5.attackTime.Value = 0
+                    end
+                end
+
+                wait(0.0001)
+            end
+        end)
+        spawn(function()
+            while _G.FastPunch do
+                local _LocalPlayer10 = game.Players.LocalPlayer
+
+                _LocalPlayer10.muscleEvent:FireServer('punch', 'rightHand')
+                _LocalPlayer10.muscleEvent:FireServer('punch', 'leftHand')
+
+                local _Character12 = _LocalPlayer10.Character
+                local v248 = _Character12 and _Character12:FindFirstChild('Punch')
+
+                if v248 then
+                    v248:Activate()
+                end
+
+                wait(0)
+            end
+        end)
+    else
+        local _Punch6 = game.Players.LocalPlayer.Character:FindFirstChild('Punch')
+
+        if _Punch6 then
+            if _Punch6:FindFirstChild('attackTime') then
+                _Punch6.attackTime.Value = 0.35
+            end
+
+            _Punch6.Parent = game.Players.LocalPlayer.Backpack
+        end
+
+        local _Punch7 = game.Players.LocalPlayer.Backpack:FindFirstChild('Punch')
+
+        if _Punch7 and _Punch7:FindFirstChild('attackTime') then
+            _Punch7.attackTime.Value = 0.35
+        end
+    end
+end)
+_Killer:AddLabel('KILL ALL PLAYERS')
+_Killer:AddSwitch('Auto Kill All Players', function()
+    local u251 = 'https://raw.githubusercontent.com/seth-pogi/-kill-alllllll/refs/heads/main/Code'
+    local v252, v253 = pcall(function()
+        return game:HttpGet(u251)
+    end)
+
+    if v252 and v253 then
+        loadstring(v253)()
+    else
+        warn('Failed to load Auto Kill All script')
+    end
+end)
+
+local _Players3 = game:GetService('Players')
+local _LocalPlayer11 = _Players3.LocalPlayer
+local _TeleportService = game:GetService('TeleportService')
+local _HttpService = game:GetService('HttpService')
+local _PlaceId = game.PlaceId
+local u259 = {}
+
+function updateFriendList()
+    u259 = {}
+
+    local v260 = _Players3
+    local v261, v262, v263 = ipairs(v260:GetPlayers())
+
+    while true do
+        local u264
+
+        v263, u264 = v261(v262, v263)
+
+        if v263 == nil then
+            break
+        end
+        if u264 ~= _LocalPlayer11 and pcall(function()
+            return _LocalPlayer11:IsFriendsWith(u264.UserId)
+        end) and _LocalPlayer11:IsFriendsWith(u264.UserId) then
+            u259[u264] = true
+        end
+    end
+end
+
+_Players3.PlayerAdded:Connect(function()
+    task.delay(2, updateFriendList)
+end)
+_Players3.PlayerRemoving:Connect(function(p265)
+    u259[p265] = nil
+end)
+task.spawn(function()
+    while true do
+        repeat
+            task.wait(5)
+        until getgenv().AutoKiller
+
+        updateFriendList()
+    end
+end)
+
+local u266 = nil
+
+function getTool()
+    local v267 = not (_LocalPlayer11.Character and _LocalPlayer11.Character:FindFirstChild('Punch')) and _LocalPlayer11:FindFirstChild('Backpack')
+
+    if v267 then
+        v267 = _LocalPlayer11.Backpack:FindFirstChild('Punch')
+    end
+
+    return v267
+end
+function startFastPunchLoop()
+    if u266 then
+        task.cancel(u266)
+    end
+
+    u266 = task.spawn(function()
+        while getgenv().AutoKiller do
+            local v268 = getTool()
+
+            if v268 then
+                if v268.Parent ~= _LocalPlayer11.Character then
+                    v268.Parent = _LocalPlayer11.Character
+                end
+
+                local _attackTime = v268:FindFirstChild('attackTime')
+
+                if _attackTime then
+                    _attackTime.Value = 0
+                end
+
+                v268:Activate()
+            end
+
+            task.wait(0.001)
+        end
+    end)
+end
+
+_LocalPlayer11.CharacterAdded:Connect(function()
+    task.wait(1)
+
+    if getgenv().AutoKiller then
+        repeat
+            task.wait(0.2)
+        until getTool() or not getgenv().AutoKiller
+
+        startFastPunchLoop()
+    end
+end)
+
+local _AutoKillAllAutoRejoin40sec = _Killer:AddSwitch('Auto Kill All (Auto Rejoin 40sec)', function(p270)
+    getgenv().AutoKiller = p270
+
+    writefile(u14, tostring(p270))
+
+    if p270 then
+        startFastPunchLoop()
+    elseif u266 then
+        task.cancel(u266)
+
+        u266 = nil
+    end
+end)
+
+task.defer(function()
+    pcall(function()
+        if _AutoKillAllAutoRejoin40sec.Set then
+            _AutoKillAllAutoRejoin40sec:Set(getgenv().AutoKiller)
+        elseif _AutoKillAllAutoRejoin40sec.Toggle then
+            _AutoKillAllAutoRejoin40sec:Toggle(getgenv().AutoKiller)
+        end
+    end)
+end)
+
+local function u286()
+    local v272 = nil
+    local v273 = {}
+    local v274 = {
+        18,
+        17,
+        19,
+        16,
+    }
+
+    while true do
+        local u275 = 'https://games.roblox.com/v1/games/' .. _PlaceId .. '/servers/Public?sortOrder=Desc&limit=100'
+
+        if v272 then
+            u275 = u275 .. '&cursor=' .. v272
+        end
+
+        local v276, v277 = pcall(function()
+            return _HttpService:JSONDecode(game:HttpGet(u275))
+        end)
+
+        if not (v276 and (v277 and v277.data)) then
+            break
+        end
+
+        local v278, v279, v280 = ipairs(v277.data)
+
+        while true do
+            local v281
+
+            v280, v281 = v278(v279, v280)
+
+            if v280 == nil then
+                break
+            end
+            if v281.playing < v281.maxPlayers and v281.id ~= game.JobId then
+                v273[v281.playing] = v273[v281.playing] or {}
+
+                table.insert(v273[v281.playing], v281.id)
+            end
+        end
+
+        v272 = v277.nextPageCursor
+
+        if not v272 then
+            break
+        end
+    end
+
+    local v282, v283, v284 = ipairs(v274)
+
+    while true do
+        local v285
+
+        v284, v285 = v282(v283, v284)
+
+        if v284 == nil then
+            break
+        end
+        if v273[v285] then
+            return v273[v285][1]
+        end
+    end
+
+    return nil
+end
+local function u288()
+    if getgenv().AutoKiller then
+        local v287 = u286()
+
+        if v287 then
+            _TeleportService:TeleportToPlaceInstance(_PlaceId, v287, _LocalPlayer11)
+        else
+            task.delay(5, u288)
+        end
+    end
+end
+
+task.spawn(function()
+    while true do
+        repeat
+            task.wait(30)
+        until getgenv().AutoKiller
+
+        u288()
+    end
+end)
+
+local function v291(p289)
+    local _Humanoid3 = p289:FindFirstChildOfClass('Humanoid')
+
+    if _Humanoid3 then
+        _Humanoid3.Died:Connect(function()
+            if getgenv().AutoKiller then
+                u288()
+            end
+        end)
+    end
+end
+
+if _LocalPlayer11.Character then
+    v291(_LocalPlayer11.Character)
+end
+
+_LocalPlayer11.CharacterAdded:Connect(v291)
+task.spawn(function()
+    while true do
+        repeat
+            task.wait(2)
+        until getgenv().AutoKiller
+
+        local v292 = _Players3
+        local v293, v294, v295 = ipairs(v292:GetPlayers())
+
+        while true do
+            local v296
+
+            v295, v296 = v293(v294, v295)
+
+            if v295 == nil then
+                break
+            end
+            if v296 ~= _LocalPlayer11 and v296.DisplayName == 'TPX_Zyro' then
+                u288()
+
+                return
+            end
+        end
+    end
+end)
+task.spawn(function()
+    while true do
+        repeat
+            task.wait(0.1)
+        until getgenv().AutoKiller
+
+        local _Backpack3 = _LocalPlayer11:FindFirstChild('Backpack')
+
+        if _Backpack3 then
+            _Backpack3 = _LocalPlayer11.Backpack:FindFirstChild('Punch')
+        end
+        if _Backpack3 and _LocalPlayer11.Character then
+            local _Humanoid4 = _LocalPlayer11.Character:FindFirstChildOfClass('Humanoid')
+
+            if _Humanoid4 and _Backpack3.Parent ~= _LocalPlayer11.Character then
+                _Humanoid4:EquipTool(_Backpack3)
+            end
+        end
+    end
+end)
+task.spawn(function()
+    while true do
+        repeat
+            task.wait(0.3)
+        until getgenv().AutoKiller
+
+        local _Character13 = _LocalPlayer11.Character
+
+        if _Character13 then
+            _Character13 = _LocalPlayer11.Character:FindFirstChildOfClass('Humanoid')
+        end
+        if _Character13 then
+            _Character13.Health = _Character13.MaxHealth
+        end
+    end
+end)
+task.spawn(function()
+    while true do
+        repeat
+            task.wait(0.25)
+        until getgenv().AutoKiller
+
+        local _Character14 = _LocalPlayer11.Character
+        local v301
+
+        if _Character14 then
+            v301 = _Character14:FindFirstChild('RightHand')
+        else
+            v301 = _Character14
+        end
+
+        local v302
+
+        if _Character14 then
+            v302 = _Character14:FindFirstChild('LeftHand')
+        else
+            v302 = _Character14
+        end
+        if _Character14 and (v301 and v302) then
+            local v303 = _Players3
+            local v304, v305, v306 = ipairs(v303:GetPlayers())
+
+            while true do
+                local v307
+
+                v306, v307 = v304(v305, v306)
+
+                if v306 == nil then
+                    break
+                end
+                if v307 ~= _LocalPlayer11 and not u259[v307] then
+                    local _Character15 = v307.Character
+
+                    if _Character15 then
+                        _Character15 = v307.Character:FindFirstChild('HumanoidRootPart')
+                    end
+                    if _Character15 then
+                        firetouchinterest(v301, _Character15, 1)
+                        firetouchinterest(v302, _Character15, 1)
+                        firetouchinterest(v301, _Character15, 0)
+                        firetouchinterest(v302, _Character15, 0)
+                    end
+                end
+            end
+        end
+    end
+end)
+task.spawn(function()
+    while true do
+        task.wait(0.1)
+
+        local _Character16 = _LocalPlayer11.Character
+
+        if _Character16 then
+            _Character16 = _Character16:FindFirstChild('HumanoidRootPart')
+        end
+        if getgenv().AutoKiller then
+            if _Character16 and not _Character16:FindFirstChild('AntiKB') then
+                local _BodyVelocity = Instance.new('BodyVelocity')
+
+                _BodyVelocity.Name = 'AntiKB'
+                _BodyVelocity.Velocity = Vector3.new(0, 0, 0)
+                _BodyVelocity.MaxForce = Vector3.new(0, 0, 0)
+                _BodyVelocity.P = 1250
+                _BodyVelocity.Parent = _Character16
+            end
+
+            local v311
+
+            if _Character16 then
+                v311 = _Character16:FindFirstChild('AntiKB')
+            else
+                v311 = _Character16
+            end
+            if v311 then
+                local _Velocity = _Character16.Velocity
+                local v313 = 50
+
+                if v313 < math.abs(_Velocity.X) or v313 < math.abs(_Velocity.Z) then
+                    v311.MaxForce = Vector3.new(100000, 0, 100000)
+                    v311.Velocity = Vector3.new(0, 0, 0)
+                else
+                    v311.MaxForce = Vector3.new(0, 0, 0)
+                end
+            end
+        elseif _Character16 and _Character16:FindFirstChild('AntiKB') then
+            _Character16.AntiKB:Destroy()
+        end
+    end
+end)
+_Killer:AddLabel('KILLING PLAYER')
+
+local _Players4 = game:GetService('Players')
+
+game:GetService('RunService')
+
+local _LocalPlayer12 = _Players4.LocalPlayer
+local _CurrentCamera = workspace.CurrentCamera
+local u317 = nil
+local u318 = {}
+local u319 = false
+local u320 = false
+local u321 = false
+
+local function u323(p322)
+    return p322.DisplayName .. ' | ' .. p322.Name
+end
+local function u325(p324)
+    if p324 then
+        p324 = p324:match('|%s*(.+)$')
+    end
+
+    return p324
+end
+
+local _SpyPlayerNone = _Killer:AddLabel('Spy Player: None')
+
+_SpyPlayerNone.TextColor3 = Color3.fromRGB(0, 170, 255)
+_SpyPlayerNone.TextSize = 17
+
+local _SelectPlayertoSpy = _Killer:AddDropdown('Select Player to Spy', function(p327)
+    local v328 = u325(p327)
+
+    if v328 then
+        u317 = v328
+        _SpyPlayerNone.Text = 'Spy Player: ' .. v328
+    end
+end)
+local _TargetedPlayersNone = _Killer:AddLabel('Targeted Players: None')
+
+_TargetedPlayersNone.TextColor3 = Color3.fromRGB(255, 50, 50)
+_TargetedPlayersNone.TextSize = 17
+
+local _SelectPlayertoAdd = _Killer:AddDropdown('Select Player to Add', function(p331)
+    local v332 = u325(p331)
+
+    if v332 and not table.find(u318, v332) then
+        table.insert(u318, v332)
+
+        _TargetedPlayersNone.Text = 'Targeted Players: ' .. table.concat(u318, ', ')
+    end
+end)
+
+_Killer:AddButton('Remove All Targets', function()
+    u318 = {}
+    _TargetedPlayersNone.Text = 'Targeted Players: None'
+end);
+(function()
+    local v334 = _Players4
+    local v335, v336, v337 = ipairs(v334:GetPlayers())
+
+    while true do
+        local v338
+
+        v337, v338 = v335(v336, v337)
+
+        if v337 == nil then
+            break
+        end
+        if v338 ~= _LocalPlayer12 then
+            local v339 = u323(v338)
+
+            _SelectPlayertoSpy:Add(v339)
+            _SelectPlayertoAdd:Add(v339)
+        end
+    end
+end)()
+_Players4.PlayerAdded:Connect(function(p340)
+    if p340 ~= _LocalPlayer12 then
+        local v341 = u323(p340)
+
+        _SelectPlayertoSpy:Add(v341)
+        _SelectPlayertoAdd:Add(v341)
+    end
+end)
+_Players4.PlayerRemoving:Connect(function(p342)
+    local v343 = u323(p342)
+
+    _SelectPlayertoSpy:Remove(v343)
+    _SelectPlayertoAdd:Remove(v343)
+
+    local v344 = table.find(u318, p342.Name)
+
+    if v344 then
+        table.remove(u318, v344)
+
+        if #u318 ~= 0 then
+            _TargetedPlayersNone.Text = 'Targeted Players: ' .. table.concat(u318, ', ')
+        else
+            _TargetedPlayersNone.Text = 'Targeted Players: None'
+        end
+    end
+end)
+_Killer:AddSwitch('Spy Player', function(p345)
+    u319 = p345;
+
+    (function()
+        if u319 then
+            task.spawn(function()
+                while u319 do
+                    local v346 = u317
+
+                    if v346 then
+                        v346 = _Players4:FindFirstChild(u317)
+                    end
+                    if v346 and v346.Character and v346.Character:FindFirstChild('Humanoid') then
+                        _CurrentCamera.CameraSubject = v346.Character.Humanoid
+                    end
+
+                    task.wait(0.1)
+                end
+            end)
+        else
+            local v347 = _CurrentCamera
+            local _Character17 = _LocalPlayer12.Character
+
+            if _Character17 then
+                _Character17 = _LocalPlayer12.Character:FindFirstChild('Humanoid')
+            end
+
+            v347.CameraSubject = _Character17
+        end
+    end)()
+end)
+_LocalPlayer12.CharacterAdded:Connect(function()
+    task.wait(1)
+
+    if u319 and u317 then
+        task.spawn(function()
+            while u319 do
+                local v349 = _Players4:FindFirstChild(u317)
+
+                if v349 and v349.Character and v349.Character:FindFirstChild('Humanoid') then
+                    _CurrentCamera.CameraSubject = v349.Character.Humanoid
+                end
+
+                task.wait(0.1)
+            end
+        end)
+    end
+end)
+_Killer:AddSwitch('Auto Kill Targeted Players', function(p350)
+    u320 = p350
+
+    while u320 do
+        local v351, v352, v353 = ipairs(u318)
+
+        while true do
+            local v354
+
+            v353, v354 = v351(v352, v353)
+
+            if v353 == nil then
+                break
+            end
+
+            local v355 = _Players4:FindFirstChild(v354)
+            local _Character18 = _LocalPlayer12.Character
+            local v357 = v355 and v355.Character
+
+            if v357 then
+                v357 = v355.Character:FindFirstChild('HumanoidRootPart')
+            end
+            if v357 and _Character18 then
+                local v358 = _Character18:FindFirstChild('RightHand') or _Character18:FindFirstChild('Right Arm')
+                local v359 = _Character18:FindFirstChild('LeftHand') or _Character18:FindFirstChild('Left Arm')
+
+                if v358 and v359 then
+                    firetouchinterest(v358, v357, 1)
+                    firetouchinterest(v359, v357, 1)
+                    firetouchinterest(v358, v357, 0)
+                    firetouchinterest(v359, v357, 0)
+                end
+            end
+        end
+
+        task.wait(0.05)
+    end
+end)
+_Killer:AddSwitch('Bring Targeted Players', function(p360)
+    u321 = p360
+
+    while u321 do
+        local _Character19 = _LocalPlayer12.Character
+
+        if _Character19 then
+            _Character19 = _Character19:FindFirstChild('RightHand') or _Character19:FindFirstChild('LeftHand')
+        end
+        if _Character19 then
+            _Character19 = _Character19.CFrame
+        end
+        if _Character19 then
+            local v362, v363, v364 = ipairs(u318)
+
+            while true do
+                local v365
+
+                v364, v365 = v362(v363, v364)
+
+                if v364 == nil then
+                    break
+                end
+
+                local v366 = _Players4:FindFirstChild(v365)
+                local v367 = v366 and v366.Character
+
+                if v367 then
+                    v367 = v366.Character:FindFirstChild('HumanoidRootPart')
+                end
+                if v367 then
+                    v367.CFrame = _Character19 + Vector3.new(0, 0, 0)
+                end
+            end
+        end
+
+        task.wait(0.5)
+    end
+end)
+
+local _Players5 = game:GetService('Players')
+local _LocalPlayer13 = _Players5.LocalPlayer
+local u370 = 25
+local u371 = nil
+local u372 = false
+local u373 = {}
+
+local function u377()
+    local _Character20 = _LocalPlayer13.Character
+    local _Backpack4 = _LocalPlayer13:FindFirstChild('Backpack')
+    local v376 = _Backpack4 and _Backpack4:FindFirstChild('Punch')
+
+    if not v376 then
+        if _Character20 then
+            v376 = _Character20:FindFirstChild('Punch')
+        else
+            v376 = _Character20
+        end
+    end
+    if v376 and v376.Parent ~= _Character20 then
+        v376.Parent = _Character20
+    end
+    if v376 and v376:FindFirstChild('attackTime') then
+        v376.attackTime.Value = 0
+    end
+end
+local function u380()
+    local _muscleEvent = _LocalPlayer13:FindFirstChild('muscleEvent')
+
+    if _muscleEvent then
+        _muscleEvent:FireServer('punch', 'rightHand')
+        _muscleEvent:FireServer('punch', 'leftHand')
+    end
+
+    local _Character21 = _LocalPlayer13.Character
+
+    if _Character21 then
+        _Character21 = _LocalPlayer13.Character:FindFirstChild('Punch')
+    end
+    if _Character21 then
+        _Character21:Activate()
+    end
+end
+local function u382(p381)
+    return u373[p381.UserId] == true
+end
+local function u388()
+    local v383 = _Players5
+    local v384, v385, v386 = ipairs(v383:GetPlayers())
+
+    while true do
+        local v387
+
+        v386, v387 = v384(v385, v386)
+
+        if v386 == nil then
+            break
+        end
+        if v387 ~= _LocalPlayer13 and _LocalPlayer13:IsFriendsWith(v387.UserId) then
+            u373[v387.UserId] = true
+        end
+    end
+end
+
+_Killer:AddTextBox('Kill Aura Radius', function(p389)
+    local v390 = tonumber(p389)
+
+    if v390 then
+        u370 = math.clamp(v390, 1, 150)
+
+        if u371 then
+            u371.Size = Vector3.new(u370 * 2, 0.1, u370 * 2)
+        end
+
+        updateStatus('Aura Radius set to ' .. u370)
+    end
+end)
+_Killer:AddSwitch('Matrix Kill Aura', function(p391)
+    u372 = p391
+
+    if p391 then
+        u388()
+
+        u371 = Instance.new('Part')
+        u371.Anchored = true
+        u371.CanCollide = false
+        u371.Transparency = 0.8
+        u371.Material = Enum.Material.ForceField
+        u371.Color = Color3.fromRGB(0, 0, 255)
+        u371.Size = Vector3.new(u370 * 2, 0.1, u370 * 2)
+        u371.Name = 'AuraVisual'
+        u371.Parent = workspace
+    end
+
+    task.spawn(function()
+        while u372 do
+            local _Character22 = _LocalPlayer13.Character
+            local v393
+
+            if _Character22 then
+                v393 = _Character22:FindFirstChild('HumanoidRootPart')
+            else
+                v393 = _Character22
+            end
+            if _Character22 then
+                _Character22 = _Character22:FindFirstChild('LeftHand')
+            end
+            if v393 and _Character22 then
+                u377()
+                u380()
+
+                if u371 then
+                    u371.Size = Vector3.new(u370 * 2, 0.1, u370 * 2)
+                    u371.CFrame = v393.CFrame * CFrame.new(0, -2.5, 0)
+                end
+
+                local v394 = _Players5
+                local v395, v396, v397 = ipairs(v394:GetPlayers())
+
+                while true do
+                    local v398
+
+                    v397, v398 = v395(v396, v397)
+
+                    if v397 == nil then
+                        break
+                    end
+                    if v398 ~= _LocalPlayer13 and (not u382(v398) and v398.Character) then
+                        local _HumanoidRootPart4 = v398.Character:FindFirstChild('HumanoidRootPart')
+
+                        if _HumanoidRootPart4 and (_HumanoidRootPart4.Position - v393.Position).Magnitude <= u370 then
+                            _HumanoidRootPart4.CFrame = _Character22.CFrame
+                        end
+                    end
+                end
+            end
+
+            task.wait(0.3)
+        end
+
+        if u371 then
+            u371:Destroy()
+
+            u371 = nil
+        end
+    end)
+    updateStatus('Matrix Kill Aura ' .. (p391 and 'ON' or 'OFF'))
+end)
+_LocalPlayer13.CharacterRemoving:Connect(function()
+    u372 = false
+
+    if u371 then
+        u371:Destroy()
+
+        u371 = nil
+    end
+
+    updateStatus('Character reset: Matrix Kill Aura stopped')
+end)
+_Players5.PlayerAdded:Connect(function(p400)
+    if _LocalPlayer13:IsFriendsWith(p400.UserId) then
+        u373[p400.UserId] = true
+    end
+end)
+_LocalPlayer13.CharacterAdded:Connect(function()
+    task.wait(1)
+    u388()
+end)
+
+local _MISC = _ZyrooPrivate:AddTab('MISC')
+
+_MISC:AddLabel('MISC')
+_MISC:AddButton('Unlock Auto Lift (Gamepass)', function()
+    local _gamepassIds = game:GetService('ReplicatedStorage'):WaitForChild('gamepassIds')
+    local _LocalPlayer14 = game:GetService('Players').LocalPlayer
+
+    if _LocalPlayer14 and _LocalPlayer14:FindFirstChild('ownedGamepasses') then
+        local v404, v405, v406 = pairs(_gamepassIds:GetChildren())
+
+        while true do
+            local v407
+
+            v406, v407 = v404(v405, v406)
+
+            if v406 == nil then
+                break
+            end
+
+            local _IntValue = Instance.new('IntValue')
+
+            _IntValue.Name = v407.Name
+            _IntValue.Value = v407.Value
+            _IntValue.Parent = _LocalPlayer14.ownedGamepasses
+        end
+
+        game:GetService('StarterGui'):SetCore('SendNotification', {
+            Title = 'Gamepass Unlocked',
+            Text = 'Auto Lift has been unlocked!',
+            Duration = 4,
+        })
+    end
+end)
+_MISC:AddButton('Anti Lag (Black Screen)', function()
+    local _LocalPlayer15 = game.Players.LocalPlayer
+    local _PlayerGui = _LocalPlayer15:WaitForChild('PlayerGui')
+    local _Lighting = game:GetService('Lighting')
+    local v412, v413, v414 = pairs(_PlayerGui:GetChildren())
+
+    while true do
+        local v415
+
+        v414, v415 = v412(v413, v414)
+
+        if v414 == nil then
+            break
+        end
+        if v415:IsA('ScreenGui') then
+            v415:Destroy()
+        end
+    end
+
+    (function()
+        local v416, v417, v418 = pairs(workspace:GetDescendants())
+
+        while true do
+            local v419
+
+            v418, v419 = v416(v417, v418)
+
+            if v418 == nil then
+                break
+            end
+            if v419:IsA('ParticleEmitter') then
+                v419:Destroy()
+            end
+        end
+    end)();
+    (function()
+        local v420, v421, v422 = pairs(workspace:GetDescendants())
+
+        while true do
+            local v423
+
+            v422, v423 = v420(v421, v422)
+
+            if v422 == nil then
+                break
+            end
+            if v423:IsA('PointLight') or (v423:IsA('SpotLight') or v423:IsA('SurfaceLight')) then
+                v423:Destroy()
+            end
+        end
+    end)();
+    (function()
+        local v424 = _Lighting
+        local v425, v426, v427 = pairs(v424:GetChildren())
+
+        while true do
+            local v428
+
+            v427, v428 = v425(v426, v427)
+
+            if v427 == nil then
+                break
+            end
+            if v428:IsA('Sky') then
+                v428:Destroy()
+            end
+        end
+
+        local _Sky = Instance.new('Sky')
+
+        _Sky.Name = 'DarkSky'
+        _Sky.SkyboxBk = 'rbxassetid://0'
+        _Sky.SkyboxDn = 'rbxassetid://0'
+        _Sky.SkyboxFt = 'rbxassetid://0'
+        _Sky.SkyboxLf = 'rbxassetid://0'
+        _Sky.SkyboxRt = 'rbxassetid://0'
+        _Sky.SkyboxUp = 'rbxassetid://0'
+        _Sky.Parent = _Lighting
+        _Lighting.Brightness = 0
+        _Lighting.ClockTime = 0
+        _Lighting.TimeOfDay = '00:00:00'
+        _Lighting.OutdoorAmbient = Color3.new(0, 0, 0)
+        _Lighting.Ambient = Color3.new(0, 0, 0)
+        _Lighting.FogColor = Color3.new(0, 0, 0)
+        _Lighting.FogEnd = 100
+
+        task.spawn(function()
+            while true do
+                wait(5)
+
+                if not _Lighting:FindFirstChild('DarkSky') then
+                    _Sky:Clone().Parent = _Lighting
+                end
+
+                _Lighting.Brightness = 0
+                _Lighting.ClockTime = 0
+                _Lighting.OutdoorAmbient = Color3.new(0, 0, 0)
+                _Lighting.Ambient = Color3.new(0, 0, 0)
+                _Lighting.FogColor = Color3.new(0, 0, 0)
+                _Lighting.FogEnd = 100
+            end
+        end)
+    end)()
+end)
+_MISC:AddButton('Less Lag', function()
+    local v430, v431, v432 = pairs(game:GetDescendants())
+
+    while true do
+        local v433
+
+        v432, v433 = v430(v431, v432)
+
+        if v432 == nil then
+            break
+        end
+        if v433:IsA('ParticleEmitter') or (v433:IsA('Smoke') or (v433:IsA('Fire') or v433:IsA('Sparkles'))) then
+            v433.Enabled = false
+        end
+    end
+
+    local _Lighting2 = game:GetService('Lighting')
+
+    _Lighting2.GlobalShadows = false
+    _Lighting2.FogEnd = 8999999488
+    _Lighting2.Brightness = 0
+    settings().Rendering.QualityLevel = 1
+
+    local v435, v436, v437 = pairs(game:GetDescendants())
+
+    while true do
+        local v438
+
+        v437, v438 = v435(v436, v437)
+
+        if v437 == nil then
+            break
+        end
+        if v438:IsA('Decal') or v438:IsA('Texture') then
+            v438.Transparency = 1
+        elseif v438:IsA('BasePart') and not v438:IsA('MeshPart') then
+            v438.Material = Enum.Material.SmoothPlastic
+
+            if not (v438.Parent and (v438.Parent:FindFirstChild('Humanoid') or v438.Parent.Parent:FindFirstChild('Humanoid'))) then
+                v438.Reflectance = 0
+            end
+        end
+    end
+
+    local v439, v440, v441 = pairs(_Lighting2:GetChildren())
+
+    while true do
+        local v442
+
+        v441, v442 = v439(v440, v441)
+
+        if v441 == nil then
+            break
+        end
+        if v442:IsA('BlurEffect') or (v442:IsA('SunRaysEffect') or (v442:IsA('ColorCorrectionEffect') or (v442:IsA('BloomEffect') or v442:IsA('DepthOfFieldEffect')))) then
+            v442.Enabled = false
+        end
+    end
+
+    game:GetService('StarterGui'):SetCore('SendNotification', {
+        Title = 'Optimization',
+        Text = 'Full optimization applied!',
+        Duration = 5,
+    })
+end)
+_MISC:AddButton('Rejoin Server', function()
+    local _TeleportService2 = game:GetService('TeleportService')
+    local _LocalPlayer16 = game:GetService('Players').LocalPlayer
+
+    _TeleportService2:Teleport(game.PlaceId, _LocalPlayer16)
+end)
+
+local u445 = false
+
+task.spawn(function()
+    while true do
+        if u445 then
+            local _Character23 = game.Players.LocalPlayer.Character
+
+            if _Character23 and _Character23:FindFirstChild('HumanoidRootPart') then
+                local _HumanoidRootPart5 = _Character23.HumanoidRootPart
+
+                if not _HumanoidRootPart5:FindFirstChild('AntiKB') then
+                    local _BodyVelocity2 = Instance.new('BodyVelocity')
+
+                    _BodyVelocity2.Name = 'AntiKB'
+                    _BodyVelocity2.Velocity = Vector3.new(0, 0, 0)
+                    _BodyVelocity2.MaxForce = Vector3.new(0, 0, 0)
+                    _BodyVelocity2.P = 1250
+                    _BodyVelocity2.Parent = _HumanoidRootPart5
+                end
+
+                local _AntiKB = _HumanoidRootPart5:FindFirstChild('AntiKB')
+
+                if _AntiKB then
+                    local _Velocity2 = _HumanoidRootPart5.Velocity
+                    local v451 = 50
+
+                    Vector3.new(0, 0, 0)
+
+                    if v451 < math.abs(_Velocity2.X) or v451 < math.abs(_Velocity2.Z) then
+                        _AntiKB.MaxForce = Vector3.new(100000, 0, 100000)
+                        _AntiKB.Velocity = Vector3.new(0, 0, 0)
+                    else
+                        _AntiKB.MaxForce = Vector3.new(0, 0, 0)
+                    end
+                end
+            end
+        else
+            local _Character24 = game.Players.LocalPlayer.Character
+            local v453 = _Character24 and _Character24:FindFirstChild('HumanoidRootPart') and _Character24.HumanoidRootPart:FindFirstChild('AntiKB')
+
+            if v453 then
+                v453:Destroy()
+            end
+        end
+
+        task.wait(0.1)
+    end
+end)
+_MISC:AddSwitch('Anti Knockback', function(p454)
+    u445 = p454
+end)
+
+local u455 = {
+    'Tropical Shake',
+    'Energy Shake',
+    'Protein Bar',
+    'TOUGH Bar',
+    'Protein Shake',
+    'ULTRA Shake',
+    'Energy Bar',
+}
+
+local function u462(p456)
+    local _S, v458, v459 = p456:gmatch('%S+')
+    local v460 = {}
+
+    while true do
+        v459 = _S(v458, v459)
+
+        if v459 == nil then
+            break
+        end
+
+        table.insert(v460, v459:lower())
+    end
+
+    for v461 = 2, #v460 do
+        v460[v461] = v460[v461]:sub(1, 1):upper() .. v460[v461]:sub(2)
+    end
+
+    return table.concat(v460)
+end
+local function u468()
+    local v463, v464, v465 = ipairs(u455)
+
+    while true do
+        local v466
+
+        v465, v466 = v463(v464, v465)
+
+        if v465 == nil then
+            break
+        end
+
+        local v467 = u196.Character:FindFirstChild(v466) or u196.Backpack:FindFirstChild(v466)
+
+        if v467 then
+            u197:FireServer(u462(v466), v467)
+        end
+    end
+end
+
+local u469 = false
+
+task.spawn(function()
+    while true do
+        while u469 do
+            u468()
+            task.wait(0.1)
+        end
+
+        task.wait(0.5)
+    end
+end)
+_MISC:AddSwitch('Eat All Snacks', function(p470)
+    u469 = p470
+
+    if p470 then
+        u468()
+    end
+end):Set(false)
+_MISC:AddSwitch('Auto Spin Wheel', function(p471)
+    _G.AutoSpinWheel = p471
+
+    if p471 then
+        spawn(function()
+            while _G.AutoSpinWheel and wait(1) do
+                game:GetService('ReplicatedStorage').rEvents.openFortuneWheelRemote:InvokeServer('openFortuneWheel', game:GetService('ReplicatedStorage').fortuneWheelChances['Fortune Wheel'])
+            end
+        end)
+    end
+end)
+
+local _AntiAFK = _MISC:AddSwitch('Anti-AFK', function(p472)
+    if p472 then
+        local _Players6 = game:GetService('Players')
+        local _VirtualUser = game:GetService('VirtualUser')
+        local _LocalPlayer17 = _Players6.LocalPlayer
+
+        _G.afkGui = Instance.new('ScreenGui', _LocalPlayer17:WaitForChild('PlayerGui'))
+        _G.afkGui.Name = 'AntiAFKGui'
+        _G.afkGui.ResetOnSpawn = false
+
+        local _TextLabel = Instance.new('TextLabel', _G.afkGui)
+
+        _TextLabel.Size = UDim2.new(0, 200, 0, 50)
+        _TextLabel.Position = UDim2.new(0.5, -100, 0, -50)
+        _TextLabel.Text = 'ANTI AFK'
+        _TextLabel.TextColor3 = Color3.fromRGB(50, 255, 50)
+        _TextLabel.Font = Enum.Font.GothamBold
+        _TextLabel.TextSize = 20
+        _TextLabel.BackgroundTransparency = 1
+        _TextLabel.TextTransparency = 1
+
+        local _TextLabel2 = Instance.new('TextLabel', _G.afkGui)
+
+        _TextLabel2.Size = UDim2.new(0, 200, 0, 30)
+        _TextLabel2.Position = UDim2.new(0.5, -100, 0, -20)
+        _TextLabel2.Text = '00:00:00'
+        _TextLabel2.TextColor3 = Color3.fromRGB(255, 255, 255)
+        _TextLabel2.Font = Enum.Font.GothamBold
+        _TextLabel2.TextSize = 18
+        _TextLabel2.BackgroundTransparency = 1
+        _TextLabel2.TextTransparency = 1
+
+        local u478 = tick()
+
+        task.spawn(function()
+            while _G.afkGui and _G.afkGui.Parent do
+                local v479 = tick() - u478
+                local v480 = math.floor(v479 / 3600)
+                local v481 = math.floor(v479 % 3600 / 60)
+                local v482 = math.floor(v479 % 60)
+
+                _TextLabel2.Text = string.format('%02d:%02d:%02d', v480, v481, v482)
+
+                task.wait(1)
+            end
+        end)
+        task.spawn(function()
+            while _G.afkGui and _G.afkGui.Parent do
+                for v483 = 0, 1, 0.02 do
+                    _TextLabel.TextTransparency = 1 - v483
+                    _TextLabel2.TextTransparency = 1 - v483
+
+                    task.wait(0.015)
+                end
+
+                task.wait(1.5)
+
+                for v484 = 0, 1, 0.02 do
+                    _TextLabel.TextTransparency = v484
+                    _TextLabel2.TextTransparency = v484
+
+                    task.wait(0.015)
+                end
+
+                task.wait(1)
+            end
+        end)
+
+        _G.afkConnection = _Players6.LocalPlayer.Idled:Connect(function()
+            _VirtualUser:Button2Down(Vector2.new(), workspace.CurrentCamera.CFrame)
+            task.wait(1)
+            _VirtualUser:Button2Up(Vector2.new(), workspace.CurrentCamera.CFrame)
+        end)
+    else
+        if _G.afkConnection then
+            _G.afkConnection:Disconnect()
+
+            _G.afkConnection = nil
+        end
+        if _G.afkGui then
+            _G.afkGui:Destroy()
+
+            _G.afkGui = nil
+        end
+    end
+end)
+
+task.wait(1)
+_AntiAFK:Set(true)
+
+local _ChangeTime = _MISC:AddDropdown('Change Time', function(p486)
+    local _Lighting3 = game:GetService('Lighting')
+
+    if p486 == 'Night' then
+        _Lighting3.ClockTime = 0
+    elseif p486 == 'Day' then
+        _Lighting3.ClockTime = 12
+    elseif p486 == 'Midnight' then
+        _Lighting3.ClockTime = 6
+    end
+
+    game:GetService('StarterGui'):SetCore('SendNotification', {
+        Title = 'Hora Cambiada',
+        Text = 'La hora del d\u{ed}a ha sido cambiada a: ' .. p486,
+        Duration = 0,
+    })
+end)
+
+_ChangeTime:Add('Night')
+_ChangeTime:Add('Day')
+_ChangeTime:Add('Midnight')
+
+local _Players7 = game:GetService('Players')
+local _LocalPlayer18 = _Players7.LocalPlayer
+local _SpyStats = _ZyrooPrivate:AddTab('Spy Stats')
+
+local function u493(p492)
+    if p492 >= 999999986991104 then
+        return string.format('%dQa', math.floor(p492 / 999999986991104))
+    elseif p492 >= 999999995904 then
+        return string.format('%dT', math.floor(p492 / 999999995904))
+    elseif p492 >= 1000000000 then
+        return string.format('%dB', math.floor(p492 / 1000000000))
+    elseif p492 >= 1000000 then
+        return string.format('%dM', math.floor(p492 / 1000000))
+    elseif p492 >= 1000 then
+        return string.format('%dK', math.floor(p492 / 1000))
+    else
+        return tostring(math.floor(p492))
+    end
+end
+
+local _ChoosePlayer = _SpyStats:AddDropdown('Choose Player', function(p494)
+    local v495 = _Players7
+    local v496, v497, v498 = ipairs(v495:GetPlayers())
+
+    while true do
+        local v499
+
+        v498, v499 = v496(v497, v498)
+
+        if v498 == nil then
+            break
+        end
+        if v499 ~= _LocalPlayer18 and p494 == v499.DisplayName .. ' | ' .. v499.Name then
+            showStats(v499)
+
+            break
+        end
+    end
+end)
+local u501 = {
+    Strength = _SpyStats:AddLabel('Strength: 0'),
+    Durability = _SpyStats:AddLabel('Durability: 0'),
+    Agility = _SpyStats:AddLabel('Agility: 0'),
+    Rebirths = _SpyStats:AddLabel('Rebirths: 0'),
+    Kills = _SpyStats:AddLabel('Kills: 0'),
+    Brawls = _SpyStats:AddLabel('Brawls: 0'),
+    EvilKarma = _SpyStats:AddLabel('Evil Karma: 0'),
+    GoodKarma = _SpyStats:AddLabel('Good Karma: 0'),
+    Divider = _SpyStats:AddLabel('________________________'),
+    DamageNeeded = _SpyStats:AddLabel('Required Damage to 1-Hit: 0'),
+    UltimateBoost = _SpyStats:AddLabel('Ultimate Boost (75%): 0'),
+    PetsBoost = _SpyStats:AddLabel('Pets Boost (255%): 0'),
+    TotalHealth = _SpyStats:AddLabel('Total Health: 0'),
+    HitsToKill = _SpyStats:AddLabel('Hits to Kill: 0'),
+    TimeToKill = _SpyStats:AddLabel('Time to Kill: 0s'),
+}
+local u502 = nil
+local u503 = {}
+local u504 = tick()
+
+function showStats(p505)
+    u502 = p505
+    u503 = {}
+
+    local _leaderstats = p505:FindFirstChild('leaderstats')
+
+    if _leaderstats then
+        u503.Strength = _leaderstats:FindFirstChild('Strength') and (_leaderstats.Strength.Value or 0) or 0
+        u503.Rebirths = _leaderstats:FindFirstChild('Rebirths') and (_leaderstats.Rebirths.Value or 0) or 0
+        u503.Kills = _leaderstats:FindFirstChild('Kills') and (_leaderstats.Kills.Value or 0) or 0
+        u503.Brawls = _leaderstats:FindFirstChild('Brawls') and _leaderstats.Brawls.Value or 0
+    end
+
+    u503.Durability = p505:FindFirstChild('Durability') and (p505.Durability.Value or 0) or 0
+    u503.Agility = p505:FindFirstChild('Agility') and (p505.Agility.Value or 0) or 0
+    u503.EvilKarma = p505:FindFirstChild('evilKarma') and (p505.evilKarma.Value or 0) or 0
+    u503.GoodKarma = p505:FindFirstChild('goodKarma') and p505.goodKarma.Value or 0
+    u504 = tick()
+end
+
+local v507 = _Players7
+local v508, v509, v510 = ipairs(_Players7.GetPlayers(v507))
+local u511 = u503
+local u512 = u504
+local u513 = u502
+local u514 = _Players7
+local u515 = _LocalPlayer18
+
+while true do
+    local v516, v517 = v508(v509, v510)
+
+    if v516 == nil then
+        break
+    end
+
+    v510 = v516
+
+    if v517 ~= u515 then
+        _ChoosePlayer:Add(v517.DisplayName .. ' | ' .. v517.Name)
+    end
+end
+
+u514.PlayerAdded:Connect(function(p518)
+    if p518 ~= u515 then
+        _ChoosePlayer:Add(p518.DisplayName .. ' | ' .. p518.Name)
+    end
+end)
+u514.PlayerRemoving:Connect(function(p519)
+    _ChoosePlayer:Remove(p519.DisplayName .. ' | ' .. p519.Name)
+
+    if u513 == p519 then
+        u513 = nil
+    end
+end)
+task.spawn(function()
+    while true do
+        if u513 and u513.Parent == u514 then
+            local v520 = tick()
+            local u521 = math.max(v520 - u512, 1)
+
+            local function v528(p522, p523, p524)
+                local v525 = p523 - p524
+                local v526 = v525 / u521 * 3600
+                local v527 = v525 / u521 * 86400
+
+                p522.Text = string.format('%s: %s | %s/hr | %s/day', p522.Text:match('^[^:]+'), u493(p523), u493(v526), u493(v527))
+            end
+
+            local _leaderstats2 = u513:FindFirstChild('leaderstats')
+
+            if _leaderstats2 then
+                v528(u501.Strength, _leaderstats2:FindFirstChild('Strength') and (_leaderstats2.Strength.Value or 0) or 0, u511.Strength or 0)
+                v528(u501.Rebirths, _leaderstats2:FindFirstChild('Rebirths') and (_leaderstats2.Rebirths.Value or 0) or 0, u511.Rebirths or 0)
+                v528(u501.Kills, _leaderstats2:FindFirstChild('Kills') and (_leaderstats2.Kills.Value or 0) or 0, u511.Kills or 0)
+                v528(u501.Brawls, _leaderstats2:FindFirstChild('Brawls') and _leaderstats2.Brawls.Value or 0, u511.Brawls or 0)
+            end
+
+            local v530 = u513
+
+            v528(u501.Durability, v530:FindFirstChild('Durability') and u513.Durability.Value or 0, u511.Durability or 0)
+
+            local v531 = u513
+
+            v528(u501.Agility, v531:FindFirstChild('Agility') and u513.Agility.Value or 0, u511.Agility or 0)
+
+            local v532 = u513
+
+            v528(u501.EvilKarma, v532:FindFirstChild('evilKarma') and u513.evilKarma.Value or 0, u511.EvilKarma or 0)
+            v528(u501.GoodKarma, u513:FindFirstChild('goodKarma') and u513.goodKarma.Value or 0, u511.GoodKarma or 0)
+
+            local v533 = u513:FindFirstChild('Durability') and u513.Durability.Value or 0
+            local v534 = v533 * 2
+
+            u501.DamageNeeded.Text = 'Required Damage to 1-Hit: ' .. u493(v534)
+
+            local v535 = v533 * 0.75
+            local v536 = v533 * 2.55
+            local v537 = v533 + v535 + v536
+
+            u501.UltimateBoost.Text = 'Ultimate Boost (75%): ' .. u493(v535)
+            u501.PetsBoost.Text = 'Pets Boost (255%): ' .. u493(v536)
+            u501.TotalHealth.Text = 'Total Health: ' .. u493(v537)
+
+            local v538 = (u515:FindFirstChild('leaderstats') and (u515.leaderstats:FindFirstChild('Strength') and u515.leaderstats.Strength.Value or 0) or 0) * 0.1
+            local v539 = 0 < v538 and v537 / v538 or 0
+            local v540 = v539 / 0.75
+
+            u501.HitsToKill.Text = 'Hits to Kill: ' .. string.format('%.1f', v539)
+            u501.TimeToKill.Text = 'Time to Kill: ' .. string.format('%.1fs', v540)
+        else
+            local v541, v542, v543 = pairs(u501)
+
+            while true do
+                local v544
+
+                v543, v544 = v541(v542, v543)
+
+                if v543 == nil then
+                    break
+                end
+                if v543 ~= 'Divider' then
+                    v544.Text = v544.Text:match('^[^:]+') .. ': 0'
+                end
+            end
+        end
+
+        task.wait(1)
+    end
+end)
+
+local _LocalPlayer19 = game.Players.LocalPlayer
+
+game:GetService('Players')
+
+local _Stats3 = _ZyrooPrivate:AddTab('Stats')
+
+local function u548(p547)
+    if p547 >= 999999986991104 then
+        return string.format('%.2fQa', p547 / 999999986991104)
+    elseif p547 >= 999999995904 then
+        return string.format('%.2fT', p547 / 999999995904)
+    elseif p547 >= 1000000000 then
+        return string.format('%.2fB', p547 / 1000000000)
+    elseif p547 >= 1000000 then
+        return string.format('%.2fM', p547 / 1000000)
+    elseif p547 >= 1000 then
+        return string.format('%.2fK', p547 / 1000)
+    else
+        return string.format('%.2f', p547)
+    end
+end
+
+local u549 = {
+    TimeSpent = _Stats3:AddLabel('\u{23f1}\u{fe0f} Time: 00:00'),
+    Strength = _Stats3:AddLabel('Strength: 0.00/min | 0.00/hr | 0.00/day | 0.00/week | 0.00/month'),
+    Durability = _Stats3:AddLabel('Durability: 0.00/min | 0.00/hr | 0.00/day | 0.00/week | 0.00/month'),
+    Agility = _Stats3:AddLabel('Agility: 0.00/min | 0.00/hr | 0.00/day | 0.00/week | 0.00/month'),
+    Rebirths = _Stats3:AddLabel('Rebirths: 0.00/min | 0.00/hr | 0.00/day | 0.00/week | 0.00/month'),
+}
+
+_Stats3:AddLabel('\u{2500}\u{2500}\u{2500} Current Stats + Gained stats \u{2500}\u{2500}\u{2500}')
+
+local u550 = {
+    Strength = _Stats3:AddLabel('Strength: 0.00 | Gained: 0.00'),
+    Durability = _Stats3:AddLabel('Durability: 0.00 | Gained: 0.00'),
+    Agility = _Stats3:AddLabel('Agility: 0.00 | Gained: 0.00'),
+    Rebirths = _Stats3:AddLabel('Rebirths: 0.00 | Gained: 0.00'),
+    Kills = _Stats3:AddLabel('Kills: 0.00 | Gained: 0.00'),
+    Brawls = _Stats3:AddLabel('Brawls: 0.00 | Gained: 0.00'),
+    EvilKarma = _Stats3:AddLabel('Evil Karma: 0.00 | Gained: 0.00'),
+    GoodKarma = _Stats3:AddLabel('Good Karma: 0.00 | Gained: 0.00'),
+}
+local u551 = tick()
+local u552 = {}
+
+local function u556(p553, p554)
+    local v555 = p553:FindFirstChild(p554)
+
+    return v555 and v555.Value or 0
+end
+local function u558()
+    local _leaderstats3 = _LocalPlayer19:WaitForChild('leaderstats')
+
+    u552.Strength = u556(_leaderstats3, 'Strength')
+    u552.Rebirths = u556(_leaderstats3, 'Rebirths')
+    u552.Kills = u556(_leaderstats3, 'Kills')
+    u552.Brawls = u556(_leaderstats3, 'Brawls')
+    u552.Durability = u556(_LocalPlayer19, 'Durability')
+    u552.Agility = u556(_LocalPlayer19, 'Agility')
+    u552.EvilKarma = u556(_LocalPlayer19, 'evilKarma')
+    u552.GoodKarma = u556(_LocalPlayer19, 'goodKarma')
+end
+local function u559()
+    u558()
+
+    u551 = tick()
+end
+
+local u560 = nil
+local u561 = nil
+
+u559()
+task.spawn(function()
+    while true do
+        local v562 = tick()
+        local u563 = math.max(v562 - u551, 1)
+        local v564 = math.floor(u563 / 60)
+        local v565 = math.floor(u563 % 60)
+
+        u549.TimeSpent.Text = string.format('\u{23f1}\u{fe0f} Time: %02d:%02d', v564, v565)
+
+        local function v576(p566, p567, p568, p569)
+            local v570 = p568 - p569
+            local v571 = v570 / u563 * 60
+            local v572 = v570 / u563 * 3600
+            local v573 = v570 / u563 * 86400
+            local v574 = v570 / u563 * 604800
+            local v575 = v570 / u563 * 2629743
+
+            p566.Text = string.format('%s: %s/min | %s/hr | %s/day | %s/week | %s/month', p567, u548(v571), u548(v572), u548(v573), u548(v574), u548(v575))
+        end
+
+        local _leaderstats4 = _LocalPlayer19:FindFirstChild('leaderstats')
+
+        if _leaderstats4 then
+            local v578 = u556(_leaderstats4, 'Rebirths')
+            local v579 = u556(_leaderstats4, 'Strength')
+
+            if u560 ~= nil and v578 < u560 then
+                u559()
+            end
+            if u561 ~= nil and v579 < u552.Strength then
+                u559()
+            end
+
+            u560 = v578
+            u561 = v579
+
+            v576(u549.Strength, 'Strength', v579, u552.Strength)
+            v576(u549.Rebirths, 'Rebirths', v578, u552.Rebirths)
+            v576(u549.Durability, 'Durability', u556(_LocalPlayer19, 'Durability'), u552.Durability)
+            v576(u549.Agility, 'Agility', u556(_LocalPlayer19, 'Agility'), u552.Agility)
+        end
+
+        task.wait(1)
+    end
+end)
+task.spawn(function()
+    while true do
+        local function v585(p580, p581, p582, p583)
+            local v584 = p582 - p583
+
+            p580.Text = string.format('%s: %s | Gained: %s', p581, u548(p582), u548(v584))
+        end
+
+        local _leaderstats5 = _LocalPlayer19:FindFirstChild('leaderstats')
+
+        if _leaderstats5 then
+            v585(u550.Strength, 'Strength', u556(_leaderstats5, 'Strength'), u552.Strength)
+            v585(u550.Rebirths, 'Rebirths', u556(_leaderstats5, 'Rebirths'), u552.Rebirths)
+            v585(u550.Kills, 'Kills', u556(_leaderstats5, 'Kills'), u552.Kills)
+            v585(u550.Brawls, 'Brawls', u556(_leaderstats5, 'Brawls'), u552.Brawls)
+        end
+
+        v585(u550.Durability, 'Durability', u556(_LocalPlayer19, 'Durability'), u552.Durability)
+        v585(u550.Agility, 'Agility', u556(_LocalPlayer19, 'Agility'), u552.Agility)
+        v585(u550.EvilKarma, 'Evil Karma', u556(_LocalPlayer19, 'evilKarma'), u552.EvilKarma)
+        v585(u550.GoodKarma, 'Good Karma', u556(_LocalPlayer19, 'goodKarma'), u552.GoodKarma)
+        task.wait(0.05)
+    end
+end)
+
+local _Credits = _ZyrooPrivate:AddTab('Credits')
+
+_Credits:AddLabel(' ').TextSize = 15
+_Credits:AddLabel('   Primo Hub | Paid Version').TextSize = 40
+_Credits:AddLabel(' ').TextSize = 15
+_Credits:AddLabel('  Script Made By | Primo                                            ').TextSize = 25
+_Credits:AddLabel('                                                                      Requested By |Kaino').TextSize = 20
+_Credits:AddLabel('Follow Primo on Tiktok                               Inspired by SLH').TextSize = 20
+
+_Credits:AddButton('Copy TikTok Link', function()
+    setclipboard('tiktok.com/@primo_legitaccount')
+end)
+
+_Credits:AddLabel('Follow ZyxRust on TikTok').TextSize = 25
+
+_Credits:AddButton('Copy TikTok Link', function()
+    setclipboard('https://www.tiktok.com/@zyxrust?_r=1&_t=ZS-947NK7eTMMi')
+end)
