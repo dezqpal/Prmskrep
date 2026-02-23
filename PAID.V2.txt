@@ -31,11 +31,6 @@ _ZyrooPrivate.AddTab = function(window, name)
     return tab
 end
 
-local _ZyrooPrivate = v13:AddWindow(' PRIMO | PRIVATE SCRIPT V2', {
-    main_color = Color3.fromRGB(138, 43, 226),
-    min_size = Vector2.new(564, 680),
-    can_resize = true,
-})
 local _PacksFarm = _ZyrooPrivate:AddTab('Packs Farm')
 local _STRENGTH = _PacksFarm:AddLabel('STRENGTH:')
 
