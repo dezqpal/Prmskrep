@@ -30,7 +30,6 @@ _ZyrooPrivate.AddTab = function(window, name)
     end
     return tab
 end
-
 local _PacksFarm = _ZyrooPrivate:AddTab('Packs Farm')
 local _STRENGTH = _PacksFarm:AddLabel('STRENGTH:')
 
