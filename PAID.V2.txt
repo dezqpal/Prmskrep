@@ -680,6 +680,93 @@ _Farming:AddSwitch('Jungle Boulder', function(p153)
         end
     end
 end)
+-- Siguraduhin na ang _ZyrooPrivate ay na-define na sa itaas bago ito
+local FarmV2 = _ZyrooPrivate:AddTab("FarmV2")
+
+-- Setup ng Variables
+_G.targetRebirthValue = _G.targetRebirthValue or 0
+_G.targetRebirthActive = false
+_G.infiniteRebirthActive = false
+
+-- TextBox para sa Target
+FarmV2:AddTextBox("Rebirth Target", function(text)
+    local newValue = tonumber(text)
+    if newValue and newValue > 0 then
+        _G.targetRebirthValue = newValue
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "Target Updated",
+            Text = "Goal set to: " .. tostring(_G.targetRebirthValue),
+            Duration = 3
+        })
+    end
+end)
+
+-- Rebirth Switches
+local targetSwitch
+local infiniteSwitch
+
+targetSwitch = FarmV2:AddSwitch("Auto Rebirth Target", function(bool)
+    _G.targetRebirthActive = bool
+    if bool then
+        if _G.infiniteRebirthActive and infiniteSwitch then
+            infiniteSwitch:Set(false)
+            _G.infiniteRebirthActive = false
+        end
+        task.spawn(function()
+            while _G.targetRebirthActive do
+                local stats = game.Players.LocalPlayer:FindFirstChild("leaderstats")
+                local current = (stats and stats:FindFirstChild("Rebirths")) and stats.Rebirths.Value or 0
+                if current >= _G.targetRebirthValue and _G.targetRebirthValue > 0 then
+                    _G.targetRebirthActive = false
+                    targetSwitch:Set(false)
+                    break
+                end
+                game:GetService("ReplicatedStorage").rEvents.rebirthRemote:InvokeServer("rebirthRequest")
+                task.wait(0.1)
+            end
+        end)
+    end
+end)
+
+infiniteSwitch = FarmV2:AddSwitch("Auto Rebirth (Infinitely)", function(bool)
+    _G.infiniteRebirthActive = bool
+    if bool then
+        if _G.targetRebirthActive and targetSwitch then
+            targetSwitch:Set(false)
+            _G.targetRebirthActive = false
+        end
+        task.spawn(function()
+            while _G.infiniteRebirthActive do
+                game:GetService("ReplicatedStorage").rEvents.rebirthRemote:InvokeServer("rebirthRequest")
+                task.wait(0.1)
+            end
+        end)
+    end
+end)
+
+-- Iba pang Utility Switches
+FarmV2:AddSwitch("Auto Size 1", function(bool)
+    _G.autoSizeActive = bool
+    task.spawn(function()
+        while _G.autoSizeActive do
+            game:GetService("ReplicatedStorage").rEvents.changeSpeedSizeRemote:InvokeServer("changeSize", 1)
+            task.wait(0.1)
+        end
+    end)
+end)
+
+FarmV2:AddSwitch("Auto Teleport Muscle King", function(bool)
+    _G.teleportActive = bool
+    task.spawn(function()
+        while _G.teleportActive do
+            local char = game.Players.LocalPlayer.Character
+            if char and char:FindFirstChild("HumanoidRootPart") then
+                char.HumanoidRootPart.CFrame = CFrame.new(-8646, 17, -5738)
+            end
+            task.wait(0.5)
+        end
+    end)
+end)
 
 local _RockV1 = _ZyrooPrivate:AddTab('Rock V1')
 local v155 = _RockV1
