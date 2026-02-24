@@ -18,7 +18,7 @@ local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
 local display = Player.DisplayName
 
-local _ZyrooPrivate = v13:AddWindow("PRIMO •|• PRIVATE SCRIPT V2 | BABAERO  - "..display, {
+local window = v13:AddWindow("PRIMO •|• PRIVATE SCRIPT V2 | BABAERO  - "..display, {
     main_color = Color3.fromRGB(170, 0, 255), -- Neon Purple Accent
     title_bar = {Color3.fromRGB(20, 0, 30), Color3.fromRGB(10, 0, 15), Color3.fromRGB(20, 0, 30)}, -- Deep Dark Purple
     background = {Color3.fromRGB(15, 15, 15), Color3.fromRGB(5, 5, 5), Color3.fromRGB(15, 15, 15)}, -- Near Black
