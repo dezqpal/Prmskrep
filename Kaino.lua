@@ -1,6 +1,9 @@
 local Players = game:GetService("Players")
 local VirtualUser = game:GetService("VirtualUser")
+local Player = Players.LocalPlayer
+local display = Player.DisplayName -- Ni-define natin ito para hindi mag-error
 
+-- 1. ANTI-AFK LOGIC
 local function preventAFK()
     VirtualUser:Button2Down(Vector2.new(0, 0), workspace.CurrentCamera.CFrame)
     task.wait(1)
@@ -8,15 +11,19 @@ local function preventAFK()
     print("Anti-AFK: Prevented kick")
 end
 
-Players.LocalPlayer.Idled:Connect(preventAFK)
+Player.Idled:Connect(preventAFK)
 print("Anti-AFK ativado!")
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/BASTOSaKO/Privatezz/refs/heads/main/Sbhshsh", true))()
 
+-- 2. LOAD LIBRARY
+-- Ginawa nating 'v13' ang variable para mag-match sa tawag mo sa baba
+local v13 = loadstring(game:HttpGet("https://raw.githubusercontent.com/BASTOSaKO/Privatezz/refs/heads/main/Sbhshsh", true))()
+
+-- 3. CREATE WINDOW
 local window = v13:AddWindow("KAIMIRO •|• PRIVATE SCRIPT | BABAERO - "..display, {
     main_color = Color3.fromRGB(170, 0, 255), -- Neon Purple Accent
     title_bar = {Color3.fromRGB(20, 0, 30), Color3.fromRGB(10, 0, 15), Color3.fromRGB(20, 0, 30)}, -- Deep Dark Purple
     background = {Color3.fromRGB(15, 15, 15), Color3.fromRGB(5, 5, 5), Color3.fromRGB(15, 15, 15)}, -- Near Black
-    min_size = Vector2.new(550, 620),
+    min_size = Vector2.new(550, 620), 
     can_resize = false
 })
 
