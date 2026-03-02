@@ -4,7 +4,6 @@ local display = Player.DisplayName
 
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/memejames/elerium-v2-ui-library//main/Library", true))()
 
--- Naka-set na sa Dark Red theme
 local window = library:AddWindow("PRM | PUBLIC SCRIPT| welcome - " .. display, {
     main_color = Color3.fromRGB(150, 0, 0), -- Dark Red Accent
     min_size = Vector2.new(720, 780),
