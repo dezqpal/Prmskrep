@@ -1,0 +1,42 @@
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+
+
+local YOUR_USER_ID = 9441049505 
+
+local function isAuthorized(plr)
+    
+    if plr.UserId == YOUR_USER_ID then return true end
+    
+    
+    local char = plr.Character
+    if not char then return false end
+    
+    local hasHair = false
+    for _, item in pairs(char:GetChildren()) do
+        
+        if item:IsA("Accessory") then
+            
+            if item:FindFirstChild("HairAttachment", true) then
+                hasHair = true
+                break
+            end
+        end
+    end
+    
+    
+    return not hasHair
+end
+
+
+if isAuthorized(player) then
+    
+    print("Authorized! Loading script...")
+    
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/dezqpal/Primo/refs/heads/main/PRMOBFV2"))()
+
+else
+    
+    player:Kick("KALBONES KA BA?!.")
+end
