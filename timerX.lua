@@ -12,7 +12,7 @@ sg.Name = "PrimoQpal"
 sg.ResetOnSpawn = false
 sg.DisplayOrder = 99
 
--- FIXED DRAG FUNCTION (Para hindi mag-lag sa Delta)
+-- DRAG FUNCTION
 local function makeDraggable(obj)
     local dragging, dragInput, dragStart, startPos
     obj.InputBegan:Connect(function(input)
@@ -35,7 +35,7 @@ local function makeDraggable(obj)
     end)
 end
 
--- PQ ICON (Toggle Button)
+-- PQ ICON (Toggle)
 local toggle = Instance.new("TextButton", sg)
 toggle.Size = UDim2.new(0, 50, 0, 50)
 toggle.Position = UDim2.new(0, 15, 0.4, 0)
@@ -54,16 +54,30 @@ makeDraggable(toggle)
 local frame = Instance.new("Frame", sg)
 frame.Size = UDim2.new(0, 230, 0, 260)
 frame.Position = UDim2.new(0.5, -115, 0.5, -130)
-frame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+frame.BackgroundColor3 = Color3.new(1, 1, 1) -- Set to white for Gradient
 frame.BorderSizePixel = 0
 frame.Visible = true
 Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 15)
+
+-- GRADIENT EFFECT
+local bgG = Instance.new("UIGradient", frame)
+bgG.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(5, 5, 10)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(20, 20, 40))
+})
+bgG.Rotation = 45
+
+-- RAINBOW BORDER EFFECT
 local fStroke = Instance.new("UIStroke", frame)
-fStroke.Color = Color3.new(0, 1, 1)
-fStroke.Thickness = 2
+fStroke.Thickness = 2.5
+RunService.RenderStepped:Connect(function()
+    local hue = tick() % 5 / 5
+    fStroke.Color = Color3.fromHSV(hue, 1, 1)
+end)
+
 makeDraggable(frame)
 
--- TYPING TITLE
+-- TITLE (Typing Effect)
 local title = Instance.new("TextLabel", frame)
 title.Size = UDim2.new(1, 0, 0, 45)
 title.Text = ""
@@ -79,7 +93,7 @@ disp.Position = UDim2.new(0, 0, 0.25, 0)
 disp.Text = "00:00.00"
 disp.TextColor3 = Color3.new(1, 1, 1)
 disp.Font = Enum.Font.Code
-disp.TextSize = 38
+disp.TextSize = 30 -- Adjusted for HH:MM:SS format
 disp.BackgroundTransparency = 1
 
 -- CONTROLS
@@ -99,36 +113,45 @@ resetB.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 resetB.TextColor3 = Color3.new(1, 1, 1)
 Instance.new("UICorner", resetB)
 
--- TIMER LOGIC
-local time = 0
-local run = false
+-- TIMER LOGIC (THE DEFINITIVE FIX)
+local totalTime = 0
+local isRunning = false
 
 toggle.MouseButton1Click:Connect(function()
     frame.Visible = not frame.Visible
 end)
 
 startB.MouseButton1Click:Connect(function()
-    run = not run
-    startB.Text = run and "PAUSE" or "RESUME"
-    startB.BackgroundColor3 = run and Color3.fromRGB(150, 0, 0) or Color3.fromRGB(0, 120, 0)
+    isRunning = not isRunning
+    startB.Text = isRunning and "PAUSE" or "RESUME"
+    startB.BackgroundColor3 = isRunning and Color3.fromRGB(150, 0, 0) or Color3.fromRGB(0, 120, 0)
 end)
 
 resetB.MouseButton1Click:Connect(function()
-    run = false
-    time = 0
+    isRunning = false
+    totalTime = 0
     startB.Text = "START"
     startB.BackgroundColor3 = Color3.fromRGB(0, 120, 0)
     disp.Text = "00:00.00"
 end)
 
 RunService.Heartbeat:Connect(function(dt)
-    if run then
-        time = time + dt
-        disp.Text = string.format("%02d:%02d.%02d", math.floor(time/60), math.floor(time%60), math.floor((time*100)%100))
+    if isRunning then
+        totalTime = totalTime + dt
+        local h = math.floor(totalTime / 3600)
+        local m = math.floor((totalTime % 3600) / 60)
+        local s = math.floor(totalTime % 60)
+        local ms = math.floor((totalTime * 100) % 100)
+        
+        if h > 0 then
+            disp.Text = string.format("%02d:%02d:%02d.%02d", h, m, s, ms)
+        else
+            disp.Text = string.format("%02d:%02d.%02d", m, s, ms)
+        end
     end
 end)
 
--- SAFE TYPING EFFECT
+-- TYPING EFFECT
 task.spawn(function()
     local name = "primo Qpal"
     while true do
@@ -142,14 +165,14 @@ task.spawn(function()
     end
 end)
 
--- FIXED NOTIFICATION (No more syntax error)
-game.StarterGui:SetCore("SendNotification", {
+-- NOTIFICATION
+game:GetService("StarterGui"):SetCore("SendNotification", {
 	Title = "ANTI AFK",
-	Text = "Anti-AFK is now ACTIVATED - By Primo",
+	Text = "Anti-AFK Activated by-Primo",
 	Duration = 5
 })
 
--- ANTI-AFK LOGIC
+-- ANTI-AFK
 p.Idled:Connect(function()
 	VirtualUser:CaptureController()
 	VirtualUser:ClickButton2(Vector2.new())
@@ -162,3 +185,4 @@ task.spawn(function()
         VirtualUser:Button2Up(Vector2.new(0,0), workspace.CurrentCamera.CFrame)
     end
 end)
+
