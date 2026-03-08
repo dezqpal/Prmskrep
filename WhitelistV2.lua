@@ -5,7 +5,7 @@ local whitelist = {
     "kainobns", 
     "PRIMOBNS21",
     "ingalla_09",
-    "Stashy_RB",
+    "laeinhyer_14",
     "PrimoNotYours",
     "iggy123982",
     "YUO_WEAK",
