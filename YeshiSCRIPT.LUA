@@ -1,4 +1,4 @@
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/memejames/elerium-v2-ui-library//main/Library", true))()
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/BASTOSaKO/Privatezz/refs/heads/main/Sbhshsh", true))()
 
 local window = library:AddWindow("JACOB|•PRIVATE SCRIPT", {
     main_color = Color3.fromRGB(0, 0, 0),
@@ -1902,10 +1902,10 @@ end)
 
 local Credit = window:AddTab("Credit")
  
-Credit:AddLabel("MADE BY- PRIMO")
+Credit:AddLabel("MADE BY- PRM")
 
-Credit:AddLabel("LEADER-JACOB")
+Credit:AddLabel("YESHI ON TOP")
 
-Credit:AddLabel("KT4 ON TOP")
+Credit:AddLabel("OWNER YESHI")
 
-Credit:AddLabel("For KT4 members only✅")
+Credit:AddLabel("YESHI OWN PRIVATE SCRIPT")
