@@ -1910,6 +1910,4 @@ Credit:AddLabel("OWNER YESHI")
 
 Credit:AddLabel("  ")
 
-Credit:AddLabel("  ")
-
-Credit:AddLabel("YESHI OWN PRIVATE SCRIPT"):TextSize = 20
+Credit:AddLabel("YESHI OWN PRIVATE SCRIPT")
