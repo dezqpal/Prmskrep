@@ -1,92 +1,102 @@
--- [[ CONFIGURATION ]]
-local CorrectKey = "YeshiOnTop"
+-- [[ PRIMO KEY SYSTEM - GENX GLASS FIX ]] --
+local LP = game:GetService("Players").LocalPlayer
+local pGui = LP:WaitForChild("PlayerGui")
 
--- [[ UI CREATION ]]
-local ScreenGui = Instance.new("ScreenGui")
-local MainFrame = Instance.new("Frame")
-local Title = Instance.new("TextLabel")
-local KeyInput = Instance.new("TextBox")
-local VerifyBtn = Instance.new("TextButton")
-local UICorner = Instance.new("UICorner")
+-- Burahin ang dati para malinis
+if pGui:FindFirstChild("PrimoGlass") then pGui.PrimoGlass:Destroy() end
 
--- Parent the GUI (Nilagay sa CoreGui para hindi ma-delete kapag namatay ang player)
-if syn and syn.protect_gui then syn.protect_gui(ScreenGui) end -- Proteksyon para sa Synapse users
-ScreenGui.Parent = game:GetService("CoreGui")
-ScreenGui.Name = "YeshiKeySystem"
+local sg = Instance.new("ScreenGui")
+sg.Name = "PrimoGlass"
+sg.Parent = pGui
+sg.ResetOnSpawn = false
 
--- Main Window Styling
-MainFrame.Name = "MainFrame"
-MainFrame.Parent = ScreenGui
-MainFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 35)
-MainFrame.Position = UDim2.new(0.5, -125, 0.5, -75)
-MainFrame.Size = UDim2.new(0, 250, 0, 150)
-MainFrame.Active = true
-MainFrame.Draggable = true 
+-- [[ CONFIGURATION ]] --
+local CORRECT_KEY = "YeshiOnTop" -- Eto ang Local Key mo
 
-local FrameCorner = Instance.new("UICorner")
-FrameCorner.CornerRadius = UDim.new(0, 10)
-FrameCorner.Parent = MainFrame
+-- MAIN WINDOW (Semi-Invisible Glass Style)
+local main = Instance.new("Frame")
+main.Name = "Main"
+main.Parent = sg
+main.Size = UDim2.new(0, 320, 0, 260)
+main.Position = UDim2.new(0.5, -160, 0.5, -130)
+main.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+main.BackgroundTransparency = 0.3 -- Semi-invisible background
+main.BorderSizePixel = 4 -- Kapal ng border na iilaw
+main.Active = true
+main.Draggable = true
 
--- Title Text
-Title.Parent = MainFrame
-Title.BackgroundTransparency = 1
-Title.Size = UDim2.new(1, 0, 0, 40)
-Title.Font = Enum.Font.GothamBold
-Title.Text = "YESHI KEY SYSTEM"
-Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-Title.TextSize = 18
+-- CENTERED TITLE
+local title = Instance.new("TextLabel")
+title.Parent = main
+title.Size = UDim2.new(1, 0, 0, 50)
+title.Position = UDim2.new(0, 0, 0, 10)
+title.Text = "YESHI KEY SYSTEM"
+title.Font = Enum.Font.GothamBold
+title.TextSize = 20
+title.BackgroundTransparency = 1
+title.TextXAlignment = Enum.TextXAlignment.Center
 
--- Input Box
-KeyInput.Parent = MainFrame
-KeyInput.BackgroundColor3 = Color3.fromRGB(45, 45, 50)
-KeyInput.Position = UDim2.new(0.1, 0, 0.4, 0)
-KeyInput.Size = UDim2.new(0.8, 0, 0, 30)
-KeyInput.Font = Enum.Font.Gotham
-KeyInput.PlaceholderText = "Enter Key Here..."
-KeyInput.Text = ""
-KeyInput.TextColor3 = Color3.fromRGB(255, 255, 255)
+-- RGB GLOW ANIMATION
+task.spawn(function()
+    while task.wait(0.05) do
+        local color = Color3.fromHSV(tick() % 5 / 5, 0.8, 1)
+        main.BorderColor3 = color
+        title.TextColor3 = color
+    end
+end)
 
-local InputCorner = Instance.new("UICorner")
-InputCorner.Parent = KeyInput
+-- ENTER KEY BOX (Semi-Invisible)
+local box = Instance.new("TextBox")
+box.Parent = main
+box.Size = UDim2.new(0.8, 0, 0, 45)
+box.Position = UDim2.new(0.1, 0, 0.35, 0)
+box.PlaceholderText = "Enter Key Here..."
+box.Text = ""
+box.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+box.BackgroundTransparency = 0.5 -- Bahagyang invisible
+box.TextColor3 = Color3.fromRGB(255, 255, 255)
+box.PlaceholderColor3 = Color3.fromRGB(180, 180, 180)
+box.Font = Enum.Font.Gotham
+box.TextSize = 16
+box.BorderSizePixel = 0
 
--- Verify Button
-VerifyBtn.Parent = MainFrame
-VerifyBtn.BackgroundColor3 = Color3.fromRGB(0, 120, 255)
-VerifyBtn.Position = UDim2.new(0.1, 0, 0.7, 0)
-VerifyBtn.Size = UDim2.new(0.8, 0, 0, 35)
-VerifyBtn.Font = Enum.Font.GothamBold
-VerifyBtn.Text = "VERIFY"
-VerifyBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+-- SUBMIT BUTTON (Semi-Invisible)
+local btn = Instance.new("TextButton")
+btn.Parent = main
+btn.Size = UDim2.new(0.8, 0, 0, 45)
+btn.Position = UDim2.new(0.1, 0, 0.6, 0)
+btn.Text = "SUBMIT"
+btn.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+btn.BackgroundTransparency = 0.4 -- Bahagyang invisible
+btn.TextColor3 = Color3.fromRGB(0, 0, 0)
+btn.Font = Enum.Font.GothamBold
+btn.TextSize = 16
+btn.BorderSizePixel = 0
 
-local BtnCorner = Instance.new("UICorner")
-BtnCorner.Parent = VerifyBtn
+-- FOOTER
+local footer = Instance.new("TextLabel")
+footer.Parent = main
+footer.Size = UDim2.new(1, 0, 0, 30)
+footer.Position = UDim2.new(0, 0, 0.85, 0)
+footer.Text = "Made by Yeshi"
+footer.TextColor3 = Color3.fromRGB(200, 200, 200)
+footer.BackgroundTransparency = 1
+footer.TextSize = 12
 
--- [[ LOGIC ]]
-VerifyBtn.MouseButton1Click:Connect(function()
-    if KeyInput.Text == CorrectKey then
-        Title.Text = "ACCESS GRANTED!"
-        Title.TextColor3 = Color3.fromRGB(0, 255, 100)
-        
-        -- Animation bago mawala
+-- [[ KEY LOGIC ]] --
+btn.MouseButton1Click:Connect(function()
+    if box.Text == CORRECT_KEY then
+        btn.Text = "ACCESS GRANTED"
+        btn.TextColor3 = Color3.fromRGB(0, 255, 0)
         task.wait(1)
-        ScreenGui:Destroy()
-        
-        -- FIXED LOADSTRING LOGIC
-        print("Main Script Loading...")
-        local success, err = pcall(function()
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/dezqpal/Prmskrep/refs/heads/main/YESHI.LUA "))()
-        end)
-        
-        if not success then
-            warn("Failed to load script: " .. tostring(err))
-        end
-        
+        sg:Destroy()
+        -- I-load ang script mo
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/dezqpal/Prmskrep/refs/heads/main/YESHI.LUA "))()
     else
-        Title.Text = "WRONG KEY!"
-        Title.TextColor3 = Color3.fromRGB(255, 50, 50)
-        KeyInput.Text = ""
-        task.wait(1.5)
-        Title.Text = "YESHI KEY SYSTEM"
-        Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+        btn.Text = "INVALID KEY!"
+        btn.TextColor3 = Color3.fromRGB(255, 0, 0)
+        task.wait(1)
+        btn.Text = "SUBMIT"
+        btn.TextColor3 = Color3.fromRGB(0, 0, 0)
     end
 end)
