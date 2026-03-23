@@ -1907,5 +1907,7 @@ Credit:AddLabel("MADE BY- PRM")
 Credit:AddLabel("YESHI ON TOP")
 
 Credit:AddLabel("OWNER YESHI")
+Credit:AddLabel("  ")
+Credit:AddLabel("  ")
 
-Credit:AddLabel("YESHI OWN PRIVATE SCRIPT")
+Credit:AddLabel("YESHI OWN PRIVATE SCRIPT"):TextSize = 20
