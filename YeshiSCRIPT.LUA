@@ -1,8 +1,8 @@
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/BASTOSaKO/Privatezz/refs/heads/main/Sbhshsh", true))()
 
-local window = library:AddWindow("JACOB|•PRIVATE SCRIPT", {
+local window = library:AddWindow("YESHI •|•PRIVATE SCRIPT", {
     main_color = Color3.fromRGB(0, 0, 0),
-    min_size = Vector2.new(650, 820),
+    min_size = Vector2.new(520, 620),
 })
  
 local Main = window:AddTab("Main")
