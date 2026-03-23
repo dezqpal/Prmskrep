@@ -1,5 +1,5 @@
 -- [[ CONFIGURATION ]]
-local CorrectKey = "nigga123"
+local CorrectKey = "YeshiOnTop"
 
 -- [[ UI CREATION ]]
 local ScreenGui = Instance.new("ScreenGui")
@@ -12,7 +12,7 @@ local UICorner = Instance.new("UICorner")
 -- Parent the GUI (Nilagay sa CoreGui para hindi ma-delete kapag namatay ang player)
 if syn and syn.protect_gui then syn.protect_gui(ScreenGui) end -- Proteksyon para sa Synapse users
 ScreenGui.Parent = game:GetService("CoreGui")
-ScreenGui.Name = "BayotKeySystem"
+ScreenGui.Name = "YeshiKeySystem"
 
 -- Main Window Styling
 MainFrame.Name = "MainFrame"
@@ -32,7 +32,7 @@ Title.Parent = MainFrame
 Title.BackgroundTransparency = 1
 Title.Size = UDim2.new(1, 0, 0, 40)
 Title.Font = Enum.Font.GothamBold
-Title.Text = "JACOB KEY SYSTEM"
+Title.Text = "YESHI KEY SYSTEM"
 Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 Title.TextSize = 18
 
@@ -86,7 +86,7 @@ VerifyBtn.MouseButton1Click:Connect(function()
         Title.TextColor3 = Color3.fromRGB(255, 50, 50)
         KeyInput.Text = ""
         task.wait(1.5)
-        Title.Text = "JACOB KEY SYSTEM"
+        Title.Text = "YESHI KEY SYSTEM"
         Title.TextColor3 = Color3.fromRGB(255, 255, 255)
     end
 end)
