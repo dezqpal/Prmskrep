@@ -1,7 +1,7 @@
  library = loadstring(game:HttpGet("https://raw.githubusercontent.com/BASTOSaKO/Privatezz/refs/heads/main/Sbhshsh", true))()
 
 -- 1. SETUP UI
-local window = library:AddWindow("PRIMO •|• AUTO TRADE", {
+local window = library:AddWindow("PRM HuB •|• AUTO TRADE", {
 	title_bar = {Color3.fromRGB(0, 0, 0), Color3.fromRGB(0, 0, 0), Color3.fromRGB(0, 0, 0)}, 
 	background = {Color3.fromRGB(0, 0, 0), Color3.fromRGB(0, 0, 0), Color3.fromRGB(0, 0, 0)}, 
 	main_color = Color3.fromRGB(255, 0, 0), 
