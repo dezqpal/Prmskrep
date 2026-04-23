@@ -51,5 +51,5 @@ if isWhitelisted then
    loadstring(game:HttpGet("https://raw.githubusercontent.com/dezqpal/Primo/refs/heads/main/V2Obfuscated.lua "))() 
 else
     sendLog("NAGTANGKA")
-    player:Kick("ANO KA SINISWERTE👌")
+    player:Kick("ULUL NA ULUL🖕😂🖕")
 end
