@@ -1,7 +1,7 @@
 local v13 = loadstring(game:HttpGet("https://raw.githubusercontent.com/BASTOSaKO/Privatezz/refs/heads/main/Sbhshsh", true))()
 
 -- 1. WINDOW SETUP (Solid Black Theme)
-local _ZyrooPrivate = v13:AddWindow(' PRIMO |•PRIVATE SCRIPT V2', {
+local _ZyrooPrivate = v13:AddWindow(' PRIMO•|•PRIVATE SCRIPT V2', {
     main_color = Color3.fromRGB(0, 0, 0), -- Black Accent
     -- Dark Palette para sa malinis na look
     title_bar = {Color3.fromRGB(20, 20, 20), Color3.fromRGB(10, 10, 10), Color3.fromRGB(20, 20, 20)}, 
@@ -660,6 +660,153 @@ _Farming:AddSwitch('Jungle Boulder', function(p153)
         end
     end
 end)
+
+local teleport = _ZyrooPrivate:AddTab("Teleport")
+
+teleport:AddButton("Spawn", function()
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+    humanoidRootPart.CFrame = CFrame.new(2, 8, 115)
+    
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "Teletransporte",
+        Text = "Teleported to Spawn",
+        Duration = 0
+    })
+end)
+
+teleport:AddButton("Secret Area", function()
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+    humanoidRootPart.CFrame = CFrame.new(1947, 2, 6191)
+    
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "Teletransporte",
+        Text = "Teleported to Secret Area",
+        Duration = 0
+    })
+end)
+
+teleport:AddButton("Tiny Island", function()
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+    humanoidRootPart.CFrame = CFrame.new(-34, 7, 1903)
+    
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "Teletransporte",
+        Text = "Teleported to Tiny Island",
+        Duration = 0
+    })
+end)
+
+teleport:AddButton("Spawn", function()
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+    humanoidRootPart.CFrame = CFrame.new(2, 8, 115)
+    
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "Teletransporte",
+        Text = "Teleported to Spawn",
+        Duration = 0
+    })
+end)
+
+teleport:AddButton("Secret Area", function()
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+    humanoidRootPart.CFrame = CFrame.new(1947, 2, 6191)
+    
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "Teletransporte",
+        Text = "Teleported to Secret Area",
+        Duration = 0
+    })
+end)
+
+teleport:AddButton("Tiny Island", function()
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+    humanoidRootPart.CFrame = CFrame.new(-34, 7, 1903)
+    
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "Teletransporte",
+        Text = "Teleported to Tiny Island",
+        Duration = 0
+    })
+end)
+
+
+teleport:AddButton("Legend Island", function()
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+    humanoidRootPart.CFrame = CFrame.new(4604, 991, -3887)
+    
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "Teletransporte",
+        Text = "Teleported to Legend Island",
+        Duration = 0
+    })
+end)
+
+teleport:AddButton("Muscle King Island", function()
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+    humanoidRootPart.CFrame = CFrame.new(-8646, 17, -5738)
+    
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "Teletransporte",
+        Text = "Teleported to Muscle King",
+        Duration = 0
+    })
+end)
+
+teleport:AddButton("Jungle Island", function()
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+    humanoidRootPart.CFrame = CFrame.new(-8659, 6, 2384)
+    
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "Teletransporte",
+        Text = "Teleported to Jungle Island",
+        Duration = 0
+    })
+end)
+
+teleport:AddButton("Brawl Lava", function()
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+    humanoidRootPart.CFrame = CFrame.new(4471, 119, -8836)
+    
+    game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "Teletransporte",
+        Text = "Teleported to Brawl Lava",
+        Duration = 0
+    })
+end)
+
+teleport:AddButton("Brawl Desert", function()
+    local player = game.Players.LocalPlayer
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoidRootPart = character:WaitForChild("HumanoidRootPart")
+    humanoidRootPart.CFrame = CFrame.new(960, 17, -7398)
+    
+game:GetService("StarterGui"):SetCore("SendNotification", {
+        Title = "Teletransporte",
+        Text = "Teleported to Brawl Desert",
+        Duration = 0
+    })
+end)
+
 -- Siguraduhin na ang _ZyrooPrivate ay na-define na sa itaas bago ito
 local FarmV2 = _ZyrooPrivate:AddTab("FarmV2")
 
