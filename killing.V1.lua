@@ -1,7 +1,7 @@
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/BASTOSaKO/Privatezz/refs/heads/main/Sbhshsh", true))()
 
 -- GenX Clean UI Setup
-local window = library:AddWindow("PRIMO •|• KILLING SCRIPT", {
+local window = library:AddWindow("PRM •|• KILLING SCRIPT", {
 	title_bar = {
 		Color3.fromRGB(240, 240, 240), -- Puting Header
 		Color3.fromRGB(220, 220, 220), 
