@@ -9,7 +9,7 @@ local whitelist = {
     "Aiden67E3",
     "kainobns",
     "PRIMOBNS21",
-    "Drezha1",
+    "",
     "RavenOfficial09",
     "youdeadim",
 }
