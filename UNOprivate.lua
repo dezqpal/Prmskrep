@@ -1,6 +1,6 @@
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/memejames/elerium-v2-ui-library//main/Library", true))()
 
-local window = library:AddWindow("UNO•|•PRIVATE SCRIPT ", {
+local window = library:AddWindow("UNO||OWN SCRIPT ", {
     main_color = Color3.fromRGB(0, 0, 0),
     min_size = Vector2.new(650, 820),
 })
@@ -2113,13 +2113,14 @@ local Credits = window:AddTab("Credits")
 
 Credits:AddLabel("MADE BY-PRIMO").TextSize = 20
 
-Credits:AddLabel("Zyx").TextSize = 20
+Credits:AddLabel("  ").TextSize = 20
 
-Credits:AddLabel("Kaino").TextSize = 20
+Credits:AddLabel("").TextSize = 20
 
 Credits:AddLabel("UnoxDos").TextSize = 20
 
-Credits:AddLabel("🐝SLH CLAN🐝").TextSize = 20
+Credits:AddLabel("      "),
+Credits:AddLabel("BABAERO").TextSize = 30
 
 
 
