@@ -2115,11 +2115,10 @@ Credits:AddLabel("MADE BY-PRIMO").TextSize = 20
 
 Credits:AddLabel("  ").TextSize = 20
 
-Credits:AddLabel("").TextSize = 20
+Credits:AddLabel("  ").TextSize = 20
 
 Credits:AddLabel("UnoxDos").TextSize = 20
 
-Credits:AddLabel("      "),
 Credits:AddLabel("BABAERO").TextSize = 30
 
 
