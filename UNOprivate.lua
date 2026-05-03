@@ -2113,14 +2113,6 @@ local Credits = window:AddTab("Credits")
 
 Credits:AddLabel("MADE BY-PRIMO").TextSize = 20
 
-Credits:AddLabel("  ").TextSize = 20
-
-Credits:AddLabel("  ").TextSize = 20
-
 Credits:AddLabel("UnoxDos").TextSize = 20
 
-Credits:AddLabel("BABAERO").TextSize = 30
-
-
-
-
+Credits:AddLabel("BABAERO").TextSize = 20
