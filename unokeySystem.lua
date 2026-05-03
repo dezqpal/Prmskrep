@@ -1,6 +1,6 @@
 --// MODERN KEY SYSTEM (UPGRADED BY GEMINI) \\--
 
-local KEY = "PrimoXSlh"
+local KEY = "UnoHub"
 local TweenService = game:GetService("TweenService")
 
 -- Create UI
