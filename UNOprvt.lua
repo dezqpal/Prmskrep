@@ -2,7 +2,7 @@ local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/dezqp
 
 local window = library:AddWindow("UNO || OWN SCRIPT ", {
     main_color = Color3.fromRGB(0, 0, 0),
-    min_size = Vector2.new(650, 820),
+    min_size = Vector2.new(580, 620),
 })
 
 local AutoFarm = window:AddTab("Farms")
