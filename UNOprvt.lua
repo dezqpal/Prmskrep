@@ -1,4 +1,4 @@
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/memejames/elerium-v2-ui-library//main/Library", true))()
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/dezqpal/peyd/refs/heads/main/UnO.UI", true))()
 
 local window = library:AddWindow("UNO || OWN SCRIPT ", {
     main_color = Color3.fromRGB(0, 0, 0),
