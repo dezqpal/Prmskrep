@@ -1,9 +1,14 @@
---// MODERN KEY SYSTEM (UPGRADED BY GEMINI) \\--
+--// UNO HUB | CLEAN WHITE EDITION (FIXED INTENSITY) \\--
 
 local KEY = "UnoHub"
 local TweenService = game:GetService("TweenService")
+local CoreGui = game:GetService("CoreGui")
 
--- Create UI
+-- Cleanup
+if CoreGui:FindFirstChild("UnoHub_White_Fixed") then
+    CoreGui:FindFirstChild("UnoHub_White_Fixed"):Destroy()
+end
+
 local ScreenGui = Instance.new("ScreenGui")
 local MainFrame = Instance.new("Frame")
 local UICorner = Instance.new("UICorner")
@@ -12,103 +17,115 @@ local Title = Instance.new("TextLabel")
 local TextBox = Instance.new("TextBox")
 local SubmitBtn = Instance.new("TextButton")
 local CornerBtn = Instance.new("UICorner")
+local BtnStroke = Instance.new("UIStroke")
 
 -- UI Setup
-ScreenGui.Name = "PrimoKeySystem"
-ScreenGui.Parent = game.CoreGui -- Mas safe sa CoreGui para 'di madaling ma-delete ng scripts
+ScreenGui.Name = "UnoHub_White_Fixed"
+ScreenGui.Parent = CoreGui
+ScreenGui.IgnoreGuiInset = true
 
 MainFrame.Name = "MainFrame"
 MainFrame.Parent = ScreenGui
-MainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-MainFrame.Position = UDim2.new(0.5, -150, 0.5, -75)
-MainFrame.Size = UDim2.new(0, 300, 0, 160)
+MainFrame.BackgroundColor3 = Color3.fromRGB(12, 12, 12)
+MainFrame.Position = UDim2.new(0.5, -150, 0.5, -90)
+MainFrame.Size = UDim2.new(0, 300, 0, 180)
 MainFrame.BorderSizePixel = 0
+MainFrame.Active = true
+MainFrame.Draggable = true 
 
-UICorner.CornerRadius = UDim.new(0, 12)
+UICorner.CornerRadius = UDim.new(0, 10)
 UICorner.Parent = MainFrame
 
-UIStroke.Color = Color3.fromRGB(80, 80, 80)
-UIStroke.Thickness = 2
+--// MAIN FRAME BORDER (SWABENG ILAW) \\--
+UIStroke.Color = Color3.fromRGB(200, 200, 200) -- Off-white para 'di masakit sa mata
+UIStroke.Thickness = 1.5
+UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 UIStroke.Parent = MainFrame
 
--- Title
-Title.Parent = MainFrame
-Title.BackgroundTransparency = 1
-Title.Size = UDim2.new(1, 0, 0, 40)
-Title.Font = Enum.Font.GothamBold
-Title.Text = "UNO HUB | KEY SYSTEM"
-Title.TextColor3 = Color3.fromRGB(255, 255, 255)
-Title.TextSize = 16
-
--- TextBox Style
-TextBox.Parent = MainFrame
-TextBox.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-TextBox.Position = UDim2.new(0.05, 0, 0.35, 0)
-TextBox.Size = UDim2.new(0.9, 0, 0, 35)
-TextBox.Font = Enum.Font.Gotham
-TextBox.PlaceholderText = "Paste your key here..."
-TextBox.Text = ""
-TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
-TextBox.TextSize = 14
-Instance.new("UICorner", TextBox).CornerRadius = UDim.new(0, 6)
-
--- Submit Button Style
-SubmitBtn.Name = "SubmitBtn"
-SubmitBtn.Parent = MainFrame
-SubmitBtn.BackgroundColor3 = Color3.fromRGB(45, 120, 255) -- Blue Theme
-SubmitBtn.Position = UDim2.new(0.05, 0, 0.65, 0)
-SubmitBtn.Size = UDim2.new(0.9, 0, 0, 40)
-SubmitBtn.Font = Enum.Font.GothamBold
-SubmitBtn.Text = "SUBMIT KEY"
-SubmitBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-SubmitBtn.TextSize = 14
-CornerBtn.CornerRadius = UDim.new(0, 8)
-CornerBtn.Parent = SubmitBtn
-
---// LOGIC WITH TWEENS \\--
-
-SubmitBtn.MouseButton1Click:Connect(function()
-    if TextBox.Text == KEY then
-        -- Success Animation
-        SubmitBtn.BackgroundColor3 = Color3.fromRGB(60, 180, 100) -- Change to green
-        SubmitBtn.Text = "ACCESS GRANTED"
-        
-        task.wait(0.5)
-        
-        -- Smooth Fade Out
-        TweenService:Create(MainFrame, TweenInfo.new(0.5), {Position = UDim2.new(0.5, -150, 0.6, -75), BackgroundTransparency = 1}):Play()
-        TweenService:Create(UIStroke, TweenInfo.new(0.5), {Transparency = 1}):Play()
-        
-        task.wait(0.5)
-        ScreenGui:Destroy()
-        
-        print("Key correct! Loading script...")
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/dezqpal/Prmskrep/refs/heads/main/UnObns.lua "))()
-    else
-        -- Error Animation
-        SubmitBtn.Text = "INVALID KEY!"
-        SubmitBtn.BackgroundColor3 = Color3.fromRGB(180, 60, 60)
-        
-        -- Shake effect
-        local originalPos = MainFrame.Position
-        for i = 1, 5 do
-            MainFrame.Position = originalPos + UDim2.new(0, math.random(-5, 5), 0, 0)
-            task.wait(0.05)
-        end
-        MainFrame.Position = originalPos
-        
-        task.wait(1)
-        SubmitBtn.Text = "SUBMIT KEY"
-        SubmitBtn.BackgroundColor3 = Color3.fromRGB(45, 120, 255)
-        TextBox.Text = ""
+-- Dahan-dahang glow lang sa border
+task.spawn(function()
+    while task.wait() do
+        local pulse = 1.2 + math.sin(tick() * 2) * 0.4
+        UIStroke.Thickness = pulse
     end
 end)
 
--- Hover effect para sa button
-SubmitBtn.MouseEnter:Connect(function()
-    TweenService:Create(SubmitBtn, TweenInfo.new(0.3), {BackgroundColor3 = Color3.fromRGB(65, 140, 255)}):Play()
+--// LOOPING TYPING EFFECT \\--
+Title.Parent = MainFrame
+Title.BackgroundTransparency = 1
+Title.Position = UDim2.new(0, 0, 0, 10)
+Title.Size = UDim2.new(1, 0, 0, 40)
+Title.Font = Enum.Font.GothamBold
+Title.Text = ""
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.TextSize = 17
+
+task.spawn(function()
+    local message = "UNO HUB | SYSTEM"
+    while true do
+        for i = 1, #message do
+            Title.Text = string.sub(message, 1, i)
+            task.wait(0.12)
+        end
+        task.wait(2.5)
+        for i = #message, 0, -1 do
+            Title.Text = string.sub(message, 1, i)
+            task.wait(0.06)
+        end
+        task.wait(0.8)
+    end
 end)
 
+-- TextBox
+TextBox.Parent = MainFrame
+TextBox.BackgroundColor3 = Color3.fromRGB(22, 22, 22)
+TextBox.Position = UDim2.new(0.1, 0, 0.4, 0)
+TextBox.Size = UDim2.new(0.8, 0, 0, 35)
+TextBox.Font = Enum.Font.Code
+TextBox.PlaceholderText = "Enter Key..."
+TextBox.Text = ""
+TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextBox.TextSize = 14
+Instance.new("UICorner", TextBox).CornerRadius = UDim.new(0, 4)
+local boxStroke = Instance.new("UIStroke", TextBox)
+boxStroke.Color = Color3.fromRGB(45, 45, 45)
+
+--// SUBMIT BUTTON (SIMPLE WHITE BORDER) \\--
+SubmitBtn.Parent = MainFrame
+SubmitBtn.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
+SubmitBtn.Position = UDim2.new(0.1, 0, 0.7, 0)
+SubmitBtn.Size = UDim2.new(0.8, 0, 0, 40)
+SubmitBtn.Font = Enum.Font.GothamBold
+SubmitBtn.Text = "SUBMIT"
+SubmitBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+SubmitBtn.TextSize = 14
+Instance.new("UICorner", SubmitBtn).CornerRadius = UDim.new(0, 4)
+
+BtnStroke.Parent = SubmitBtn
+BtnStroke.Thickness = 1.2 -- Manipis lang
+BtnStroke.Color = Color3.fromRGB(150, 150, 150) -- Dim white para hindi "over"
+
+-- Logic
+SubmitBtn.MouseButton1Click:Connect(function()
+    if TextBox.Text == KEY then
+        BtnStroke.Color = Color3.fromRGB(255, 255, 255)
+        SubmitBtn.Text = "ACCESS GRANTED"
+        task.wait(0.5)
+        ScreenGui:Destroy()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/dezqpal/Prmskrep/refs/heads/main/UnObns.lua"))()
+    else
+        SubmitBtn.Text = "INVALID"
+        BtnStroke.Color = Color3.fromRGB(200, 0, 0)
+        task.wait(1)
+        SubmitBtn.Text = "SUBMIT"
+        BtnStroke.Color = Color3.fromRGB(150, 150, 150)
+    end
+end)
+
+-- Subtle Hover
+SubmitBtn.MouseEnter:Connect(function()
+    TweenService:Create(BtnStroke, TweenInfo.new(0.3), {Color = Color3.fromRGB(255, 255, 255)}):Play()
+end)
 SubmitBtn.MouseLeave:Connect(function()
-    TweenService:Create(SubmitBtn, TweenInfo.new(0.3), {BackgroundColor3 = Color3.fromRGB(45, 120, 255)}):Play()
+    TweenService:Create(BtnStroke, TweenInfo.new(0.3), {Color = Color3.fromRGB(150, 150, 150)}):Play()
 end)
