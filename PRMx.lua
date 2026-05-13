@@ -10,10 +10,10 @@ end
 
 Players.LocalPlayer.Idled:Connect(preventAFK)
 print("Anti-AFK ativado!")
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/BASTOSaKO/Privatezz/refs/heads/main/Sbhshsh", true))()
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/kyotaro164-cyber/AD-beat/refs/heads/main/PRM/HuB/Ui%20Library "))()
 
 -- 1. SETUP UI
-local window = library:AddWindow("PRM HuB •|• PUBLIC SCRIPT", {
+local window = library:AddWindow("PRM HuB || PUBLIC SCRIPT", {
 	title_bar = {Color3.fromRGB(0, 0, 0), Color3.fromRGB(0, 0, 0), Color3.fromRGB(0, 0, 0)}, 
 	background = {Color3.fromRGB(0, 0, 0), Color3.fromRGB(0, 0, 0), Color3.fromRGB(0, 0, 0)}, 
 	main_color = Color3.fromRGB(255, 0, 0), 
