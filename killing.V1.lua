@@ -3,7 +3,7 @@ local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/dezqp
 -- GenX Clean UI Setup
 local window = library:AddWindow("•PRM||KILLING||GIVEAWAY||SCRIPT•", {
 	title_bar = {
-		Color3.fromRGB(240, 240, 240), -- Puting Header
+		Color3.fromRGB(0, 0, 0), -- Puting Header
 		Color3.fromRGB(220, 220, 220), 
 		Color3.fromRGB(200, 200, 200)
 	}, 
