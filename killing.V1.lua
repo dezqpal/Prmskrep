@@ -1,7 +1,7 @@
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/dezqpal/Boldtespayb-/refs/heads/main/PQ/Library/PRM%20UI "))()
 
 -- GenX Clean UI Setup
-local window = library:AddWindow("•PRM|KILLING|GIVEAWAY|SCRIPT•", {
+local window = library:AddWindow("•PRM||KILLING||GIVEAWAY||SCRIPT•", {
 	title_bar = {
 		Color3.fromRGB(240, 240, 240), -- Puting Header
 		Color3.fromRGB(220, 220, 220), 
@@ -16,12 +16,12 @@ local window = library:AddWindow("•PRM|KILLING|GIVEAWAY|SCRIPT•", {
 	}, 
 	background_transparency = 0.2, 
 	
-	main_color = Color3.fromRGB(255, 255, 255), 
+	main_color = Color3.fromRGB(0, 0, 0), 
 	min_size = Vector2.new(500, 520), 
 	can_resize = false 
 })
 
-local Killer = window:AddTab("Kill")
+local Killer = window:AddTab("Killing")
 
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
